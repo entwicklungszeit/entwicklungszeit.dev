@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EEF2FF"/>
+      <stop offset="100%" stop-color="#E0E7FF"/>
+    </linearGradient>
+    
+    <linearGradient id="codeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+  
+  <!-- Code typing animation -->
+  <g transform="translate(100,100)" font-family="monospace" font-size="14">
+    <text fill="url(#codeGradient)">
+      <tspan x="0" y="0">// Single Responsibility Principle Example</tspan>
+      <tspan x="0" y="20" opacity="0">class EmailService {</tspan>
+      <animate attributeName="opacity" begin="0s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="40" opacity="0">  private emailValidator: EmailValidator;</tspan>
+      <animate attributeName="opacity" begin="0.5s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="60" opacity="0">  constructor(emailValidator: EmailValidator) {</tspan>
+      <animate attributeName="opacity" begin="1s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="80" opacity="0">    this.emailValidator = emailValidator;</tspan>
+      <animate attributeName="opacity" begin="1.5s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="100" opacity="0">  }</tspan>
+      <animate attributeName="opacity" begin="2s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="120" opacity="0">  async sendEmail(email: Email): Promise&lt;void&gt; {</tspan>
+      <animate attributeName="opacity" begin="2.5s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="140" opacity="0">    if (this.emailValidator.isValid(email)) {</tspan>
+      <animate attributeName="opacity" begin="3s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="160" opacity="0">      await this.send(email);</tspan>
+      <animate attributeName="opacity" begin="3.5s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="180" opacity="0">    }</tspan>
+      <animate attributeName="opacity" begin="4s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="200" opacity="0">  }</tspan>
+      <animate attributeName="opacity" begin="4.5s" dur="0.5s" from="0" to="1" fill="freeze"/>
+      
+      <tspan x="0" y="220" opacity="0">}</tspan>
+      <animate attributeName="opacity" begin="5s" dur="0.5s" from="0" to="1" fill="freeze"/>
+    </text>
+    
+    <!-- Typing cursor -->
+    <rect x="0" y="225" width="8" height="2" fill="url(#codeGradient)">
+      <animate attributeName="opacity"
+               values="1;0;1"
+               dur="0.8s"
+               repeatCount="7"/>
+      <animate attributeName="opacity"
+               begin="5.5s"
+               dur="0.1s"
+               from="1"
+               to="0"
+               fill="freeze"/>
+    </rect>
+  </g>
+
+  <g transform="translate(400,300)" filter="url(#glow)">
+    <path d="M-20,-40 L-20,0 A20,20 0 0,0 20,0 L20,-40 A20,20 0 0,0 -20,-40" 
+          fill="url(#codeGradient)" 
+          opacity="0.9">
+      <animate attributeName="opacity" 
+               values="0.9;0.7;0.9" 
+               dur="2s" 
+               repeatCount="indefinite"/>
+    </path>
+    <rect x="-5" y="0" width="10" height="30" fill="url(#codeGradient)" opacity="0.9"/>
+    <path d="M-30,0 A30,30 0 0,0 30,0" 
+          stroke="url(#codeGradient)" 
+          stroke-width="4" 
+          fill="none"/>
+  </g>
+
+  <circle cx="400" cy="300" r="40" 
+          stroke="url(#codeGradient)" 
+          stroke-width="2" 
+          fill="none" 
+          opacity="0.3">
+    <animate attributeName="r" 
+             values="40;50;40"
+             dur="2s"
+             repeatCount="indefinite"/>
+    <animate attributeName="opacity"
+             values="0.3;0.2;0.3"
+             dur="2s"
+             repeatCount="indefinite"/>
+  </circle>
+
+  <circle cx="400" cy="300" r="60" 
+          stroke="url(#codeGradient)" 
+          stroke-width="2" 
+          fill="none" 
+          opacity="0.2">
+    <animate attributeName="r" 
+             values="60;70;60"
+             dur="2s"
+             repeatCount="indefinite"/>
+    <animate attributeName="opacity"
+             values="0.2;0.1;0.2"
+             dur="2s"
+             repeatCount="indefinite"/>
+  </circle>
+
+  <circle cx="400" cy="300" r="80" 
+          stroke="url(#codeGradient)" 
+          stroke-width="2" 
+          fill="none" 
+          opacity="0.1">
+    <animate attributeName="r" 
+             values="80;90;80"
+             dur="2s"
+             repeatCount="indefinite"/>
+    <animate attributeName="opacity"
+             values="0.1;0.05;0.1"
+             dur="2s"
+             repeatCount="indefinite"/>
+  </circle>
+
+  <g transform="translate(600,400)">
+    <path d="M0,0 L30,-50" stroke="url(#codeGradient)" stroke-width="3" opacity="0.7">
+      <animate attributeName="opacity"
+               values="0.7;0.5;0.7"
+               dur="3s"
+               repeatCount="indefinite"/>
+    </path>
+    <path d="M0,0 L50,-80" stroke="url(#codeGradient)" stroke-width="3" opacity="0.6">
+      <animate attributeName="opacity"
+               values="0.6;0.4;0.6"
+               dur="3s"
+               repeatCount="indefinite"/>
+    </path>
+    <path d="M0,0 L70,-110" stroke="url(#codeGradient)" stroke-width="3" opacity="0.5">
+      <animate attributeName="opacity"
+               values="0.5;0.3;0.5"
+               dur="3s"
+               repeatCount="indefinite"/>
+    </path>
+    <path d="M0,0 L90,-140" stroke="url(#codeGradient)" stroke-width="3" opacity="0.4">
+      <animate attributeName="opacity"
+               values="0.4;0.2;0.4"
+               dur="3s"
+               repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

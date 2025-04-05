@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import PodcastSection from '../components/PodcastSection.astro';
+import StorySection from '../components/StorySection.astro';
+import HostSection from '../components/HostSection.astro';
+import CoachingSection from '../components/CoachingSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Entwicklungszeit - Der Podcast für Softwareentwicklung, Führung & Kommunikation"
+  description="Entwickle dich weiter mit dem Entwicklungszeit Podcast. Praxisnahe Einblicke in Softwareentwicklung, Führung und Kommunikation. Mit Host Gregor Woiwode, erfahrener Tech Lead und Coach."
+>
+  <Header />
+  <main>
+    <Hero />
+    <PodcastSection />
+    <StorySection />
+    <HostSection />
+    <CoachingSection />
+  </main>
+  <Footer />
+</Layout>

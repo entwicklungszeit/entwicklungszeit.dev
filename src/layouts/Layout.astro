@@ -1,0 +1,179 @@
+---
+import Header from '../components/Header.astro';
+import ScrollToTop from '../components/ui/ScrollToTop.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const { 
+  title, 
+  description = "Entwicklungszeit Podcast - Dein Podcast für Softwareentwicklung, Führung und Kommunikation. Praxisnahe Einblicke und Expertenwissen für Entwickler.",
+  image = "https://entwicklungszeit.dev/social-preview.jpg",
+  canonicalURL = `https://entwicklungszeit.dev${Astro.url.pathname}`,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="de" class="scroll-smooth" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Softwareentwicklung, Podcast, Entwickler, Führung, Kommunikation, Tech Lead, Software Engineering, Developer, Programming" />
+    <meta name="author" content="Gregor Woiwode" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1E3A8A" />
+    <meta name="msapplication-TileColor" content="#1E3A8A" />
+    <meta name="theme-color" content="#ffffff" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://entwicklungszeit.dev/" />
+    <meta property="og:site_name" content="Entwicklungszeit" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content="de_DE" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://entwicklungszeit.dev/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+    <meta property="twitter:creator" content="@gregor_woiwode" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Handle failed fetch requests -->
+    <script>
+      window.addEventListener('unhandledrejection', (event) => {
+        // Prevent errors from failed audit fetches from showing in console
+        if (event.reason?.message?.includes('Failed to fetch') || 
+            event.reason?.message?.includes('NetworkError')) {
+          event.preventDefault();
+          console.debug('Suppressed fetch error for audit request');
+        }
+      });
+    </script>
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "PodcastSeries",
+        "name": "Entwicklungszeit",
+        "description": "Ein Podcast über Softwareentwicklung, Führung und Kommunikation",
+        "url": "https://entwicklungszeit.dev",
+        "author": {
+          "@type": "Person",
+          "name": "Gregor Woiwode",
+          "url": "https://entwicklungszeit.dev"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Entwicklungszeit",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://entwicklungszeit.dev/logo.svg"
+          }
+        }
+      }
+    </script>
+  
+
+  </head>
+  <body class="bg-white font-sans overflow-x-hidden">
+    <div class="relative w-full overflow-x-hidden">
+      <slot />
+      <ScrollToTop />
+    </div>
+    <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+          duration: 800,
+          once: true,
+        });
+      });
+
+      // Sticky header logic
+      let lastScroll = 0;
+      const header = document.querySelector('header');
+      
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll <= 0) {
+          header.classList.remove('scroll-up');
+          return;
+        }
+        
+        if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+          header.classList.remove('scroll-up');
+          header.classList.add('scroll-down');
+        } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+          header.classList.remove('scroll-down');
+          header.classList.add('scroll-up');
+        }
+        
+        lastScroll = currentScroll;
+      });
+    </script>
+    <!-- Simple Analytics -->
+    <!-- 100% privacy-first analytics -->
+    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --fraunces: 'Fraunces', serif;
+    --great-vibes: 'Great Vibes', cursive;
+    --inter: 'Inter', sans-serif;
+  }
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fraunces);
+    letter-spacing: -0.02em;
+  }
+
+  body {
+    font-family: var(--inter);
+    letter-spacing: -0.01em;
+  }
+
+  header {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  header.scroll-down {
+    transform: translate3d(0, -100%, 0);
+  }
+  
+  header.scroll-up {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    font-family: var(--fraunces);
+  }
+</style>

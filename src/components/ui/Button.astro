@@ -1,0 +1,49 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'gradient';
+  size?: 'sm' | 'md' | 'lg';
+  target?: string;
+  rel?: string;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  target,
+  rel,
+  class: className = '',
+} = Astro.props;
+
+const baseStyles = "inline-flex items-center rounded-full font-medium relative overflow-hidden transform transition-all duration-300 hover:scale-105 active:scale-95";
+const sizeStyles = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-lg"
+};
+const variantStyles = {
+  primary: "bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-primary/20",
+  gradient: "bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-primary/20"
+};
+
+const Element = href ? 'a' : 'button';
+---
+
+<Element
+  href={href}
+  target={target}
+  rel={rel}
+  class:list={[
+    baseStyles,
+    sizeStyles[size],
+    variantStyles[variant],
+    className
+  ]}
+>
+  <span class="relative z-10 flex items-center">
+    <slot />
+  </span>
+  <div class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+</Element>

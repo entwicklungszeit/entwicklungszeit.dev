@@ -1,0 +1,132 @@
+---
+import { navItems } from '../data/navigation';
+import Button from './ui/Button.astro';
+---
+
+<header class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 top-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <a href="/" class="flex items-center">
+          <img src="/logo.svg" alt="Entwicklungszeit Logo" class="h-8 sm:h-10">
+        </a>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <button 
+        id="mobile-menu-button" 
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg 
+          id="menu-closed-icon"
+          class="block h-6 w-6 transition-opacity duration-300" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg 
+          id="menu-open-icon"
+          class="hidden h-6 w-6 transition-opacity duration-300" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <!-- Desktop navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        {navItems.map(item => (
+          <a 
+            href={item.href}
+            class="text-gray-700 hover:text-primary font-medium transition-colors text-sm lg:text-base"
+          >
+            {item.label}
+          </a>
+        ))}
+        
+        <Button
+          href="https://calendar.app.google/taxMeha9m5wC17S19"
+          target="_blank"
+          rel="noopener noreferrer"
+          size="sm"
+        >
+          Dein Termin mit mir
+        </Button>
+      </nav>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden transform transition-all duration-300 ease-in-out opacity-0 -translate-y-2">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        {navItems.map(item => (
+          <a
+            href={item.href}
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          >
+            {item.label}
+          </a>
+        ))}
+        <Button
+          href="https://calendar.app.google/taxMeha9m5wC17S19"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full"
+        >
+          Dein Termin mit mir
+        </Button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const closedIcon = document.getElementById('menu-closed-icon');
+  const openIcon = document.getElementById('menu-open-icon');
+  let isOpen = false;
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+    button.setAttribute('aria-expanded', isOpen.toString());
+    
+    if (isOpen) {
+      menu.classList.remove('hidden');
+      // Trigger reflow
+      menu.offsetHeight;
+      menu.classList.remove('opacity-0', '-translate-y-2');
+      closedIcon.classList.remove('block');
+      closedIcon.classList.add('hidden');
+      openIcon.classList.remove('hidden');
+      openIcon.classList.add('block');
+    } else {
+      menu.classList.add('opacity-0', '-translate-y-2');
+      closedIcon.classList.remove('hidden');
+      closedIcon.classList.add('block');
+      openIcon.classList.remove('block');
+      openIcon.classList.add('hidden');
+      
+      // Wait for transition to finish before hiding
+      setTimeout(() => {
+        if (!isOpen) { // Check again in case the state changed
+          menu.classList.add('hidden');
+        }
+      }, 300);
+    }
+  }
+
+  button?.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    if (isOpen && !button?.contains(target) && !menu?.contains(target)) {
+      toggleMenu();
+    }
+  });
+</script>

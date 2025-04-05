@@ -1,0 +1,31 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  background?: 'white' | 'gray';
+}
+
+const { 
+  id, 
+  class: className = '',
+  background = 'white'
+} = Astro.props;
+
+const bgColors = {
+  white: 'bg-white',
+  gray: 'bg-gray-50'
+};
+---
+
+<section 
+  id={id} 
+  class:list={[
+    'py-16 sm:py-24 relative w-full overflow-hidden',
+    bgColors[background],
+    className
+  ]}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <slot />
+  </div>
+</section>

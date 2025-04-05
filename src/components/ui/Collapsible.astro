@@ -1,0 +1,109 @@
+---
+interface Props {
+  previewText: string;
+  buttonText?: {
+    more?: string;
+    less?: string;
+  };
+}
+
+const { 
+  previewText,
+  buttonText = {
+    more: 'Mehr lesen',
+    less: 'Weniger'
+  }
+} = Astro.props;
+---
+
+<div class="relative">
+  <div class="content-preview relative">
+    <p class="mb-4 transform transition-all duration-500">
+      {previewText}
+    </p>
+    <div class="fade-overlay"></div>
+  </div>
+  
+  <div class="content-full opacity-0 max-h-0 overflow-hidden transform transition-all duration-500 ease-in-out">
+    <slot />
+  </div>
+  
+  <div class="flex justify-center sm:justify-start">
+    <button 
+      class="mt-4 px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center"
+    >
+      <span>{buttonText.more}</span>
+      <svg 
+        class="w-4 h-4 ml-2 transition-transform duration-300" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          stroke-width="2" 
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .content-preview, .content-full {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, white);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .content-preview.no-fade .fade-overlay {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  function setupCollapsible(container: HTMLElement) {
+    const button = container.querySelector('button');
+    const contentPreview = container.querySelector('.content-preview');
+    const contentFull = container.querySelector('.content-full');
+    const buttonText = button?.querySelector('span');
+    const buttonIcon = button?.querySelector('svg');
+    let isExpanded = false;
+
+    button?.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      
+      if (isExpanded) {
+        buttonText.textContent = 'Weniger';
+        buttonIcon?.classList.add('rotate-180');
+        contentPreview?.classList.add('no-fade');
+        contentFull?.classList.add('max-h-[1000px]', 'opacity-100', 'mt-4');
+        contentFull?.classList.remove('max-h-0', 'opacity-0');
+      } else {
+        buttonText.textContent = 'Mehr lesen';
+        buttonIcon?.classList.remove('rotate-180');
+        contentPreview?.classList.remove('no-fade');
+        contentFull?.classList.remove('max-h-[1000px]', 'opacity-100', 'mt-4');
+        contentFull?.classList.add('max-h-0', 'opacity-0');
+      }
+    });
+  }
+
+  // Setup all collapsibles on the page
+  document.querySelectorAll('.relative').forEach(container => {
+    if (container.querySelector('.content-preview')) {
+      setupCollapsible(container as HTMLElement);
+    }
+  });
+</script>

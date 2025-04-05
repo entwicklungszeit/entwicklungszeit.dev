@@ -1,0 +1,32 @@
+---
+import Section from './ui/Section.astro';
+import Collapsible from './ui/Collapsible.astro';
+
+const previewText = "Softwareentwicklung ist ein wunderbares Handwerk. Damit helfen du und ich Menschen, Organisationen und Unternehmen ihre Ziele schneller und sicher zu erreichen. Für frustrierende Abläufe zeigen wir sinnvolle Grafiken an. Komplexe Prozesse übernehmen wir im Hintergrund, ohne dass unsere Klienten die Stolpersteine erfahren, die wir vorher ausmerzen. Und je nach Aufgabe ist es mal leichter und mal schwerer diesen Mehrwert zu liefern.";
+---
+
+<Section id="story">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+      <div class="order-2 lg:order-1 lg:sticky lg:top-24 h-auto aspect-[4/3] lg:aspect-auto lg:h-fit lg:max-h-[600px]" data-aos="fade-right">
+        <img 
+          src="/developer-journey.webp" 
+          alt="Developer Journey Illustration" 
+          class="w-full h-full object-contain max-w-sm mx-auto lg:max-w-lg rounded-lg shadow-lg"
+          loading="lazy"
+        />
+      </div>
+      
+      <div class="order-1 lg:order-2 min-h-[300px]" data-aos="fade-left">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Story</h2>
+        <div class="space-y-4 text-base sm:text-lg text-gray-700">
+          <Collapsible previewText={previewText}>
+            <p class="mb-4">
+              In meiner Arbeit konzentriere ich mich darauf dir Wege zu zeigen, die es dir erlauben selbst in komplexen Umfeldern für Fortschritt und ein angenehmes Arbeitsklima zu sorgen, sodass Stakeholder aus Technik und Business an einem Strang ziehen.
+            </p>
+            <p>
+              Auf diesem Weg gibt es viele Fähigkeiten zu lernen und weiterzuentwickeln. Mit dem Podcast möchte ich dir schnell und unkompliziert dabei helfen. 🤗
+            </p>
+          </Collapsible>
+        </div>
+      </div>
+    </div>
