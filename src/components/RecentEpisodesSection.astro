@@ -82,6 +82,13 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
         class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none hidden md:block"
       >
       </div>
+
+      <!-- Left fade gradient (initially hidden, shown when scrolled) -->
+      <div
+        id="left-fade"
+        class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none hidden md:block opacity-0 transition-opacity duration-300"
+      >
+      </div>
     </div>
   </div>
 </div>
@@ -145,14 +152,24 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
     // Hide scroll hint if user has scrolled
     const carousel = document.getElementById('episode-carousel');
     const scrollHint = document.querySelector('.scroll-hint');
+    const leftFade = document.getElementById('left-fade');
 
     if (carousel && scrollHint) {
       carousel.addEventListener('scroll', () => {
+        // Handle scroll hint
         if (carousel.scrollLeft > 10) {
           scrollHint.classList.add('opacity-0');
           setTimeout(() => {
             scrollHint.classList.add('hidden');
           }, 300);
+
+          // Show left fade when scrolled
+          if (leftFade) {
+            leftFade.classList.remove('opacity-0');
+          }
+        } else if (leftFade) {
+          // Hide left fade when scrolled back to start
+          leftFade.classList.add('opacity-0');
         }
       });
     }
