@@ -1,0 +1,247 @@
+---
+import Section from './ui/Section.astro';
+
+// Recent Podcast Episodes component - displays latest episodes in a horizontal scroll
+
+// Constants for URLs
+const RSS_URL = 'https://anchor.fm/s/1003c6b34/podcast/rss';
+const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
+---
+
+<div class="podcast-episodes-container w-full py-6 mb-6">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <h4 class="font-display text-lg font-medium text-gray-800 mb-3 ml-1">
+      Neueste Episoden
+    </h4>
+    <div
+      id="episode-carousel"
+      class="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+    >
+      <!-- Episode skeletons (will be replaced by JavaScript) -->
+      <div
+        class="episode-skeleton min-w-[220px] max-w-[220px] aspect-square rounded-lg animate-pulse"
+      >
+      </div>
+      <div
+        class="episode-skeleton min-w-[220px] max-w-[220px] aspect-square rounded-lg animate-pulse"
+        style="animation-delay: 150ms"
+      >
+      </div>
+      <div
+        class="episode-skeleton min-w-[220px] max-w-[220px] aspect-square rounded-lg animate-pulse"
+        style="animation-delay: 300ms"
+      >
+      </div>
+
+      <!-- More on Spotify card -->
+      <a
+        href={SPOTIFY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="spotify-card flex-shrink-0 min-w-[220px] max-w-[220px] aspect-square bg-gradient-to-br from-[#1DB954]/90 to-[#1DB954] rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col items-center justify-center text-white p-3 text-center snap-start"
+      >
+        <svg
+          class="w-12 h-12 mb-2"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"
+          ></path>
+        </svg>
+        <div class="text-sm font-medium">Spotify</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Skeletons */
+  .episode-skeleton {
+    background: linear-gradient(90deg, #e2e8f0 0%, #f8fafc 50%, #e2e8f0 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Hide scrollbars */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Episode card styling */
+  .episode-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .episode-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .episode-card img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      // Fetch RSS feed
+      const response = await fetch('https://anchor.fm/s/1003c6b34/podcast/rss');
+      const xmlText = await response.text();
+
+      // Parse XML
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+
+      // Get carousel element
+      const carousel = document.getElementById('episode-carousel');
+      if (!carousel) return;
+
+      // Remove skeletons
+      const skeletons = carousel.querySelectorAll('.episode-skeleton');
+      skeletons.forEach(skeleton => skeleton.remove());
+
+      // Get Spotify card to insert episodes before it
+      const spotifyCard = carousel.querySelector('.spotify-card');
+
+      // Process episodes (limit to 3)
+      const items = xmlDoc.querySelectorAll('item');
+      let processedCount = 0;
+
+      for (let i = 0; i < items.length && processedCount < 3; i++) {
+        const item = items[i];
+
+        // Get episode link - prefer Spotify if available
+        let link = '';
+        const links = Array.from(item.querySelectorAll('link'));
+        for (const linkEl of links) {
+          const url = linkEl.textContent?.trim() || '';
+          if (url.includes('spotify.com')) {
+            link = url;
+            break;
+          }
+        }
+
+        // Fallback to first link
+        if (!link) {
+          link = item.querySelector('link')?.textContent?.trim() || '';
+        }
+
+        // Find iTunes image using attribute selection
+        let thumbnail = '';
+        const allElements = item.getElementsByTagName('*');
+        for (let j = 0; j < allElements.length; j++) {
+          const element = allElements[j];
+          const nodeName = element.nodeName.toLowerCase();
+
+          if (
+            (nodeName.includes('itunes:image') ||
+              (nodeName.includes('image') &&
+                element.namespaceURI?.includes('itunes'))) &&
+            element.hasAttribute('href')
+          ) {
+            thumbnail = element.getAttribute('href') || '';
+            break;
+          }
+        }
+
+        // Fallback to channel image
+        if (!thumbnail) {
+          const imageUrl = xmlDoc.querySelector('image url');
+          thumbnail =
+            imageUrl?.textContent ||
+            'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/42889269/f3920f44c23f9537.jpg';
+        }
+
+        // Create episode card
+        if (link && thumbnail) {
+          const card = document.createElement('a');
+          card.href = link;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.className =
+            'episode-card flex-shrink-0 min-w-[220px] max-w-[220px] aspect-square snap-start';
+          card.setAttribute('aria-label', 'Podcast-Folge anhören');
+
+          // Set card content with explicit image dimensions
+          card.innerHTML = `
+          <img
+            src="${thumbnail}"
+            alt="Podcast Episode"
+            width="220"
+            height="220"
+            loading="lazy"
+          />
+        `;
+
+          // Insert before Spotify card
+          if (spotifyCard) {
+            carousel.insertBefore(card, spotifyCard);
+          } else {
+            carousel.appendChild(card);
+          }
+
+          processedCount++;
+        }
+      }
+
+      // If no episodes were processed, show error
+      if (processedCount === 0) {
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'text-sm text-gray-500 px-2';
+        errorMsg.textContent = 'Keine Folgen gefunden';
+
+        if (spotifyCard) {
+          carousel.insertBefore(errorMsg, spotifyCard);
+        } else {
+          carousel.appendChild(errorMsg);
+        }
+      }
+    } catch (error) {
+      console.error('Error loading podcast episodes:', error);
+
+      // Get carousel element
+      const carousel = document.getElementById('episode-carousel');
+      if (!carousel) return;
+
+      // Remove skeletons
+      const skeletons = carousel.querySelectorAll('.episode-skeleton');
+      skeletons.forEach(skeleton => skeleton.remove());
+
+      // Show error message
+      const errorMsg = document.createElement('div');
+      errorMsg.className = 'text-sm text-gray-500 px-2';
+      errorMsg.textContent = 'Fehler beim Laden der Folgen';
+
+      const spotifyCard = carousel.querySelector('.spotify-card');
+      if (spotifyCard) {
+        carousel.insertBefore(errorMsg, spotifyCard);
+      } else {
+        carousel.appendChild(errorMsg);
+      }
+    }
+  });
+</script>
