@@ -52,7 +52,7 @@ const { pathname } = Astro.url;
     </svg>
   </button>
 
-  <!-- Desktop navigation with simplified structure -->
+  <!-- Desktop navigation with highlighting for active sections -->
   <nav class="hidden md:block" aria-label="Main navigation">
     <ul class="flex items-center space-x-6">
       {
@@ -64,17 +64,16 @@ const { pathname } = Astro.url;
             <li>
               <a
                 href={item.href}
-                class={`nav-link px-2 py-1 text-sm font-medium transition-colors relative ${
+                class={`nav-link px-2 py-1 text-sm font-medium transition-colors relative group ${
                   isActive ? 'text-primary' : 'text-gray-700 hover:text-primary'
                 }`}
                 aria-current={isActive ? 'page' : undefined}
+                data-section-id={
+                  item.href.startsWith('#') ? item.href.substring(1) : null
+                }
               >
                 {item.label}
-                <span
-                  class={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`}
-                />
+                <span class="highlight-indicator absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 w-0" />
               </a>
             </li>
           );
@@ -118,6 +117,9 @@ const { pathname } = Astro.url;
                       : 'text-gray-700 hover:text-primary hover:bg-gray-50'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
+                  data-section-id={
+                    item.href.startsWith('#') ? item.href.substring(1) : null
+                  }
                 >
                   {item.label}
                 </a>
@@ -142,7 +144,7 @@ const { pathname } = Astro.url;
 </div>
 
 <script>
-  // Simplified mobile menu functionality
+  // Mobile menu functionality
   const button = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const closedIcon = document.getElementById('menu-closed-icon');
@@ -187,5 +189,167 @@ const { pathname } = Astro.url;
   // Close on resize to desktop
   window.addEventListener('resize', () => {
     if (isOpen && window.innerWidth >= 768) toggleMenu();
+  });
+
+  // Section highlighting based on scroll position
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const indicators = document.querySelectorAll('.highlight-indicator');
+
+  // Debounce function to improve scroll performance
+  function debounce(func: Function, wait: number) {
+    let timeout: number;
+    return function executedFunction(...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait) as unknown as number;
+    };
+  }
+
+  // Intersection Observer to detect which section is in view
+  const observerOptions = {
+    root: null, // viewport
+    rootMargin: '-20% 0px -50% 0px', // top and bottom margins
+    threshold: 0
+  };
+
+  let currentActiveSection: string | null = null;
+
+  function updateActiveSection(entries: IntersectionObserverEntry[]) {
+    entries.forEach(entry => {
+      // Get the section ID
+      const id = entry.target.getAttribute('id');
+      if (!id) return;
+
+      // Check if the section is intersecting (in view)
+      if (entry.isIntersecting) {
+        currentActiveSection = id;
+
+        // Update navigation links
+        navLinks.forEach(link => {
+          const sectionId = link.getAttribute('data-section-id');
+          const indicator = link.querySelector(
+            '.highlight-indicator'
+          ) as HTMLElement;
+
+          if (sectionId === id) {
+            // Active section
+            link.classList.add('text-primary');
+            link.setAttribute('aria-current', 'location');
+            if (indicator) {
+              indicator.style.width = '100%';
+              indicator.style.opacity = '1';
+              indicator.style.transition =
+                'width 0.3s ease-in-out, opacity 0.2s ease-in-out';
+            }
+          } else {
+            // Inactive section
+            if (sectionId) {
+              link.classList.remove('text-primary');
+              link.removeAttribute('aria-current');
+              if (indicator) {
+                indicator.style.width = '0';
+                indicator.style.opacity = '0';
+                indicator.style.transition =
+                  'width 0.3s ease-in-out, opacity 0.2s ease-in-out';
+              }
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Create observer and start observing sections
+  if (sections.length > 0) {
+    const observer = new IntersectionObserver(
+      updateActiveSection,
+      observerOptions
+    );
+    sections.forEach(section => observer.observe(section));
+
+    // Also run on initial load to highlight the current section
+    const checkInitialSection = () => {
+      const scrollTop = window.scrollY;
+
+      // Find which section is currently in view
+      let foundActive = false;
+
+      sections.forEach(section => {
+        if (foundActive) return;
+
+        const sectionElement = section as HTMLElement;
+        const sectionTop = sectionElement.offsetTop - 100;
+        const sectionHeight = sectionElement.offsetHeight;
+        const sectionId = sectionElement.getAttribute('id');
+
+        if (
+          scrollTop >= sectionTop &&
+          scrollTop < sectionTop + sectionHeight &&
+          sectionId
+        ) {
+          // We found the active section
+          foundActive = true;
+
+          // Highlight the corresponding nav link
+          navLinks.forEach(link => {
+            const targetSection = link.getAttribute('data-section-id');
+            const indicator = link.querySelector(
+              '.highlight-indicator'
+            ) as HTMLElement;
+
+            if (targetSection === sectionId) {
+              link.classList.add('text-primary');
+              link.setAttribute('aria-current', 'location');
+              if (indicator) {
+                indicator.style.width = '100%';
+                indicator.style.opacity = '1';
+              }
+            }
+          });
+        }
+      });
+    };
+
+    // Run on page load after a short delay to ensure sections are rendered
+    setTimeout(checkInitialSection, 200);
+
+    // Fallback for scroll events if Intersection Observer doesn't work well
+    const handleScroll = debounce(() => {
+      if (!currentActiveSection) {
+        checkInitialSection();
+      }
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  // Handle smooth scrolling for anchor links
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (href?.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          // Close mobile menu if open
+          if (isOpen) toggleMenu();
+
+          // Smooth scroll to the element
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+          // Update URL without page reload
+          history.pushState(null, '', href);
+        }
+      }
+    });
   });
 </script>
