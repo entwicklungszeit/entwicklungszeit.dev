@@ -1,15 +1,20 @@
 ---
 import { navItems } from '../data/navigation';
 import Button from './ui/Button.astro';
+
+// Get current path to determine active link
+const { pathname } = Astro.url;
 ---
 
 <div class="navigation-container">
-  <!-- Mobile menu button -->
+  <!-- Mobile menu button with proper ARIA roles -->
   <button
     id="mobile-menu-button"
-    class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+    class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary transition-colors"
     aria-expanded="false"
-    aria-label="Toggle navigation menu"
+    aria-controls="mobile-menu"
+    aria-label="Navigation menu"
+    aria-haspopup="true"
   >
     <span class="sr-only">Open main menu</span>
     <svg
@@ -42,76 +47,115 @@ import Button from './ui/Button.astro';
     </svg>
   </button>
 
-  <!-- Desktop navigation -->
-  <nav class="hidden md:flex items-center space-x-8">
-    {
-      navItems.map(item => (
-        <a
-          href={item.href}
-          class="nav-link text-gray-700 hover:text-primary font-medium transition-colors text-sm lg:text-base relative group"
-          aria-label={item.label}
+  <!-- Desktop navigation with proper ARIA and semantic structure -->
+  <nav class="hidden md:block" aria-label="Main navigation">
+    <ul class="flex items-center space-x-8">
+      {
+        navItems.map(item => {
+          const isActive =
+            pathname === item.href ||
+            (pathname.includes(item.href) && item.href !== '/');
+          return (
+            <li>
+              <a
+                href={item.href}
+                class={`nav-link text-gray-700 hover:text-primary focus:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 font-medium transition-colors text-sm lg:text-base relative group ${isActive ? 'text-primary font-semibold' : ''}`}
+                aria-label={item.label}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {item.label}
+                <span
+                  class={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full group-focus:w-full'}`}
+                />
+              </a>
+            </li>
+          );
+        })
+      }
+      <li>
+        <Button
+          href="https://calendar.app.google/taxMeha9m5wC17S19"
+          target="_blank"
+          rel="noopener noreferrer"
+          size="sm"
+          aria-label="Termin buchen"
+          class="focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
-          {item.label}
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-        </a>
-      ))
-    }
-
-    <Button
-      href="https://calendar.app.google/taxMeha9m5wC17S19"
-      target="_blank"
-      rel="noopener noreferrer"
-      size="sm"
-      aria-label="Termin buchen"
-    >
-      Dein Termin mit mir
-    </Button>
+          Dein Termin mit mir
+        </Button>
+      </li>
+    </ul>
   </nav>
 
-  <!-- Mobile menu -->
+  <!-- Mobile menu with improved accessibility and positioning -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden transform transition-all duration-300 ease-in-out opacity-0 -translate-y-2"
+    class="hidden md:hidden absolute top-full left-0 right-0 bg-white shadow-lg transform transition-all duration-300 ease-in-out opacity-0 -translate-y-2 z-50"
+    aria-labelledby="mobile-menu-button"
+    role="menu"
   >
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      {
-        navItems.map(item => (
-          <a
-            href={item.href}
-            class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
-            aria-label={item.label}
+    <nav aria-label="Mobile navigation">
+      <ul class="px-4 py-3 space-y-2">
+        {
+          navItems.map(item => {
+            const isActive =
+              pathname === item.href ||
+              (pathname.includes(item.href) && item.href !== '/');
+            return (
+              <li role="none">
+                <a
+                  href={item.href}
+                  class={`nav-link block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive ? 'text-primary bg-gray-50' : 'text-gray-700 hover:text-primary hover:bg-gray-50 focus:text-primary focus:bg-gray-50'}`}
+                  aria-label={item.label}
+                  aria-current={isActive ? 'page' : undefined}
+                  role="menuitem"
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+        <li role="none" class="pt-2">
+          <Button
+            href="https://calendar.app.google/taxMeha9m5wC17S19"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full mt-2 focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            aria-label="Termin buchen"
           >
-            {item.label}
-          </a>
-        ))
-      }
-      <Button
-        href="https://calendar.app.google/taxMeha9m5wC17S19"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="w-full mt-2"
-        aria-label="Termin buchen"
-      >
-        Dein Termin mit mir
-      </Button>
-    </div>
+            Dein Termin mit mir
+          </Button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
 
 <script>
-  // Mobile menu functionality
+  // Mobile menu functionality with improved accessibility
   const button = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const closedIcon = document.getElementById('menu-closed-icon');
   const openIcon = document.getElementById('menu-open-icon');
   let isOpen = false;
 
+  // Trap focus within mobile menu when open
+  const focusableElements =
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  let focusableContent: HTMLElement[] = [];
+  let firstFocusableElement: HTMLElement;
+  let lastFocusableElement: HTMLElement;
+
   function toggleMenu() {
     isOpen = !isOpen;
     button.setAttribute('aria-expanded', isOpen.toString());
 
     if (isOpen) {
+      // Open menu
       menu.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden', 'md:overflow-auto'); // Prevent scrolling on mobile when menu is open
+
       // Trigger reflow
       menu.offsetHeight;
       menu.classList.remove('opacity-0', '-translate-y-2');
@@ -119,12 +163,28 @@ import Button from './ui/Button.astro';
       closedIcon.classList.add('hidden');
       openIcon.classList.remove('hidden');
       openIcon.classList.add('block');
+
+      // Set up focus trap
+      setTimeout(() => {
+        focusableContent = Array.from(
+          menu.querySelectorAll(focusableElements)
+        ) as HTMLElement[];
+        firstFocusableElement = focusableContent[0];
+        lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+        // Focus first element in the menu
+        if (firstFocusableElement) {
+          firstFocusableElement.focus();
+        }
+      }, 100);
     } else {
+      // Close menu
       menu.classList.add('opacity-0', '-translate-y-2');
       closedIcon.classList.remove('hidden');
       closedIcon.classList.add('block');
       openIcon.classList.remove('block');
       openIcon.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
 
       // Wait for transition to finish before hiding
       setTimeout(() => {
@@ -133,10 +193,39 @@ import Button from './ui/Button.astro';
           menu.classList.add('hidden');
         }
       }, 300);
+
+      // Return focus to the menu button
+      button.focus();
+    }
+  }
+
+  // Handle keyboard navigation
+  function handleKeyDown(event: KeyboardEvent) {
+    if (!isOpen) return;
+
+    // Close on Escape
+    if (event.key === 'Escape') {
+      toggleMenu();
+      return;
+    }
+
+    // Trap focus within the menu
+    if (event.key === 'Tab') {
+      if (event.shiftKey && document.activeElement === firstFocusableElement) {
+        event.preventDefault();
+        lastFocusableElement.focus();
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === lastFocusableElement
+      ) {
+        event.preventDefault();
+        firstFocusableElement.focus();
+      }
     }
   }
 
   button?.addEventListener('click', toggleMenu);
+  document.addEventListener('keydown', handleKeyDown);
 
   // Close menu when clicking outside
   document.addEventListener('click', event => {
@@ -146,40 +235,68 @@ import Button from './ui/Button.astro';
     }
   });
 
-  // Active section highlighting
+  // Handle resize events - close mobile menu if window resized to desktop
+  window.addEventListener('resize', () => {
+    if (isOpen && window.innerWidth >= 768) {
+      // 768px is the md breakpoint
+      toggleMenu();
+    }
+  });
+
+  // Active section highlighting with improved performance
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
+
+  // Debounce function to limit scroll event firing
+  function debounce(func: Function, wait: number) {
+    let timeout: number;
+    return function executedFunction(...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait) as unknown as number;
+    };
+  }
 
   function highlightActiveSection() {
     const scrollY = window.pageYOffset;
 
+    // Find the current active section
+    let currentActive = null;
+
     sections.forEach(section => {
       const sectionId = section.getAttribute('id');
+      if (!sectionId) return;
+
       const sectionElement = section as HTMLElement;
       const sectionHeight = sectionElement.offsetHeight;
       const sectionTop = sectionElement.offsetTop - 100;
 
       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        // Section is active
-        navLinks.forEach(link => {
-          if (link.getAttribute('href') === '#' + sectionId) {
-            link.classList.add('text-primary');
-            if (link.querySelector('span')) {
-              link.querySelector('span').classList.add('w-full');
-            }
-          } else {
-            link.classList.remove('text-primary');
-            if (link.querySelector('span')) {
-              link.querySelector('span').classList.remove('w-full');
-            }
-          }
-        });
+        currentActive = '#' + sectionId;
+      }
+    });
+
+    // Update all nav links
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      const span = link.querySelector('span');
+
+      if (href === currentActive) {
+        link.classList.add('text-primary');
+        link.setAttribute('aria-current', 'location');
+        if (span) span.classList.add('w-full');
+      } else {
+        link.classList.remove('text-primary');
+        link.removeAttribute('aria-current');
+        if (span) span.classList.remove('w-full');
       }
     });
   }
 
-  window.addEventListener('scroll', highlightActiveSection, {
-    passive: true
-  });
+  const debouncedHighlight = debounce(highlightActiveSection, 100);
+  window.addEventListener('scroll', debouncedHighlight, { passive: true });
   highlightActiveSection(); // Run on page load
 </script>

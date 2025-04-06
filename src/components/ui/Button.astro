@@ -6,6 +6,9 @@ interface Props {
   target?: string;
   rel?: string;
   class?: string;
+  'aria-label'?: string;
+  'aria-current'?: string | boolean;
+  role?: 'button' | 'menuitem' | 'link' | 'presentation' | 'none';
 }
 
 const {
@@ -14,7 +17,10 @@ const {
   size = 'md',
   target,
   rel,
-  class: className = ''
+  class: className = '',
+  'aria-label': ariaLabel,
+  'aria-current': ariaCurrent,
+  role
 } = Astro.props;
 
 const baseStyles =
@@ -41,6 +47,9 @@ const Element = href ? 'a' : 'button';
   target={target}
   rel={rel}
   class:list={[baseStyles, sizeStyles[size], variantStyles[variant], className]}
+  aria-label={ariaLabel}
+  aria-current={ariaCurrent}
+  role={role}
 >
   <span class="relative z-10 flex items-center">
     <slot />
