@@ -6,20 +6,25 @@ import Button from './ui/Button.astro';
 const { pathname } = Astro.url;
 ---
 
-<div class="navigation-container">
+<div class="navigation-container flex items-center justify-between w-full">
+  <!-- Brand title for better recognition - now sans-serif with proper spacing -->
+  <div
+    class="brand-title hidden md:block text-xl text-primary font-semibold ml-4"
+  >
+    <span>Entwicklungszeit</span>
+  </div>
+
   <!-- Mobile menu button with proper ARIA roles -->
   <button
     id="mobile-menu-button"
-    class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus-visible:ring-2 focus-visible:ring-primary transition-colors"
+    class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary transition-colors"
     aria-expanded="false"
     aria-controls="mobile-menu"
     aria-label="Navigation menu"
-    aria-haspopup="true"
   >
-    <span class="sr-only">Open main menu</span>
     <svg
       id="menu-closed-icon"
-      class="block h-6 w-6 transition-opacity duration-300"
+      class="block h-6 w-6"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -33,7 +38,7 @@ const { pathname } = Astro.url;
     </svg>
     <svg
       id="menu-open-icon"
-      class="hidden h-6 w-6 transition-opacity duration-300"
+      class="hidden h-6 w-6"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -47,9 +52,9 @@ const { pathname } = Astro.url;
     </svg>
   </button>
 
-  <!-- Desktop navigation with proper ARIA and semantic structure -->
+  <!-- Desktop navigation with simplified structure -->
   <nav class="hidden md:block" aria-label="Main navigation">
-    <ul class="flex items-center space-x-8">
+    <ul class="flex items-center space-x-6">
       {
         navItems.map(item => {
           const isActive =
@@ -59,13 +64,16 @@ const { pathname } = Astro.url;
             <li>
               <a
                 href={item.href}
-                class={`nav-link text-gray-700 hover:text-primary focus:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 font-medium transition-colors text-sm lg:text-base relative group ${isActive ? 'text-primary font-semibold' : ''}`}
-                aria-label={item.label}
+                class={`nav-link px-2 py-1 text-sm font-medium transition-colors relative ${
+                  isActive ? 'text-primary' : 'text-gray-700 hover:text-primary'
+                }`}
                 aria-current={isActive ? 'page' : undefined}
               >
                 {item.label}
                 <span
-                  class={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full group-focus:w-full'}`}
+                  class={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
                 />
               </a>
             </li>
@@ -79,7 +87,6 @@ const { pathname } = Astro.url;
           rel="noopener noreferrer"
           size="sm"
           aria-label="Termin buchen"
-          class="focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
           Dein Termin mit mir
         </Button>
@@ -87,12 +94,12 @@ const { pathname } = Astro.url;
     </ul>
   </nav>
 
-  <!-- Mobile menu with improved accessibility and positioning -->
+  <!-- Simplified mobile menu -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden absolute top-full left-0 right-0 bg-white shadow-lg transform transition-all duration-300 ease-in-out opacity-0 -translate-y-2 z-50"
-    aria-labelledby="mobile-menu-button"
-    role="menu"
+    class="hidden md:hidden fixed top-16 left-0 right-0 bg-white shadow-lg z-50 border-t"
+    role="dialog"
+    aria-modal="true"
   >
     <nav aria-label="Mobile navigation">
       <ul class="px-4 py-3 space-y-2">
@@ -102,13 +109,15 @@ const { pathname } = Astro.url;
               pathname === item.href ||
               (pathname.includes(item.href) && item.href !== '/');
             return (
-              <li role="none">
+              <li>
                 <a
                   href={item.href}
-                  class={`nav-link block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive ? 'text-primary bg-gray-50' : 'text-gray-700 hover:text-primary hover:bg-gray-50 focus:text-primary focus:bg-gray-50'}`}
-                  aria-label={item.label}
+                  class={`block px-3 py-2 rounded-md text-base font-medium ${
+                    isActive
+                      ? 'text-primary bg-gray-50'
+                      : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                  }`}
                   aria-current={isActive ? 'page' : undefined}
-                  role="menuitem"
                 >
                   {item.label}
                 </a>
@@ -116,12 +125,12 @@ const { pathname } = Astro.url;
             );
           })
         }
-        <li role="none" class="pt-2">
+        <li class="pt-2">
           <Button
             href="https://calendar.app.google/taxMeha9m5wC17S19"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full mt-2 focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            class="w-full mt-2"
             aria-label="Termin buchen"
           >
             Dein Termin mit mir
@@ -133,19 +142,12 @@ const { pathname } = Astro.url;
 </div>
 
 <script>
-  // Mobile menu functionality with improved accessibility
+  // Simplified mobile menu functionality
   const button = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const closedIcon = document.getElementById('menu-closed-icon');
   const openIcon = document.getElementById('menu-open-icon');
   let isOpen = false;
-
-  // Trap focus within mobile menu when open
-  const focusableElements =
-    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-  let focusableContent: HTMLElement[] = [];
-  let firstFocusableElement: HTMLElement;
-  let lastFocusableElement: HTMLElement;
 
   function toggleMenu() {
     isOpen = !isOpen;
@@ -154,80 +156,27 @@ const { pathname } = Astro.url;
     if (isOpen) {
       // Open menu
       menu.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden', 'md:overflow-auto'); // Prevent scrolling on mobile when menu is open
-
-      // Trigger reflow
-      menu.offsetHeight;
-      menu.classList.remove('opacity-0', '-translate-y-2');
-      closedIcon.classList.remove('block');
+      document.body.classList.add('overflow-hidden', 'md:overflow-auto');
       closedIcon.classList.add('hidden');
       openIcon.classList.remove('hidden');
-      openIcon.classList.add('block');
-
-      // Set up focus trap
-      setTimeout(() => {
-        focusableContent = Array.from(
-          menu.querySelectorAll(focusableElements)
-        ) as HTMLElement[];
-        firstFocusableElement = focusableContent[0];
-        lastFocusableElement = focusableContent[focusableContent.length - 1];
-
-        // Focus first element in the menu
-        if (firstFocusableElement) {
-          firstFocusableElement.focus();
-        }
-      }, 100);
     } else {
       // Close menu
-      menu.classList.add('opacity-0', '-translate-y-2');
-      closedIcon.classList.remove('hidden');
-      closedIcon.classList.add('block');
-      openIcon.classList.remove('block');
-      openIcon.classList.add('hidden');
+      menu.classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
-
-      // Wait for transition to finish before hiding
-      setTimeout(() => {
-        if (!isOpen) {
-          // Check again in case the state changed
-          menu.classList.add('hidden');
-        }
-      }, 300);
-
-      // Return focus to the menu button
-      button.focus();
+      closedIcon.classList.remove('hidden');
+      openIcon.classList.add('hidden');
     }
   }
 
-  // Handle keyboard navigation
-  function handleKeyDown(event: KeyboardEvent) {
-    if (!isOpen) return;
-
-    // Close on Escape
-    if (event.key === 'Escape') {
-      toggleMenu();
-      return;
-    }
-
-    // Trap focus within the menu
-    if (event.key === 'Tab') {
-      if (event.shiftKey && document.activeElement === firstFocusableElement) {
-        event.preventDefault();
-        lastFocusableElement.focus();
-      } else if (
-        !event.shiftKey &&
-        document.activeElement === lastFocusableElement
-      ) {
-        event.preventDefault();
-        firstFocusableElement.focus();
-      }
-    }
-  }
-
+  // Event listeners
   button?.addEventListener('click', toggleMenu);
-  document.addEventListener('keydown', handleKeyDown);
 
-  // Close menu when clicking outside
+  // Close when clicking escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && isOpen) toggleMenu();
+  });
+
+  // Close when clicking outside
   document.addEventListener('click', event => {
     const target = event.target as Node;
     if (isOpen && !button?.contains(target) && !menu?.contains(target)) {
@@ -235,68 +184,8 @@ const { pathname } = Astro.url;
     }
   });
 
-  // Handle resize events - close mobile menu if window resized to desktop
+  // Close on resize to desktop
   window.addEventListener('resize', () => {
-    if (isOpen && window.innerWidth >= 768) {
-      // 768px is the md breakpoint
-      toggleMenu();
-    }
+    if (isOpen && window.innerWidth >= 768) toggleMenu();
   });
-
-  // Active section highlighting with improved performance
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  // Debounce function to limit scroll event firing
-  function debounce(func: Function, wait: number) {
-    let timeout: number;
-    return function executedFunction(...args: any[]) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait) as unknown as number;
-    };
-  }
-
-  function highlightActiveSection() {
-    const scrollY = window.pageYOffset;
-
-    // Find the current active section
-    let currentActive = null;
-
-    sections.forEach(section => {
-      const sectionId = section.getAttribute('id');
-      if (!sectionId) return;
-
-      const sectionElement = section as HTMLElement;
-      const sectionHeight = sectionElement.offsetHeight;
-      const sectionTop = sectionElement.offsetTop - 100;
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        currentActive = '#' + sectionId;
-      }
-    });
-
-    // Update all nav links
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      const span = link.querySelector('span');
-
-      if (href === currentActive) {
-        link.classList.add('text-primary');
-        link.setAttribute('aria-current', 'location');
-        if (span) span.classList.add('w-full');
-      } else {
-        link.classList.remove('text-primary');
-        link.removeAttribute('aria-current');
-        if (span) span.classList.remove('w-full');
-      }
-    });
-  }
-
-  const debouncedHighlight = debounce(highlightActiveSection, 100);
-  window.addEventListener('scroll', debouncedHighlight, { passive: true });
-  highlightActiveSection(); // Run on page load
 </script>

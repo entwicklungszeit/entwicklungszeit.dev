@@ -4,10 +4,10 @@ import Navigation from './Navigation.astro';
 
 <header
   id="main-header"
-  class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 top-0 transition-all duration-300"
+  class="fixed w-full bg-white/95 backdrop-blur-sm shadow-md z-50 top-0"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
+    <div class="flex h-16 items-center">
       <div class="flex items-center">
         <a href="/" class="flex items-center">
           <img
@@ -21,29 +21,4 @@ import Navigation from './Navigation.astro';
       <Navigation />
     </div>
   </div>
-
-  <script>
-    // Header scroll behavior
-    const header = document.getElementById('main-header');
-    let lastScrollTop = 0;
-
-    function handleScroll() {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-
-      if (scrollTop > 100) {
-        // Scrolled down - compact header
-        header.classList.add('h-14', 'shadow-md');
-        header.classList.remove('h-16', 'shadow-sm');
-      } else {
-        // At top - normal header
-        header.classList.remove('h-14', 'shadow-md');
-        header.classList.add('h-16', 'shadow-sm');
-      }
-
-      lastScrollTop = scrollTop;
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  </script>
 </header>
