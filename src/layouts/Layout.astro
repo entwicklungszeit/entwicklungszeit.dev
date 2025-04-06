@@ -124,39 +124,6 @@ const {
           once: true
         });
       });
-
-      // Sticky header logic
-      document.addEventListener('astro:page-load', () => {
-        let lastScroll = 0;
-        const header = document.querySelector('header');
-
-        if (header) {
-          window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll <= 0) {
-              header.classList.remove('scroll-up');
-              return;
-            }
-
-            if (
-              currentScroll > lastScroll &&
-              !header.classList.contains('scroll-down')
-            ) {
-              header.classList.remove('scroll-up');
-              header.classList.add('scroll-down');
-            } else if (
-              currentScroll < lastScroll &&
-              header.classList.contains('scroll-down')
-            ) {
-              header.classList.remove('scroll-down');
-              header.classList.add('scroll-up');
-            }
-
-            lastScroll = currentScroll;
-          });
-        }
-      });
     </script>
     <!-- Simple Analytics -->
     <!-- 100% privacy-first analytics -->
