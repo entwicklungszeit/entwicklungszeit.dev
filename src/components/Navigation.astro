@@ -7,9 +7,9 @@ const { pathname } = Astro.url;
 ---
 
 <div class="navigation-container flex items-center justify-between w-full">
-  <!-- Brand title for better recognition - now sans-serif with proper spacing -->
+  <!-- Brand title visible on all devices -->
   <div
-    class="brand-title hidden md:block text-xl text-primary font-semibold ml-4"
+    class="brand-title text-primary font-semibold ml-4 text-base md:text-xl truncate"
   >
     <span>Entwicklungszeit</span>
   </div>
@@ -17,7 +17,7 @@ const { pathname } = Astro.url;
   <!-- Mobile menu button with proper ARIA roles -->
   <button
     id="mobile-menu-button"
-    class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary transition-colors"
+    class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary transition-colors ml-auto"
     aria-expanded="false"
     aria-controls="mobile-menu"
     aria-label="Navigation menu"
