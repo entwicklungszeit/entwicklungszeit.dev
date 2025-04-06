@@ -1,6 +1,5 @@
 ---
-import { navItems } from '../data/navigation';
-import Button from './ui/Button.astro';
+import Navigation from './Navigation.astro';
 ---
 
 <header
@@ -19,149 +18,11 @@ import Button from './ui/Button.astro';
         </a>
       </div>
 
-      <!-- Mobile menu button -->
-      <button
-        id="mobile-menu-button"
-        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-        aria-expanded="false"
-        aria-label="Toggle navigation menu"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          id="menu-closed-icon"
-          class="block h-6 w-6 transition-opacity duration-300"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        <svg
-          id="menu-open-icon"
-          class="hidden h-6 w-6 transition-opacity duration-300"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-
-      <!-- Desktop navigation -->
-      <nav class="hidden md:flex items-center space-x-8">
-        {
-          navItems.map(item => (
-            <a
-              href={item.href}
-              class="nav-link text-gray-700 hover:text-primary font-medium transition-colors text-sm lg:text-base relative group"
-              aria-label={item.label}
-            >
-              {item.label}
-              <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-            </a>
-          ))
-        }
-
-        <Button
-          href="https://calendar.app.google/taxMeha9m5wC17S19"
-          target="_blank"
-          rel="noopener noreferrer"
-          size="sm"
-          aria-label="Termin buchen"
-        >
-          Dein Termin mit mir
-        </Button>
-      </nav>
-    </div>
-
-    <!-- Mobile menu -->
-    <div
-      id="mobile-menu"
-      class="hidden md:hidden transform transition-all duration-300 ease-in-out opacity-0 -translate-y-2"
-    >
-      <div class="px-2 pt-2 pb-3 space-y-1">
-        {
-          navItems.map(item => (
-            <a
-              href={item.href}
-              class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
-              aria-label={item.label}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-        <Button
-          href="https://calendar.app.google/taxMeha9m5wC17S19"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="w-full mt-2"
-          aria-label="Termin buchen"
-        >
-          Dein Termin mit mir
-        </Button>
-      </div>
+      <Navigation />
     </div>
   </div>
 
   <script>
-    // Mobile menu functionality
-    const button = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    const closedIcon = document.getElementById('menu-closed-icon');
-    const openIcon = document.getElementById('menu-open-icon');
-    let isOpen = false;
-
-    function toggleMenu() {
-      isOpen = !isOpen;
-      button.setAttribute('aria-expanded', isOpen.toString());
-
-      if (isOpen) {
-        menu.classList.remove('hidden');
-        // Trigger reflow
-        menu.offsetHeight;
-        menu.classList.remove('opacity-0', '-translate-y-2');
-        closedIcon.classList.remove('block');
-        closedIcon.classList.add('hidden');
-        openIcon.classList.remove('hidden');
-        openIcon.classList.add('block');
-      } else {
-        menu.classList.add('opacity-0', '-translate-y-2');
-        closedIcon.classList.remove('hidden');
-        closedIcon.classList.add('block');
-        openIcon.classList.remove('block');
-        openIcon.classList.add('hidden');
-
-        // Wait for transition to finish before hiding
-        setTimeout(() => {
-          if (!isOpen) {
-            // Check again in case the state changed
-            menu.classList.add('hidden');
-          }
-        }, 300);
-      }
-    }
-
-    button?.addEventListener('click', toggleMenu);
-
-    // Close menu when clicking outside
-    document.addEventListener('click', event => {
-      const target = event.target as Node;
-      if (isOpen && !button?.contains(target) && !menu?.contains(target)) {
-        toggleMenu();
-      }
-    });
-
     // Header scroll behavior
     const header = document.getElementById('main-header');
     let lastScrollTop = 0;
@@ -184,42 +45,5 @@ import Button from './ui/Button.astro';
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Active section highlighting
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    function highlightActiveSection() {
-      const scrollY = window.pageYOffset;
-
-      sections.forEach(section => {
-        const sectionId = section.getAttribute('id');
-        const sectionElement = section as HTMLElement;
-        const sectionHeight = sectionElement.offsetHeight;
-        const sectionTop = sectionElement.offsetTop - 100;
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          // Section is active
-          navLinks.forEach(link => {
-            if (link.getAttribute('href') === '#' + sectionId) {
-              link.classList.add('text-primary');
-              if (link.querySelector('span')) {
-                link.querySelector('span').classList.add('w-full');
-              }
-            } else {
-              link.classList.remove('text-primary');
-              if (link.querySelector('span')) {
-                link.querySelector('span').classList.remove('w-full');
-              }
-            }
-          });
-        }
-      });
-    }
-
-    window.addEventListener('scroll', highlightActiveSection, {
-      passive: true
-    });
-    highlightActiveSection(); // Run on page load
   </script>
 </header>
