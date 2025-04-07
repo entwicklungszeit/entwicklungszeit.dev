@@ -119,9 +119,36 @@ const {
       import AOS from 'aos';
 
       document.addEventListener('astro:page-load', () => {
+        // Initialize AOS with default options
         AOS.init({
           duration: 800,
           once: true
+        });
+
+        // Apply custom animation settings based on component type
+        document.querySelectorAll('[data-aos]').forEach(element => {
+          // Skip header elements - they keep their original animation
+          if (element.closest('#main-header')) {
+            return;
+          }
+
+          // Apply only fade animation to all other elements except cards
+          const isCard =
+            element.classList.contains('card') ||
+            element.closest('.episode-card') ||
+            (element.classList.contains('bg-white') &&
+              element.classList.contains('rounded-xl'));
+
+          if (isCard) {
+            // Remove animation from cards entirely
+            element.removeAttribute('data-aos');
+            element.removeAttribute('data-aos-delay');
+            element.removeAttribute('data-aos-duration');
+            element.removeAttribute('data-aos-offset');
+          } else {
+            // Override any other animation with simple fade
+            element.setAttribute('data-aos', 'fade');
+          }
         });
       });
     </script>

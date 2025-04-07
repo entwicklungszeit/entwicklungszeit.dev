@@ -6,21 +6,14 @@ interface Props {
   delay?: number;
 }
 
-const { text, color, textColor, delay = 0 } = Astro.props;
+const { text, color, textColor } = Astro.props;
 ---
 
-<div 
-  class="flex items-center justify-center lg:justify-start"
-  data-aos="fade-right"
-  data-aos-delay={delay}
-  data-aos-duration="600"
-  data-aos-easing="ease-out-cubic"
-  data-aos-offset="50"
->
+<div class="flex items-center justify-center lg:justify-start">
   <div class="relative w-full group">
-    <span 
+    <span
       class={`
-        inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-medium w-full 
+        inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-medium w-full
         justify-center lg:justify-start relative overflow-hidden group
         transition-all duration-300 transform hover:scale-105 shadow-sm
         hover:shadow-lg
@@ -28,23 +21,23 @@ const { text, color, textColor, delay = 0 } = Astro.props;
       `}
     >
       <span class="relative z-10 flex items-center">
-        <svg 
-          class="w-4 h-4 mr-2 flex-shrink-0" 
-          fill="currentColor" 
+        <svg
+          class="w-4 h-4 mr-2 flex-shrink-0"
+          fill="currentColor"
           viewBox="0 0 20 20"
         >
-          <path 
-            fill-rule="evenodd" 
-            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-            clip-rule="evenodd"
-          />
+          <path
+            fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd"></path>
         </svg>
         {text}
       </span>
-      <div 
-        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
                -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"
-      />
+      >
+      </div>
     </span>
   </div>
 </div>
