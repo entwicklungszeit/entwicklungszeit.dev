@@ -63,7 +63,7 @@
       <div class="prose prose-lg max-w-none">
         <div
           id="modal-bio-container"
-          class="bg-gray-50 rounded-xl p-8 leading-relaxed"
+          class="bg-gray-50 rounded-xl p-8 leading-relaxed max-h-[40vh] overflow-y-auto"
         >
           <p id="modal-bio-text" class="text-gray-700 text-lg"></p>
         </div>
@@ -189,6 +189,7 @@
     margin: 0;
     max-height: 90vh;
     overflow-y: auto;
+    padding: 0;
   }
 
   /* Improved scrollbar styling */
@@ -207,6 +208,25 @@
   }
 
   dialog::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+
+  /* Bio container scrollbar styling */
+  #modal-bio-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #modal-bio-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  #modal-bio-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+
+  #modal-bio-container::-webkit-scrollbar-thumb:hover {
     background: #666;
   }
 </style>
