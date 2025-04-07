@@ -23,53 +23,64 @@
     </button>
 
     <!-- Modal Content -->
-    <div class="p-6 space-y-6">
+    <div class="p-8 space-y-8">
       <!-- Centered Header -->
       <div class="flex flex-col items-center text-center space-y-4">
         <img
           id="modal-portrait"
-          class="w-24 h-24 rounded-full object-cover"
-          width="96"
-          height="96"
+          class="w-28 h-28 rounded-full object-cover shadow-lg"
+          width="112"
+          height="112"
           alt=""
         />
-        <div class="space-y-2">
+        <div class="space-y-3">
           <h3
-            class="font-display text-2xl font-semibold text-gray-900"
+            class="font-display text-2xl font-bold text-gray-900 tracking-tight"
             id="testimonial-modal-title"
           >
           </h3>
-          <p class="text-gray-600" id="modal-job-title"></p>
+          <!-- 5 Stars -->
+          <div class="flex justify-center space-x-1">
+            {
+              Array(5)
+                .fill(0)
+                .map(() => (
+                  <svg
+                    class="w-5 h-5 text-yellow-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))
+            }
+          </div>
+          <p class="text-lg text-gray-600 font-medium" id="modal-job-title"></p>
         </div>
       </div>
 
       <!-- Bio Section -->
-      <div class="prose max-w-none">
+      <div class="prose prose-lg max-w-none">
         <div
           id="modal-bio-container"
-          class="mt-6 p-6 bg-gray-50 rounded-lg border border-gray-200"
+          class="bg-gray-50 rounded-xl p-8 leading-relaxed"
         >
-          <h4
-            class="font-display text-lg font-semibold mb-4 not-prose text-center"
-          >
-            Über die Person
-          </h4>
-          <p id="modal-bio-text" class="text-gray-700"></p>
+          <p id="modal-bio-text" class="text-gray-700 text-lg"></p>
         </div>
       </div>
     </div>
 
     <!-- Modal Footer -->
-    <div class="flex justify-center p-6 border-t border-gray-200">
+    <div class="flex justify-center p-6 border-t border-gray-100">
       <a
         id="modal-project-link"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center text-primary bg-primary-light/10 hover:bg-primary-light/20 font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-4 focus:outline-none focus:ring-blue-300"
+        class="inline-flex items-center text-primary bg-primary-light/10 hover:bg-primary-light/20 font-medium rounded-lg px-6 py-3 text-center focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all duration-200"
       >
         <span id="modal-project-link-text"></span>
         <svg
-          class="w-4 h-4 ml-2"
+          class="w-5 h-5 ml-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -171,9 +182,31 @@
 <style>
   dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
   }
 
   dialog {
     margin: 0;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* Improved scrollbar styling */
+  dialog::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  dialog::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  dialog::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  dialog::-webkit-scrollbar-thumb:hover {
+    background: #666;
   }
 </style>
