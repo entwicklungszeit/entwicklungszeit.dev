@@ -1,0 +1,78 @@
+---
+import TestimonialCarousel from './TestimonialCarousel.astro';
+import Section from './ui/Section.astro';
+
+const testimonials = [
+  {
+    firstName: 'Sarah',
+    lastName: 'Müller',
+    portraitImage: {
+      src: 'https://i.pravatar.cc/300?img=47',
+      alt: 'Sarah Müller'
+    },
+    jobTitle: 'Senior Software Engineer',
+    company: 'TechCorp GmbH',
+    reviewText:
+      'Die Zusammenarbeit mit Gregor hat meine Herangehensweise an Software-Architektur grundlegend verändert. Seine tiefgreifenden Kenntnisse und die Fähigkeit, komplexe Konzepte verständlich zu vermitteln, haben mir geholfen, meine Entwicklungspraktiken auf ein neues Level zu heben. Besonders wertvoll waren die praktischen Beispiele und die individuell angepassten Lösungsansätze für unsere spezifischen Herausforderungen.',
+    bio: 'Sarah ist seit über 8 Jahren in der Softwareentwicklung tätig und spezialisiert sich auf verteilte Systeme und Cloud-Architekturen.',
+    projectLink: '/cases/sarah-mueller',
+    rating: 5
+  },
+  {
+    firstName: 'Marcus',
+    lastName: 'Weber',
+    portraitImage: {
+      src: 'https://i.pravatar.cc/300?img=52',
+      alt: 'Marcus Weber'
+    },
+    jobTitle: 'Tech Lead',
+    company: 'InnoSoft Solutions',
+    reviewText:
+      'Das Coaching-Programm war genau das, was unser Team brauchte. Gregor hat uns nicht nur technisch weitergebracht, sondern auch dabei geholfen, unsere Kommunikation und Zusammenarbeit zu verbessern. Seine Erfahrung als Tech Lead war dabei besonders wertvoll - er kennt die Herausforderungen aus erster Hand.',
+    bio: 'Marcus leitet ein Team von 12 Entwicklern und ist verantwortlich für die technische Strategie mehrerer Kernprodukte.',
+    projectLink: '/cases/marcus-weber',
+    rating: 5
+  },
+  {
+    firstName: 'Julia',
+    lastName: 'Schmidt',
+    portraitImage: {
+      src: 'https://i.pravatar.cc/300?img=41',
+      alt: 'Julia Schmidt'
+    },
+    jobTitle: 'Frontend Developer',
+    company: 'Digital Products AG',
+    reviewText:
+      'Als Entwicklerin, die den Sprung in eine Führungsrolle plant, war Gregors Mentoring unglaublich wertvoll. Er hat mir geholfen, nicht nur meine technischen Fähigkeiten zu verbessern, sondern auch die soft skills zu entwickeln, die für eine Führungsposition essentiell sind. Seine praxisorientierten Ratschläge und das strukturierte Feedback haben mir sehr geholfen.',
+    projectLink: '/cases/julia-schmidt',
+    rating: 5
+  }
+];
+---
+
+<Section id="testimonials">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-display font-bold text-gray-900 mb-4">
+        Das sagen Klienten:
+      </h2>
+      <div class="flex justify-center items-center gap-1 mb-6">
+        {
+          Array(5)
+            .fill(null)
+            .map(() => (
+              <svg
+                class="w-6 h-6 text-yellow-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))
+        }
+      </div>
+    </div>
+
+    <TestimonialCarousel testimonials={testimonials} />
+  </div>
+</Section>

@@ -1,0 +1,180 @@
+---
+// The modal will be controlled via vanilla JavaScript
+---
+
+<dialog
+  id="testimonial-modal"
+  class="max-w-2xl w-full bg-white rounded-lg shadow-xl m-4"
+>
+  <div class="relative">
+    <!-- Modal Header -->
+    <div class="flex justify-between items-start p-5 border-b border-gray-200">
+      <div class="flex items-center">
+        <img
+          id="modal-portrait"
+          class="w-16 h-16 rounded-full object-cover flex-shrink-0"
+          width="64"
+          height="64"
+          alt=""
+        />
+        <div class="ml-4">
+          <h3
+            class="font-display text-xl font-semibold text-gray-900"
+            id="testimonial-modal-title"
+          >
+          </h3>
+          <p class="text-gray-600" id="modal-job-title"></p>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+        aria-label="Close modal"
+        onclick="document.getElementById('testimonial-modal')?.close()"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-6 space-y-6">
+      <div class="prose max-w-none">
+        <p id="modal-review-text"></p>
+        <div
+          id="modal-bio-container"
+          class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 hidden"
+        >
+          <h4 class="font-display text-lg font-semibold mb-2 not-prose">
+            Über die Person
+          </h4>
+          <p id="modal-bio-text" class="text-gray-700"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="flex items-center p-6 border-t border-gray-200">
+      <a
+        id="modal-project-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center text-primary bg-primary-light/10 hover:bg-primary-light/20 font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-4 focus:outline-none focus:ring-blue-300"
+      >
+        Zum Projekt
+        <svg
+          class="w-4 h-4 ml-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          ></path>
+        </svg>
+      </a>
+      <button
+        type="button"
+        onclick="document.getElementById('testimonial-modal')?.close()"
+        class="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
+      >
+        Schließen
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  interface Testimonial {
+    firstName: string;
+    lastName: string;
+    portraitImage: {
+      src: string;
+      alt: string;
+    };
+    jobTitle: string;
+    company?: string;
+    reviewText: string;
+    bio?: string;
+    projectLink: string;
+  }
+
+  const modal = document.getElementById(
+    'testimonial-modal'
+  ) as HTMLDialogElement;
+
+  // Close modal when clicking outside
+  modal?.addEventListener('click', (e: MouseEvent) => {
+    const dialogDimensions = modal.getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      modal.close();
+    }
+  });
+
+  // Function to open modal with testimonial data
+  function openTestimonialModal(testimonial: Testimonial) {
+    if (!modal) return;
+
+    const portrait = document.getElementById(
+      'modal-portrait'
+    ) as HTMLImageElement;
+    const title = document.getElementById('testimonial-modal-title');
+    const jobTitle = document.getElementById('modal-job-title');
+    const reviewText = document.getElementById('modal-review-text');
+    const bioContainer = document.getElementById('modal-bio-container');
+    const bioText = document.getElementById('modal-bio-text');
+    const projectLink = document.getElementById(
+      'modal-project-link'
+    ) as HTMLAnchorElement;
+
+    if (portrait) {
+      portrait.src = testimonial.portraitImage.src;
+      portrait.alt = testimonial.portraitImage.alt;
+    }
+    if (title) {
+      title.textContent = `${testimonial.firstName} ${testimonial.lastName}`;
+    }
+    if (jobTitle) {
+      jobTitle.textContent = testimonial.company
+        ? `${testimonial.jobTitle} @ ${testimonial.company}`
+        : testimonial.jobTitle;
+    }
+    if (reviewText) {
+      reviewText.textContent = testimonial.reviewText;
+    }
+    if (bioContainer && bioText) {
+      if (testimonial.bio) {
+        bioContainer.classList.remove('hidden');
+        bioText.textContent = testimonial.bio;
+      } else {
+        bioContainer.classList.add('hidden');
+      }
+    }
+    if (projectLink) {
+      projectLink.href = testimonial.projectLink;
+    }
+
+    modal.showModal();
+  }
+
+  // Make the function available globally
+  window.openTestimonialModal = openTestimonialModal;
+</script>
+
+<style>
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+</style>
