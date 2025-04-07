@@ -1,14 +1,6 @@
 ---
 const { testimonial } = Astro.props;
 
-// Limit review text to 50 words
-const reviewWordLimit = 50;
-const words = testimonial.reviewText.split(' ');
-const isLongReview = words.length > reviewWordLimit;
-const truncatedReview = isLongReview
-  ? words.slice(0, reviewWordLimit).join(' ') + '...'
-  : testimonial.reviewText;
-
 // Prepare the testimonial data for the onclick handler
 const testimonialJson = JSON.stringify(testimonial).replace(/'/g, "\\'");
 ---
@@ -31,55 +23,34 @@ const testimonialJson = JSON.stringify(testimonial).replace(/'/g, "\\'");
           {testimonial.firstName}
           {testimonial.lastName}
         </h3>
-        <p class="text-sm text-gray-600 truncate">
+        <a
+          href={testimonial.projectLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm text-primary hover:text-primary-dark font-semibold transition-colors duration-200 truncate block"
+        >
           {testimonial.jobTitle}
           {
             testimonial.company && (
               <span class="block sm:inline"> @ {testimonial.company}</span>
             )
           }
-        </p>
+        </a>
       </div>
     </div>
 
     <p class="text-gray-700 mb-4 flex-grow">
-      {truncatedReview}
+      {testimonial.reviewText}
     </p>
 
     <div class="mt-auto pt-4 border-t border-gray-100">
-      {
-        isLongReview && (
-          <button
-            type="button"
-            onclick={`openTestimonialModal(${testimonialJson})`}
-            class="text-primary hover:text-primary-dark font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 mr-4"
-          >
-            Mehr erfahren
-          </button>
-        )
-      }
-
-      <a
-        href={testimonial.projectLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center text-sm text-primary hover:text-primary-dark font-semibold transition-colors duration-200"
+      <button
+        type="button"
+        onclick={`openTestimonialModal(${testimonialJson})`}
+        class="text-primary hover:text-primary-dark font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
-        Zum Projekt
-        <svg
-          class="w-4 h-4 ml-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          ></path>
-        </svg>
-      </a>
+        Mehr erfahren
+      </button>
     </div>
   </div>
 </div>
