@@ -9,7 +9,7 @@ const { testimonials } = Astro.props;
   <!-- Navigation Buttons -->
   <button
     onclick="moveCarousel('prev')"
-    class="absolute left-0 md:-left-4 lg:-left-12 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-10"
+    class="hidden md:block absolute left-0 md:-left-4 lg:-left-12 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-10"
     aria-label="Previous testimonial"
   >
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,9 +21,9 @@ const { testimonials } = Astro.props;
     </svg>
   </button>
 
-  <div class="relative overflow-hidden px-8 md:px-12 lg:px-20 py-4">
+  <div class="relative overflow-hidden px-2 sm:px-8 md:px-12 lg:px-20 py-4">
     <!-- Add a clip container -->
-    <div class="overflow-hidden">
+    <div class="overflow-hidden touch-pan-x">
       <div
         class="flex transition-transform duration-500 ease-in-out"
         id="carousel-track"
@@ -41,7 +41,7 @@ const { testimonials } = Astro.props;
 
   <button
     onclick="moveCarousel('next')"
-    class="absolute right-0 md:-right-4 lg:-right-12 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-10"
+    class="hidden md:block absolute right-0 md:-right-4 lg:-right-12 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-10"
     aria-label="Next testimonial"
   >
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

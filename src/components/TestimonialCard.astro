@@ -3,21 +3,50 @@ const { testimonial } = Astro.props;
 
 // Prepare the testimonial data for the onclick handler
 const testimonialJson = JSON.stringify(testimonial).replace(/'/g, "\\'");
+
+// Function to count words
+function countWords(str: string) {
+  return str.trim().split(/\s+/).length;
+}
+
+const hasLongReview = countWords(testimonial.reviewText) > 60;
+const reviewPreview = hasLongReview
+  ? testimonial.reviewText.split(/\s+/).slice(0, 60).join(' ') + '...'
+  : testimonial.reviewText;
 ---
 
-<div class="p-4">
+<div class="p-2 sm:p-4">
   <div
-    class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col h-full relative"
+    class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 flex flex-col h-full relative"
   >
-    <div class="flex items-start space-x-4">
-      <img
-        src={testimonial.portraitImage.src}
-        alt={testimonial.portraitImage.alt}
-        class="w-16 h-16 rounded-full object-cover flex-shrink-0"
-        width="64"
-        height="64"
-      />
-      <div>
+    <div
+      class="flex flex-col sm:flex-row sm:items-start space-y-3 sm:space-y-4 sm:space-y-0 sm:space-x-4"
+    >
+      <div class="flex flex-col items-center sm:items-start">
+        <img
+          src={testimonial.portraitImage.src}
+          alt={testimonial.portraitImage.alt}
+          class="w-20 h-20 sm:w-24 sm:h-24 md:w-16 md:h-16 rounded-full object-cover flex-shrink-0"
+          width="80"
+          height="80"
+        />
+        <div class="mt-2 sm:mt-3 sm:hidden text-center">
+          <h3
+            class="font-display text-lg sm:text-xl font-semibold text-gray-900"
+          >
+            {testimonial.firstName}
+            {testimonial.lastName}
+          </h3>
+          <a
+            href={testimonial.projectLink}
+            class="text-primary hover:text-primary-dark font-medium text-base sm:text-lg transition-colors duration-200"
+          >
+            {testimonial.jobTitle}
+            {testimonial.company && ` @ ${testimonial.company}`}
+          </a>
+        </div>
+      </div>
+      <div class="hidden sm:block">
         <h3 class="font-display text-xl font-semibold text-gray-900">
           {testimonial.firstName}
           {testimonial.lastName}
@@ -34,17 +63,42 @@ const testimonialJson = JSON.stringify(testimonial).replace(/'/g, "\\'");
 
     <div class="mt-6">
       <p
-        class="text-lg leading-relaxed text-gray-700 tracking-normal font-normal max-w-[70ch]"
+        class="text-lg leading-relaxed text-gray-700 tracking-normal font-normal max-w-[70ch] review-text"
+        data-full-text={testimonial.reviewText}
+        data-preview-text={reviewPreview}
       >
-        {testimonial.reviewText}
+        {reviewPreview}
       </p>
+      {
+        hasLongReview && (
+          <button
+            class="text-primary hover:text-primary-dark font-medium text-base mt-2 inline-flex items-center read-more-btn"
+            aria-expanded="false"
+          >
+            <span class="read-more-text">Read More</span>
+            <svg
+              class="w-4 h-4 ml-1 transition-transform duration-200 read-more-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        )
+      }
     </div>
 
     <div class="mt-auto pt-6 border-t border-gray-100">
       {
         testimonial.bio && (
           <button
-            onclick={`openTestimonialModal(${JSON.stringify(testimonial)})`}
+            onclick={`openTestimonialModal(${testimonialJson})`}
             class="text-primary hover:text-primary-dark font-medium text-base inline-flex items-center"
           >
             BIO
@@ -75,4 +129,37 @@ const testimonialJson = JSON.stringify(testimonial).replace(/'/g, "\\'");
       openTestimonialModal: (testimonial: any) => void;
     }
   }
+
+  // Add read more functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+
+    readMoreButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        const reviewText =
+          button.previousElementSibling as HTMLParagraphElement;
+        const readMoreText = button.querySelector(
+          '.read-more-text'
+        ) as HTMLSpanElement;
+        const readMoreIcon = button.querySelector(
+          '.read-more-icon'
+        ) as SVGElement;
+
+        if (isExpanded) {
+          // Show preview
+          reviewText.textContent = reviewText.dataset.previewText;
+          readMoreText.textContent = 'Read More';
+          readMoreIcon.style.transform = 'rotate(0deg)';
+          button.setAttribute('aria-expanded', 'false');
+        } else {
+          // Show full text
+          reviewText.textContent = reviewText.dataset.fullText;
+          readMoreText.textContent = 'Show Less';
+          readMoreIcon.style.transform = 'rotate(180deg)';
+          button.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  });
 </script>
