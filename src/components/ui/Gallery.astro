@@ -12,100 +12,115 @@ const { pages } = Astro.props;
 
 // Icons for each section
 const sectionIcons = {
-  'Team': `<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm6 10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3z"/>`,
-  'Erfahrungen': `<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
-  'Perspektivwechsel': `<path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11m16-11v11M12 3v18"/>`,
-  'Award': `<path d="M12 15c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z"/><path d="M15 9l6 12H3l6-12"/>`,
+  Team: `<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm6 10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3z"/>`,
+  Erfahrungen: `<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
+  Perspektivwechsel: `<path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11m16-11v11M12 3v18"/>`,
+  Wirtschaftlichkeit: `<path d="M12 1v2m0 18v2M4.2 4.2l1.4 1.4m12.8 12.8 1.4 1.4M1 12h2m18 0h2M4.2 19.8l1.4-1.4m12.8-12.8 1.4-1.4M12 6a6 6 0 0 0-6 6c0 3.314 2.686 6 6 6v-2a4 4 0 1 1 4-4h2a6 6 0 0 0-6-6z"/>`,
+  Award: `<path d="M12 15c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z"/><path d="M15 9l6 12H3l6-12"/>`
 };
 ---
 
 <div class="gallery-container relative">
   <!-- Navigation Arrows -->
-  <button
-    class="gallery-nav-button prev-button"
-    aria-label="Previous slide"
-  >
+  <button class="gallery-nav-button prev-button" aria-label="Previous slide">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M15 19l-7-7 7-7"></path>
     </svg>
   </button>
 
   <!-- Gallery Pages -->
   <div class="gallery-viewport relative overflow-hidden touch-pan-x">
-    <div class="gallery-track absolute inset-0 flex transition-transform duration-500 ease-in-out">
-      {pages.map((page, index) => (
-        <div 
-          class="gallery-page w-full flex-shrink-0 px-4 sm:px-6 py-2"
-          data-index={index}
-        >
-          <div class="prose prose-lg max-w-none">
-            <p class="text-base sm:text-lg text-gray-700" set:html={marked.parse(page.content)} />
+    <div
+      class="gallery-track absolute inset-0 flex transition-transform duration-500 ease-in-out"
+    >
+      {
+        pages.map((page, index) => (
+          <div
+            class="gallery-page w-full flex-shrink-0 px-4 sm:px-6 py-2"
+            data-index={index}
+          >
+            <div class="prose prose-lg max-w-none">
+              <p
+                class="text-base sm:text-lg text-gray-700"
+                set:html={marked.parse(page.content)}
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 
-  <button
-    class="gallery-nav-button next-button"
-    aria-label="Next slide"
-  >
+  <button class="gallery-nav-button next-button" aria-label="Next slide">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"></path>
     </svg>
   </button>
 
   <!-- Enhanced Indicators -->
   <div class="mt-12 px-4">
     <div class="max-w-3xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4">
-      {pages.map((page, index) => (
-        <button
-          class="gallery-indicator group flex flex-col items-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50"
-          data-index={index}
-          aria-label={`Go to slide ${index + 1}`}
-        >
-          <div class="w-12 h-12 mb-3 rounded-full flex items-center justify-center bg-gray-100 group-hover:bg-white transition-colors duration-300 border-2"
-            class:list={[
-              index === 0 ? 'border-primary bg-primary/5' : 'border-transparent',
-              'group-hover:border-primary'
-            ]}
+      {
+        pages.map((page, index) => (
+          <button
+            class="gallery-indicator group flex flex-col items-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50"
+            data-index={index}
+            aria-label={`Go to slide ${index + 1}`}
           >
-            <svg 
-              class="w-6 h-6 transition-colors duration-300"
+            <div
+              class="w-12 h-12 mb-3 rounded-full flex items-center justify-center bg-gray-100 group-hover:bg-white transition-colors duration-300 border-2"
               class:list={[
-                index === 0 ? 'text-primary' : 'text-gray-400',
+                index === 0
+                  ? 'border-primary bg-primary/5'
+                  : 'border-transparent',
+                'group-hover:border-primary'
+              ]}
+            >
+              <svg
+                class="w-6 h-6 transition-colors duration-300"
+                class:list={[
+                  index === 0 ? 'text-primary' : 'text-gray-400',
+                  'group-hover:text-primary'
+                ]}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <Fragment set:html={sectionIcons[page.caption]} />
+              </svg>
+            </div>
+            <span
+              class="text-sm font-medium transition-colors duration-300 text-center"
+              class:list={[
+                index === 0 ? 'text-primary' : 'text-gray-500',
                 'group-hover:text-primary'
               ]}
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
             >
-              <Fragment set:html={sectionIcons[page.caption]} />
-            </svg>
-          </div>
-          <span 
-            class="text-sm font-medium transition-colors duration-300 text-center"
-            class:list={[
-              index === 0 ? 'text-primary' : 'text-gray-500',
-              'group-hover:text-primary'
-            ]}
-          >
-            {page.caption}
-          </span>
-        </button>
-      ))}
+              {page.caption}
+            </span>
+          </button>
+        ))
+      }
     </div>
   </div>
 </div>
 
 <style>
   .gallery-nav-button {
-    @apply absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-10 h-10 
+    @apply absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-10 h-10
            rounded-full bg-white/90 shadow-lg backdrop-blur-sm
-           text-gray-400 hover:text-primary transition-all duration-300 
+           text-gray-400 hover:text-primary transition-all duration-300
            opacity-0 hover:scale-110 hover:shadow-xl
            sm:opacity-100;
   }
@@ -196,7 +211,9 @@ const sectionIcons = {
       this.container = container;
       this.track = container.querySelector('.gallery-track');
       this.pages = Array.from(container.querySelectorAll('.gallery-page'));
-      this.indicators = Array.from(container.querySelectorAll('.gallery-indicator'));
+      this.indicators = Array.from(
+        container.querySelectorAll('.gallery-indicator')
+      );
       this.prevButton = container.querySelector('.prev-button');
       this.nextButton = container.querySelector('.next-button');
       this.pageCount = this.pages.length;
@@ -220,12 +237,16 @@ const sectionIcons = {
       });
 
       // Touch events for swipe
-      this.track.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
-      this.track.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
+      this.track.addEventListener('touchstart', e => this.handleTouchStart(e), {
+        passive: true
+      });
+      this.track.addEventListener('touchmove', e => this.handleTouchMove(e), {
+        passive: true
+      });
       this.track.addEventListener('touchend', () => this.handleTouchEnd());
 
       // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', e => {
         if (e.key === 'ArrowLeft') this.navigate('prev');
         if (e.key === 'ArrowRight') this.navigate('next');
       });
@@ -255,9 +276,10 @@ const sectionIcons = {
     private navigate(direction: 'prev' | 'next') {
       if (this.isAnimating) return;
 
-      const newIndex = direction === 'next' 
-        ? (this.currentIndex + 1) % this.pageCount
-        : (this.currentIndex - 1 + this.pageCount) % this.pageCount;
+      const newIndex =
+        direction === 'next'
+          ? (this.currentIndex + 1) % this.pageCount
+          : (this.currentIndex - 1 + this.pageCount) % this.pageCount;
 
       this.goToPage(newIndex);
     }
@@ -287,7 +309,7 @@ const sectionIcons = {
         const iconContainer = indicator.querySelector('div');
         const icon = indicator.querySelector('svg');
         const caption = indicator.querySelector('span');
-        
+
         if (i === this.currentIndex) {
           iconContainer?.classList.add('border-primary', 'bg-primary/5');
           iconContainer?.classList.remove('border-transparent');
