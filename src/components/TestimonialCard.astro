@@ -97,22 +97,9 @@ const reviewPreview = hasLongReview
         testimonial.bio && (
           <button
             onclick={`openTestimonialModal(${testimonialJson})`}
-            class="text-primary hover:text-primary-dark font-medium text-base inline-flex items-center"
+            class="px-5 py-2 text-sm font-medium bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md transition-all duration-200"
           >
             BIO
-            <svg
-              class="w-4 h-4 ml-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
           </button>
         )
       }
