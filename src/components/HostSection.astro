@@ -1,26 +1,7 @@
 ---
-import Section from './ui/Section.astro';
-import Button from './ui/Button.astro';
+import { pages } from '../data/host';
 import Gallery from './ui/Gallery.astro';
-
-const pages = [
-  {
-    content: "Hi, ich bin Gregor und freu mich sehr, dass du hier bist. Dinge Automatisieren find ich klasse, aber unter uns gesprochen finde ich es noch viel schöner Softwareentwicklung zu einem kreativen Erlebnis zu machen, das Allen im Team Freude bereitet. Es darf gelacht werden, es dürfen neue Wege ausprobiert werden und gemeinsam entdeckt jedes Team das \"Engineering\" für sich als lebenden Prozess der Verbesserung.",
-    caption: "Team"
-  },
-  {
-    content: "Das schönste ist, wenn das Team ein gemeinsames Flow-Erlebnis erzielt und Dinge liefert, die die Erwartungen ihrer Kunden übertreffen. In den letzten 17 Jahren durfte ich dazu viel Lernen. Nicht nur als Entwickler. Ich engagiere mich in der Software Community als Sprecher, habe für mehr als 900 Teilnehmer Workshops gegeben, habe an Architekturen für Konzernen und großen mittelständischen Unternehmen mitgewirkt.",
-    caption: "Erfahrungen"
-  },
-  {
-    content: "Ich habe mich zu dem im Vertrieb ausbilden lassen, weil ich unbedingt dich nicht-technische Ebene mit ihren Möglichkeiten und Herausforderungen kennenlernen wollte. So konnte ich auch strategisch neun Jahre als CTO Geschäftsprozess und Abläufe gestalten und dafür sorgen, dass unser Entwicklerteam stetig wachsen und sich verbessern kann, damit unsere Produkte zu etwas besonderen werden.",
-    caption: "Perspektivwechsel"
-  },
-  {
-    content: "Von der Community lernen, aber auch viel zurückgeben... Ich bin so dankbar, für das was die Software Community mir an Fähigkeiten geschenkt hat. Darum wollte ich mich immer revanchieren. **2019** ist das auch Google aufgefallen und hat mich mit dem Titel **Google Developer Expert for Angular & Web-Technologies** ausgezeichnet.",
-    caption: "Award"
-  }
-];
+import Section from './ui/Section.astro';
 ---
 
 <Section id="host" background="gray">
@@ -28,31 +9,51 @@ const pages = [
     <div class="grid lg:grid-cols-2 gap-8 lg:gap-20 items-start">
       <div data-aos="fade-right" class="max-w-xl">
         <div class="text-base sm:text-lg text-gray-700">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 px-4 sm:px-6">Host</h2>
+          <h2
+            class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
+          >
+            Host
+            <span
+              class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
+            ></span>
+          </h2>
           <Gallery pages={pages} />
         </div>
       </div>
-      
-      <div data-aos="fade-left" class="relative flex items-center justify-center lg:sticky lg:top-32 py-8">
+
+      <div
+        data-aos="fade-left"
+        class="relative flex items-center justify-center lg:sticky lg:top-32 py-8"
+      >
         <div class="flex flex-col items-center">
           <!-- Circular image container -->
           <div class="relative w-[240px] h-[240px] lg:w-[400px] lg:h-[400px]">
             <!-- Animated border -->
-            <div class="absolute -inset-0.5 rounded-full bg-gradient-to-r from-primary via-secondary to-primary border border-white/10 animate-border-spin"></div>
-          
+            <div
+              class="absolute -inset-0.5 rounded-full bg-gradient-to-r from-primary via-secondary to-primary border border-white/10 animate-border-spin"
+            >
+            </div>
+
             <!-- Image -->
-            <div class="absolute inset-[1px] rounded-full overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 border border-white/5">
-              <img 
-                src="/gregor-woiwode.png" 
-                alt="Gregor Woiwode" 
+            <div
+              class="absolute inset-[1px] rounded-full overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 border border-white/5"
+            >
+              <img
+                src="/gregor-woiwode.png"
+                alt="Gregor Woiwode"
                 loading="lazy"
                 class="w-full h-full object-cover object-top"
-              >
+              />
             </div>
           </div>
-          
+
           <div class="text-center mt-4">
-            <p class="text-gray-600">mit <span class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Gregor Woiwode</span></p>
+            <p class="text-gray-600">
+              mit <span
+                class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+                >Gregor Woiwode</span
+              >
+            </p>
           </div>
         </div>
       </div>

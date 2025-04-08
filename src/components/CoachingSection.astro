@@ -1,76 +1,23 @@
 ---
 import { benefits } from '../data/benefits';
+import { coachingBenefits, programSteps } from '../data/coaching';
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
 import Section from './ui/Section.astro';
-
-const coachingBenefits = {
-  Softwareentwicklung: [
-    "Clean Code & Architektur",
-    "Test-Driven Development",
-    "S.O.L.I.D Prinzipien",
-    "Tooling & Automation"
-  ],
-  Führung: [
-    "Agile Methoden",
-    "Konfliktmanagement",
-    "Mitarbeiterentwicklung",
-    "Moderation"
-  ],
-  Kommunikation: [
-    "Stakeholder Management",
-    "Präsentationstechniken",
-    "Rhetorik",
-    "Technische Dokumentation"
-  ],
-  Strategie: [
-    "Technologie-Roadmap",
-    "Build or Buy",
-    "Innovationsmanagement",
-    "Prozessoptimierung"
-  ],
-  Kreativität: [
-    "Design Thinking",
-    "Problem Solving",
-    "Innovation Workshops",
-    "Ideation Techniken"
-  ],
-  Persönlichkeit: [
-    "Work-Life Balance",
-    "Stressmanagement",
-    "Karriereplanung",
-    "Personal Branding"
-  ]
-};
-
-const programSteps = [
-  {
-    week: "Woche 1-2",
-    title: "Analyse & Zielsetzung",
-    description: "Wir analysieren deine aktuelle Situation, identifizieren Herausforderungen und definieren messbare Ziele für deine Entwicklung."
-  },
-  {
-    week: "Woche 3-4",
-    title: "Strategieentwicklung",
-    description: "Gemeinsam erarbeiten wir einen maßgeschneiderten Plan, der deine Stärken nutzt und gezielt an Verbesserungspotentialen arbeitet."
-  },
-  {
-    week: "Woche 5-8",
-    title: "Intensive Praxisphase",
-    description: "In wöchentlichen Sessions arbeiten wir an konkreten Herausforderungen und setzen neue Methoden direkt in deinem Arbeitsalltag um."
-  },
-  {
-    week: "Woche 9-12",
-    title: "Integration & Nachhaltigkeit",
-    description: "Wir festigen das Gelernte, evaluieren die Fortschritte und entwickeln Strategien für nachhaltigen Erfolg."
-  }
-];
 ---
 
 <Section id="coaching" background="white">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-6" data-aos="fade-up">12-Wochen Coaching Programm</h2>
+      <h2
+        class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
+        data-aos="fade-up"
+      >
+        12-Wochen Coaching Programm
+        <span
+          class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
+        ></span>
+      </h2>
       <p class="text-xl text-gray-700 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
         Entwickle dich zum technischen Leader, der sowohl fachlich als auch menschlich überzeugt.
         Ein maßgeschneidertes 1:1 Coaching-Programm, das dich auf die nächste Stufe deiner Karriere bringt.
@@ -197,8 +144,7 @@ const programSteps = [
       <div class="relative">
         <h3 class="text-3xl font-bold mb-4">Hast du Themen, in denen du wachsen möchtest?</h3>
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-
-Lass uns in einem kurzen Video-Call herausfinden, ob ich dich dabei unterstützen kann. Du erzählst mir von deinen Zielen, und ich zeige dir, wie ich helfen kann. Am Ende entscheidest du, ob wir gemeinsam durchstarten. Ich freue mich auf diese spannende Reise mit dir!
+          Lass uns in einem kurzen Video-Call herausfinden, ob ich dich dabei unterstützen kann. Du erzählst mir von deinen Zielen, und ich zeige dir, wie ich helfen kann. Am Ende entscheidest du, ob wir gemeinsam durchstarten. Ich freue mich auf diese spannende Reise mit dir!
         </p>
         <Button
           href="https://calendar.app.google/taxMeha9m5wC17S19"
