@@ -79,9 +79,6 @@ const { testimonials } = Astro.props;
   }
 
   let currentIndex = 0;
-  let timer: number | null = null;
-  let isHovered = false;
-
   const track = document.getElementById('carousel-track');
   const carousel = document.querySelector('.testimonial-carousel');
   const indicators = document.querySelectorAll('.indicator-dot');
@@ -110,23 +107,12 @@ const { testimonials } = Astro.props;
       currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
     }
     updateCarousel();
-    startTimer();
   };
 
   window.moveToSlide = (index: number) => {
     currentIndex = index;
     updateCarousel();
-    startTimer();
   };
-
-  function startTimer() {
-    if (timer) clearInterval(timer);
-    timer = window.setInterval(() => {
-      if (!isHovered) {
-        window.moveCarousel('next');
-      }
-    }, 15000);
-  }
 
   // Touch support
   let touchStartX = 0;
@@ -149,16 +135,6 @@ const { testimonials } = Astro.props;
     }
   });
 
-  // Mouse hover handling
-  carousel?.addEventListener('mouseenter', () => {
-    isHovered = true;
-  });
-
-  carousel?.addEventListener('mouseleave', () => {
-    isHovered = false;
-  });
-
   // Initialize carousel
-  startTimer();
   updateCarousel();
 </script>

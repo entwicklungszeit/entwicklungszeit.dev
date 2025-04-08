@@ -4,14 +4,10 @@ const { testimonial } = Astro.props;
 // Prepare the testimonial data for the onclick handler
 const testimonialJson = JSON.stringify(testimonial).replace(/'/g, "\\'");
 
-// Function to count words
-function countWords(str: string) {
-  return str.trim().split(/\s+/).length;
-}
-
-const hasLongReview = countWords(testimonial.reviewText) > 60;
+const MAX_CHARS = 365;
+const hasLongReview = testimonial.reviewText.length > MAX_CHARS;
 const reviewPreview = hasLongReview
-  ? testimonial.reviewText.split(/\s+/).slice(0, 60).join(' ') + '...'
+  ? testimonial.reviewText.slice(0, MAX_CHARS).trim() + '...'
   : testimonial.reviewText;
 ---
 
