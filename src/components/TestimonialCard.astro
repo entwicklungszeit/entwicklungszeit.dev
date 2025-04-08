@@ -15,95 +15,82 @@ const reviewPreview = hasLongReview
   <div
     class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 flex flex-col h-full relative"
   >
-    <div
-      class="flex flex-col items-center sm:flex-row sm:items-start space-y-3 sm:space-y-0 sm:space-x-4"
-    >
-      <div
-        class="flex flex-col items-center sm:items-start text-center sm:text-left"
+    <!-- Header -->
+    <div class="mb-6">
+      <h3
+        class="font-display text-xl sm:text-2xl font-semibold text-gray-900 mb-2"
       >
+        {testimonial.firstName}
+        {testimonial.lastName}
+      </h3>
+      <a
+        href={testimonial.projectLink}
+        class="text-primary hover:text-primary-dark font-medium text-base sm:text-lg transition-colors duration-200"
+      >
+        {testimonial.jobTitle}
+        {testimonial.company && ` @ ${testimonial.company}`}
+      </a>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 flex-grow">
+      <div class="flex-shrink-0 mx-auto sm:mx-0">
         <img
           src={testimonial.portraitImage.src}
           alt={testimonial.portraitImage.alt}
-          class="w-20 h-20 sm:w-24 sm:h-24 md:w-16 md:h-16 rounded-lg flex-shrink-0"
-          width="80"
-          height="80"
+          class="w-32 h-32 sm:w-40 sm:h-40 object-cover"
+          style="border-radius: 8em;"
+          width="160"
+          height="160"
         />
-        <div class="mt-2 sm:mt-3 sm:hidden">
-          <h3
-            class="font-display text-lg sm:text-xl font-semibold text-gray-900"
-          >
-            {testimonial.firstName}
-            {testimonial.lastName}
-          </h3>
-          <a
-            href={testimonial.projectLink}
-            class="text-primary hover:text-primary-dark font-medium text-base sm:text-lg transition-colors duration-200"
-          >
-            {testimonial.jobTitle}
-            {testimonial.company && ` @ ${testimonial.company}`}
-          </a>
-        </div>
       </div>
-      <div class="hidden sm:block flex-1">
-        <h3 class="font-display text-xl font-semibold text-gray-900">
-          {testimonial.firstName}
-          {testimonial.lastName}
-        </h3>
-        <a
-          href={testimonial.projectLink}
-          class="text-primary hover:text-primary-dark font-medium text-lg transition-colors duration-200"
+      <div class="flex-1">
+        <p
+          class="text-lg leading-relaxed text-gray-700 tracking-normal font-normal review-text"
+          data-full-text={testimonial.reviewText}
+          data-preview-text={reviewPreview}
         >
-          {testimonial.jobTitle}
-          {testimonial.company && ` @ ${testimonial.company}`}
-        </a>
+          {reviewPreview}
+        </p>
+        {
+          hasLongReview && (
+            <button
+              class="text-primary hover:text-primary-dark font-medium text-base mt-2 inline-flex items-center read-more-btn"
+              aria-expanded="false"
+            >
+              <span class="read-more-text">Read More</span>
+              <svg
+                class="w-4 h-4 ml-1 transition-transform duration-200 read-more-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+          )
+        }
       </div>
     </div>
 
-    <div class="mt-6">
-      <p
-        class="text-lg leading-relaxed text-gray-700 tracking-normal font-normal max-w-[70ch] review-text"
-        data-full-text={testimonial.reviewText}
-        data-preview-text={reviewPreview}
-      >
-        {reviewPreview}
-      </p>
-      {
-        hasLongReview && (
-          <button
-            class="text-primary hover:text-primary-dark font-medium text-base mt-2 inline-flex items-center read-more-btn"
-            aria-expanded="false"
-          >
-            <span class="read-more-text">Read More</span>
-            <svg
-              class="w-4 h-4 ml-1 transition-transform duration-200 read-more-icon"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        )
-      }
-    </div>
-
-    <div class="mt-auto pt-6 border-t border-gray-100">
-      {
-        testimonial.bio && (
+    <!-- Footer -->
+    {
+      testimonial.bio && (
+        <div class="mt-6 pt-6 border-t border-gray-100">
           <button
             onclick={`openTestimonialModal(${testimonialJson})`}
             class="px-5 py-2 text-sm font-medium bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md transition-all duration-200"
           >
             BIO
           </button>
-        )
-      }
-    </div>
+        </div>
+      )
+    }
   </div>
 </div>
 
