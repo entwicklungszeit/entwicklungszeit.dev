@@ -26,29 +26,22 @@ export const programSteps = [
 ];
 
 export const coachingBenefits = {
-  Softwareentwicklung: [
-    'Clean Code & Architektur',
-    'Test-Driven Development',
-    'S.O.L.I.D Prinzipien',
-    'Tooling & Automation'
-  ],
-  Führung: [
-    'Agile Methoden',
-    'Konfliktmanagement',
-    'Mitarbeiterentwicklung',
-    'Moderation'
-  ],
   Kommunikation: [
     'Stakeholder Management',
     'Präsentationstechniken',
     'Rhetorik',
     'Technische Dokumentation'
   ],
+  Persönlichkeit: [
+    'Persönlichkeits- & Kommunikationstypen',
+    'Stressbewältigung',
+    'Emotionale Gelassenheit'
+  ],
   Strategie: [
-    'Technologie-Roadmap',
-    'Build or Buy',
-    'Innovationsmanagement',
-    'Prozessoptimierung'
+    'Deine Karriere entwickeln',
+    'Personal Branding',
+    'Leadership in technischen Teams',
+    'Konfliktmanagement'
   ],
   Kreativität: [
     'Design Thinking',
@@ -56,10 +49,15 @@ export const coachingBenefits = {
     'Innovation Workshops',
     'Ideation Techniken'
   ],
-  Persönlichkeit: [
-    'Work-Life Balance',
-    'Stressmanagement',
-    'Karriereplanung',
-    'Personal Branding'
+  Führung: [
+    'Agile Methoden',
+    'Konfliktmanagement',
+    'Mitarbeiterentwicklung',
+    'Moderation'
+  ],
+  Softwareentwicklung: [
+    'Clean Code & Architektur',
+    'Technische Freiheit',
+    'Programmieren für dein Team'
   ]
 };
