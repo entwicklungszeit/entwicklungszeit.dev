@@ -23,7 +23,7 @@ const { testimonials } = Astro.props;
 
   <div class="relative overflow-hidden px-2 sm:px-8 md:px-12 lg:px-20 py-4">
     <!-- Add a clip container -->
-    <div class="overflow-hidden touch-pan-x">
+    <div class="overflow-hidden">
       <div
         class="flex transition-transform duration-500 ease-in-out"
         id="carousel-track"
@@ -114,26 +114,57 @@ const { testimonials } = Astro.props;
     updateCarousel();
   };
 
-  // Touch support
+  // Improved touch handling
   let touchStartX = 0;
-  let touchEndX = 0;
+  let touchStartY = 0;
+  let isSwiping = false;
 
   carousel?.addEventListener(
     'touchstart',
     (e: TouchEvent) => {
-      touchStartX = e.changedTouches[0].screenX;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping = false;
     },
     { passive: true }
   );
 
-  carousel?.addEventListener('touchend', (e: TouchEvent) => {
-    touchEndX = e.changedTouches[0].screenX;
-    const diffX = touchStartX - touchEndX;
+  carousel?.addEventListener(
+    'touchmove',
+    (e: TouchEvent) => {
+      if (!touchStartX || !touchStartY) return;
 
-    if (Math.abs(diffX) > 50) {
-      window.moveCarousel(diffX > 0 ? 'next' : 'prev');
-    }
-  });
+      const touchCurrentX = e.touches[0].clientX;
+      const touchCurrentY = e.touches[0].clientY;
+      const deltaX = touchStartX - touchCurrentX;
+      const deltaY = touchStartY - touchCurrentY;
+
+      // If horizontal scrolling is more prominent than vertical, it's likely a swipe
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+        isSwiping = true;
+      }
+    },
+    { passive: true }
+  );
+
+  carousel?.addEventListener(
+    'touchend',
+    (e: TouchEvent) => {
+      if (!isSwiping) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const deltaX = touchStartX - touchEndX;
+
+      if (Math.abs(deltaX) > 50) {
+        window.moveCarousel(deltaX > 0 ? 'next' : 'prev');
+      }
+
+      touchStartX = 0;
+      touchStartY = 0;
+      isSwiping = false;
+    },
+    { passive: true }
+  );
 
   // Initialize carousel
   updateCarousel();
