@@ -9,9 +9,9 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
 ---
 
 <div class="podcast-episodes-section border-t border-gray-100">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <h2
-      class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
+      class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-12 sm:mb-16 relative inline-block"
     >
       Aktuelle Folgen
       <span
@@ -20,7 +20,7 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
     </h2>
 
     <div
-      class="scroll-hint text-sm text-gray-500 mb-4 hidden md:flex items-center"
+      class="scroll-hint text-sm text-gray-500 mb-8 hidden md:flex items-center"
     >
       <svg
         class="w-4 h-4 mr-1.5"
@@ -40,19 +40,19 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
     <div class="relative">
       <div
         id="episode-carousel"
-        class="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4"
+        class="flex gap-8 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-8"
       >
         <!-- Episode skeletons (will be replaced by JavaScript) -->
         <div
-          class="episode-skeleton min-w-[220px] max-w-[220px] aspect-square rounded-lg"
+          class="episode-skeleton min-w-[280px] max-w-[280px] aspect-square rounded-lg"
         >
         </div>
         <div
-          class="episode-skeleton min-w-[220px] max-w-[220px] aspect-square rounded-lg"
+          class="episode-skeleton min-w-[280px] max-w-[280px] aspect-square rounded-lg"
         >
         </div>
         <div
-          class="episode-skeleton min-w-[220px] max-w-[220px] aspect-square rounded-lg"
+          class="episode-skeleton min-w-[280px] max-w-[280px] aspect-square rounded-lg"
         >
         </div>
 
@@ -61,10 +61,10 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
           href={SPOTIFY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="spotify-card flex-shrink-0 min-w-[220px] max-w-[220px] aspect-square bg-gradient-to-br from-[#1DB954]/90 to-[#1DB954] rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-center justify-center text-white p-4 text-center snap-start"
+          class="spotify-card flex-shrink-0 min-w-[280px] max-w-[280px] aspect-square bg-gradient-to-br from-[#1DB954]/90 to-[#1DB954] rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-center justify-center text-white p-4 text-center snap-start"
         >
           <svg
-            class="w-14 h-14 mb-3"
+            class="w-16 h-16 mb-4"
             viewBox="0 0 24 24"
             fill="currentColor"
             aria-hidden="true"
@@ -73,7 +73,7 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
               d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"
             ></path>
           </svg>
-          <div class="font-medium">Alle Folgen auf Spotify</div>
+          <div class="font-medium text-xl">Alle Folgen auf Spotify</div>
         </a>
       </div>
 
@@ -140,8 +140,8 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
   }
 
   .episode-card img {
-    width: 220px;
-    height: 220px;
+    width: 280px;
+    height: 280px;
     object-fit: cover;
     border-radius: 0.5rem;
   }
@@ -254,7 +254,7 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
           card.target = '_blank';
           card.rel = 'noopener noreferrer';
           card.className =
-            'episode-card flex-shrink-0 min-w-[220px] max-w-[220px] aspect-square snap-start';
+            'episode-card flex-shrink-0 min-w-[280px] max-w-[280px] aspect-square snap-start';
           card.setAttribute('aria-label', `${title} anhören`);
 
           // Set card content with explicit image dimensions
@@ -263,8 +263,8 @@ const SPOTIFY_URL = 'https://open.spotify.com/show/3YEooAGeXyT7v7uiEzeaeb';
             <img
               src="${thumbnail}"
               alt="${title}"
-              width="220"
-              height="220"
+              width="280"
+              height="280"
               loading="lazy"
               style="border-radius: 0.5rem;"
             />
