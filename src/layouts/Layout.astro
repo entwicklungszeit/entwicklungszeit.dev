@@ -1,7 +1,6 @@
 ---
-import Header from '../components/Header.astro';
 import ScrollToTop from '../components/ui/ScrollToTop.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import 'aos/dist/aos.css';
 
 interface Props {
@@ -69,7 +68,7 @@ const {
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Handle failed fetch requests -->
     <script>
