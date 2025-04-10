@@ -13,6 +13,16 @@ import Button from './ui/Button.astro';
     <ul class="flex items-center space-x-6">
       <li>
         <Button
+          href="#coaching"
+          variant="outline"
+          size="sm"
+          aria-label="Impact Developer"
+        >
+          Impact Developer
+        </Button>
+      </li>
+      <li>
+        <Button
           href="https://calendar.app.google/taxMeha9m5wC17S19"
           target="_blank"
           rel="noopener noreferrer"
@@ -25,3 +35,18 @@ import Button from './ui/Button.astro';
     </ul>
   </nav>
 </div>
+
+<script>
+  // Add smooth scrolling to the Impact Developer link
+  document.addEventListener('DOMContentLoaded', () => {
+    document
+      .querySelector('a[href="#coaching"]')
+      ?.addEventListener('click', e => {
+        e.preventDefault();
+        const targetSection = document.getElementById('coaching');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+  });
+</script>
