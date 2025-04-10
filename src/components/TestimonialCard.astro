@@ -55,45 +55,43 @@ const reviewPreview = hasLongReview
         >
           {reviewPreview}
         </p>
-        {
-          hasLongReview && (
-            <button
-              class="mt-4 px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center read-more-btn"
-              aria-expanded="false"
-            >
-              <span class="read-more-text">Mehr lesen</span>
-              <svg
-                class="w-4 h-4 ml-2 transition-transform duration-300 read-more-icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <div class="mt-4 flex flex-wrap gap-2">
+          {
+            hasLongReview && (
+              <button
+                class="px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center read-more-btn"
+                aria-expanded="false"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-          )
-        }
+                <span class="read-more-text">Mehr lesen</span>
+                <svg
+                  class="w-4 h-4 ml-2 transition-transform duration-300 read-more-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+            )
+          }
+          {
+            testimonial.bio && (
+              <button
+                onclick={`openTestimonialModal(${testimonialJson})`}
+                class="px-6 py-2 border-2 border-primary text-primary hover:text-secondary hover:border-secondary rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center"
+              >
+                BIO
+              </button>
+            )
+          }
+        </div>
       </div>
     </div>
-
-    <!-- Footer -->
-    {
-      testimonial.bio && (
-        <div class="mt-6 pt-6 border-t border-gray-100">
-          <button
-            onclick={`openTestimonialModal(${testimonialJson})`}
-            class="px-5 py-2 text-sm font-medium bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md transition-all duration-200"
-          >
-            BIO
-          </button>
-        </div>
-      )
-    }
   </div>
 </div>
 
@@ -112,8 +110,8 @@ const reviewPreview = hasLongReview
     readMoreButtons.forEach(button => {
       button.addEventListener('click', () => {
         const isExpanded = button.getAttribute('aria-expanded') === 'true';
-        const reviewText =
-          button.previousElementSibling as HTMLParagraphElement;
+        const reviewText = button.closest('div')
+          .previousElementSibling as HTMLParagraphElement;
         const readMoreText = button.querySelector(
           '.read-more-text'
         ) as HTMLSpanElement;
@@ -124,13 +122,13 @@ const reviewPreview = hasLongReview
         if (isExpanded) {
           // Show preview
           reviewText.textContent = reviewText.dataset.previewText;
-          readMoreText.textContent = 'Read More';
+          readMoreText.textContent = 'Mehr lesen';
           readMoreIcon.style.transform = 'rotate(0deg)';
           button.setAttribute('aria-expanded', 'false');
         } else {
           // Show full text
           reviewText.textContent = reviewText.dataset.fullText;
-          readMoreText.textContent = 'Show Less';
+          readMoreText.textContent = 'Weniger anzeigen';
           readMoreIcon.style.transform = 'rotate(180deg)';
           button.setAttribute('aria-expanded', 'true');
         }
