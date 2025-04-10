@@ -2,23 +2,20 @@
 interface Props {
   id?: string;
   class?: string;
-  background?: 'white' | 'gray';
+  background?: 'white' | 'gray' | 'light-blue';
 }
 
-const { 
-  id, 
-  class: className = '',
-  background = 'white'
-} = Astro.props;
+const { id, class: className = '', background = 'white' } = Astro.props;
 
 const bgColors = {
   white: 'bg-white',
-  gray: 'bg-gray-50'
+  gray: 'bg-gray-50',
+  'light-blue': 'bg-blue-50'
 };
 ---
 
-<section 
-  id={id} 
+<section
+  id={id}
   class:list={[
     'py-16 sm:py-24 relative w-full overflow-hidden',
     bgColors[background],

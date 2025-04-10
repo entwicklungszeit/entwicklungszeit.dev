@@ -11,9 +11,7 @@ import Spotify from '../assets/spotify.svg';
 import Youtube from '../assets/youtube.svg';
 ---
 
-<section
-  class="pt-24 lg:pt-32 pb-16 relative overflow-hidden bg-gray-900 w-full"
->
+<section class="pt-24 lg:pt-32 pb-16 relative overflow-hidden bg-white w-full">
   <!-- Background pattern for depth -->
   <div class="absolute inset-0 opacity-10">
     <div
@@ -21,11 +19,11 @@ import Youtube from '../assets/youtube.svg';
     >
     </div>
     <div
-      class="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-primary-dark/20 to-transparent"
+      class="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-primary/10 to-transparent"
     >
     </div>
     <div
-      class="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-gray-950/30 to-transparent"
+      class="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-gray-100/50 to-transparent"
     >
     </div>
   </div>
@@ -40,16 +38,16 @@ import Youtube from '../assets/youtube.svg';
       >
         <div class="space-y-8">
           <span
-            class="inline-block text-sm font-medium tracking-[0.2em] uppercase text-blue-400/90"
+            class="inline-block text-sm font-medium tracking-[0.2em] uppercase text-primary"
             >Willkommen bei</span
           >
           <h1
-            class="font-sans text-[2.75rem] sm:text-6xl lg:text-7xl text-white font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-blue-100/90 leading-[1.1]"
+            class="font-sans text-[2.75rem] sm:text-6xl lg:text-7xl text-gray-900 font-extrabold tracking-tight leading-[1.1]"
           >
             Entwicklungszeit
           </h1>
           <p
-            class="text-lg sm:text-xl text-gray-300/90 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+            class="text-lg sm:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0 leading-relaxed"
           >
             Entdecke dein volles Potenzial in der Softwareentwicklung
           </p>
@@ -85,7 +83,7 @@ import Youtube from '../assets/youtube.svg';
             href="#story"
             size="lg"
             variant="outline"
-            class="text-white border-white/30 hover:border-white/80"
+            class="text-gray-800 border-gray-300 hover:border-gray-500"
           >
             Meine Story
           </Button>
@@ -103,13 +101,13 @@ import Youtube from '../assets/youtube.svg';
           >
             <!-- Animated border -->
             <div
-              class="absolute -inset-0.5 rounded-full bg-gradient-to-r from-primary via-secondary to-tertiary border border-white/10 animate-border-spin"
+              class="absolute -inset-0.5 rounded-full bg-gradient-to-r from-primary via-secondary to-tertiary border border-gray-200 animate-border-spin"
             >
             </div>
 
             <!-- Image -->
             <div
-              class="absolute inset-[1px] rounded-full overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 border border-white/5"
+              class="absolute inset-[1px] rounded-full overflow-hidden bg-gradient-to-b from-gray-50 to-white border border-gray-100"
             >
               <Image
                 src={gregorImage}
@@ -122,9 +120,9 @@ import Youtube from '../assets/youtube.svg';
           </div>
 
           <div class="text-center mt-4 lg:mt-6">
-            <p class="text-gray-400">
+            <p class="text-gray-600">
               mit <span
-                class="text-white font-semibold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
+                class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                 >Gregor Woiwode</span
               >
             </p>
@@ -136,7 +134,7 @@ import Youtube from '../assets/youtube.svg';
     <!-- Podcast platforms section - moved to bottom and centered -->
     <div class="py-12 text-center">
       <div class="flex flex-wrap items-center justify-center px-6 pb-4">
-        <p class="text-gray-300 font-medium text-xl">Jetzt anhören auf</p>
+        <p class="text-gray-700 font-medium text-xl">Jetzt anhören auf</p>
         <PodcastPlatformIcon
           href="https://creators.spotify.com/pod/show/entwicklungszeit"
           label="Entwicklungszeit auf Spotify anhören"
