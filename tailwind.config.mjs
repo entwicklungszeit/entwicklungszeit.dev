@@ -16,30 +16,29 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Fraunces', 'serif'],
-        'great-vibes': ['Great Vibes', 'cursive']
+        display: ['Inter', 'system-ui', 'sans-serif']
       },
       typography: {
         DEFAULT: {
           css: {
             maxWidth: '70ch',
             h1: {
-              fontFamily: 'Fraunces, serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
               letterSpacing: '0.04em',
               lineHeight: '1.2'
             },
             h2: {
-              fontFamily: 'Fraunces, serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
               letterSpacing: '0.04em',
               lineHeight: '1.3'
             },
             h3: {
-              fontFamily: 'Fraunces, serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
               letterSpacing: '0.04em',
               lineHeight: '1.4'
             },
             h4: {
-              fontFamily: 'Fraunces, serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
               letterSpacing: '0.04em',
               lineHeight: '1.5'
             },
