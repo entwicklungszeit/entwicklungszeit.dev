@@ -21,7 +21,7 @@ const baseClasses =
   data-platform={platform}
 >
   <div
-    class="platform-icon-container w-52 h-20 flex items-center justify-center p-3"
+    class="platform-icon-container w-[64px] h-[32px] flex items-center justify-center px-4 py-2"
   >
     <slot />
   </div>
@@ -32,8 +32,8 @@ const baseClasses =
     filter: grayscale(0);
     opacity: 1;
     transition: all 0.3s ease;
-    padding: 12px;
-    margin: 8px;
+    padding: 16px;
+    margin: 12px;
   }
 
   .icon-link:hover {
@@ -61,6 +61,16 @@ const baseClasses =
     position: relative;
     border-radius: 8px;
     transition: all 0.3s ease;
+    min-width: 256px;
+    min-height: 128px;
+  }
+
+  .platform-icon-container svg {
+    width: 100%;
+    height: 100%;
+    max-width: 192px;
+    max-height: 96px;
+    object-fit: contain;
   }
 
   .icon-link:hover .platform-icon-container {

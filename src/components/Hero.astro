@@ -135,7 +135,7 @@ import Youtube from '../assets/youtube.svg';
 
     <!-- Podcast platforms section - moved to bottom and centered -->
     <div class="py-12 text-center">
-      <div class="flex flex-wrap items-center justify-center gap-6 px-6 pb-4">
+      <div class="flex flex-wrap items-center justify-center px-6 pb-4">
         <p class="text-gray-300 font-medium text-xl">Jetzt anhören auf</p>
         <PodcastPlatformIcon
           href="https://creators.spotify.com/pod/show/entwicklungszeit"
@@ -208,6 +208,15 @@ import Youtube from '../assets/youtube.svg';
           opacity: 0.8;
           transform: scale(1.03);
         }
+      }
+
+      /* Standardize SVG icon sizes */
+      .platform-icon-container svg {
+        width: 32px;
+        height: 32px;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
       }
     </style>
   </div>
