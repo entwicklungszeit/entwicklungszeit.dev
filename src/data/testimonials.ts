@@ -1,5 +1,18 @@
 export const testimonials = [
   {
+    firstName: 'Mareike',
+    lastName: 'Kirch',
+    portraitImage: {
+      src: '/clients/mareike-kirch.jpg',
+      alt: 'Mareike Kirch'
+    },
+    jobTitle: 'Gründerin & Geschäftsführerin',
+    company: 'Coding Bootcamps Europe GmbH',
+    reviewText:
+      'Seit Kurzem arbeite ich mit Gregor zusammen und ich war sofort von seiner empathischen Art sowie der wertschätzenden Weise, mit der er auf individuelle Anliegen eingeht, tief beeindruckt. Gregor zeichnet sich durch seine tiefgehenden technischen Kenntnisse und sein außergewöhnliches Engagement für jedes Projekt aus. Besonders beeindruckt hat mich seine Fähigkeit, komplexe Probleme mit Kreativität und einer strategischen Herangehensweise zu lösen. Seine empathische und personenzentrierte Arbeitsweise macht ihn nicht nur zu einem hervorragenden Entwickler, sondern auch zu einem inspirierenden Coach. Als Sparringspartner ist Gregor eine unschätzbare Bereicherung in meinem Arbeitsalltag, die ich jedem empfehlen kann. Wer seine Fähigkeiten in den Bereichen Leadership, Kommunikation und Persönlichkeitsentwicklung in Softwareprojekten verbessern möchte und dabei Wert auf eine persönliche und zielorientierte Betreuung legt, findet in Gregor einen idealen Mentor.',
+    projectLink: 'https://coding-bootcamps.eu/'
+  },
+  {
     firstName: 'Aydin Mir',
     lastName: 'Mohammadi',
     portraitImage: {
