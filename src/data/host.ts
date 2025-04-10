@@ -1,7 +1,7 @@
 export const pages = [
   {
     content:
-      'Hi, ich bin Gregor und freue mich sehr, dass du hier bist. Dinge Automatisieren find ich klasse, aber unter uns gesprochen finde ich es noch viel schöner Softwareentwicklung zu einem kreativen Erlebnis zu machen, das Allen im Team Freude bereitet. Es darf gelacht werden, es dürfen neue Wege ausprobiert werden und gemeinsam entdeckt jedes Team das "Engineering" für sich als lebenden Prozess der Verbesserung.',
+      'Dinge Automatisieren find ich klasse, aber unter uns gesprochen finde ich es noch viel schöner Softwareentwicklung zu einem kreativen Erlebnis zu machen, das Allen im Team Freude bereitet. Es darf gelacht werden, es dürfen neue Wege ausprobiert werden und gemeinsam entdeckt jedes Team das "Engineering" für sich als lebenden Prozess der Verbesserung.',
     caption: 'Team'
   },
   {

@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import gregorImage from '../assets/gregor-woiwode.png';
 import { benefits } from '../data/benefits';
 import Badge from './ui/Badge.astro';
-import Button from './ui/Button.astro';
 import PodcastPlatformIcon from './ui/PodcastPlatformIcon.astro';
 import Section from './ui/Section.astro';
 
@@ -58,35 +57,6 @@ import Youtube from '../assets/youtube.svg';
           class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg mx-auto lg:mx-0 relative z-20"
         >
           {benefits.map(benefit => <Badge {...benefit} />)}
-        </div>
-
-        <div
-          class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start relative z-20"
-        >
-          <Button href="#podcast" variant="gradient" class="group">
-            Podcast entdecken
-            <svg
-              class="w-5 h-5 ml-2 arrow-icon group-hover:translate-y-1 transition-transform"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 5v13m0 0l-7-7m7 7l7-7"></path>
-            </svg>
-          </Button>
-
-          <Button
-            href="#story"
-            variant="outline"
-            class="text-gray-800 border-gray-300 hover:border-gray-500"
-          >
-            Meine Story
-          </Button>
         </div>
       </div>
 
