@@ -5,15 +5,14 @@ import { benefits } from '../data/benefits';
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
 import PodcastPlatformIcon from './ui/PodcastPlatformIcon.astro';
+import Section from './ui/Section.astro';
 
 import ApplePodcasts from '../assets/apple-podcasts.svg';
 import Spotify from '../assets/spotify.svg';
 import Youtube from '../assets/youtube.svg';
 ---
 
-<section
-  class="pt-24 sm:pt-16 lg:pt-16 pb-4 lg:pb-6 relative overflow-hidden bg-white w-full"
->
+<Section background="white" class="pt-24 sm:pt-16 lg:pt-16 pb-4 lg:pb-6">
   <!-- Background pattern for depth -->
   <div class="absolute inset-0 opacity-10">
     <div
@@ -234,4 +233,4 @@ import Youtube from '../assets/youtube.svg';
       }
     </style>
   </div>
-</section>
+</Section>
