@@ -20,7 +20,7 @@ export const testimonials = [
       alt: 'Aydin Mir Mohammadi'
     },
     jobTitle: 'Geschäftsführer',
-    company: 'bluehands GmbH & Co.mmunication KG',
+    company: 'bluehands GmbH & Communication KG',
     reviewText:
       'Ich kenne Gregor Woiwode seit vielen Jahren als ein absoluter Experte für das Thema Webentwicklung und Angular. Er ist ein Mensch, der sein Wissen mit anderen teilt und sie empowert. Meine Kolleg:innen und ich durften schon mehrere diese Empowerment-Momente genießen und freuen uns, wenn Gregor die Zeit und Möglichkeit hat uns im Projekt zu unterstützen.',
     bio: 'Aydin Mir Mohammadi, Partner und Architekt bei bluehands erstellt seit mehr als zwanzig Jahren Software. Er ist spezialisiert auf die Entwicklung verteilter komplexer Fachanwendung auf Basis der Microsoft Technologien. Seine Firma bluehands ist ein etabliertes Softwareunternehmen in Karlsruhe spezialisiert auf Cloud-Migration, Softwaremodernisierung und Twin-Transformation. Aydin ist Mitinitiator der .NET User Group Karlsruhe, Organisator der Green Software Development Karlsruhe, Initiator der CO2-Challenge und host des Hashtag#nossued Open Space. Darüber hinaus engagiert er sich bei der Ausbildung von jungen Softwareentwickler:innen als Dozent an der Dualen Hochschule Karlsruhe.',
