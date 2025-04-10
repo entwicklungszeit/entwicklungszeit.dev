@@ -11,7 +11,9 @@ import Spotify from '../assets/spotify.svg';
 import Youtube from '../assets/youtube.svg';
 ---
 
-<section class="pt-24 lg:pt-32 pb-16 relative overflow-hidden bg-white w-full">
+<section
+  class="pt-24 sm:pt-16 lg:pt-16 pb-4 lg:pb-6 relative overflow-hidden bg-white w-full"
+>
   <!-- Background pattern for depth -->
   <div class="absolute inset-0 opacity-10">
     <div
@@ -30,39 +32,39 @@ import Youtube from '../assets/youtube.svg';
 
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
     <div
-      class="relative flex flex-col lg:grid lg:grid-cols-12 lg:gap-8 items-center min-h-[calc(100vh-8rem)]"
+      class="relative flex flex-col lg:grid lg:grid-cols-12 lg:gap-6 items-center max-h-screen min-h-[75vh]"
     >
       <div
-        class="relative z-10 text-center lg:text-left space-y-14 w-full lg:col-span-7"
+        class="relative z-10 text-center lg:text-left space-y-5 lg:space-y-8 w-full lg:col-span-7 mt-12 sm:mt-0"
         data-aos="fade"
       >
-        <div class="space-y-8">
+        <div class="space-y-3 sm:space-y-4">
           <span
             class="inline-block text-sm font-medium tracking-[0.2em] uppercase text-primary"
             >Willkommen bei</span
           >
           <h1
-            class="font-sans text-[2.75rem] sm:text-6xl lg:text-7xl text-gray-900 font-extrabold tracking-tight leading-[1.1]"
+            class="font-sans text-[2.25rem] sm:text-5xl lg:text-6xl text-gray-900 font-extrabold tracking-tight leading-[1.1]"
           >
             Entwicklungszeit
           </h1>
           <p
-            class="text-lg sm:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+            class="text-base sm:text-lg text-gray-700 max-w-xl mx-auto lg:mx-0 leading-relaxed"
           >
             Entdecke dein volles Potenzial in der Softwareentwicklung
           </p>
         </div>
 
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto lg:mx-0 relative z-20"
+          class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg mx-auto lg:mx-0 relative z-20"
         >
           {benefits.map(benefit => <Badge {...benefit} />)}
         </div>
 
         <div
-          class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start relative z-20"
+          class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start relative z-20"
         >
-          <Button href="#podcast" size="lg" variant="gradient" class="group">
+          <Button href="#podcast" variant="gradient" class="group">
             Podcast entdecken
             <svg
               class="w-5 h-5 ml-2 arrow-icon group-hover:translate-y-1 transition-transform"
@@ -81,7 +83,6 @@ import Youtube from '../assets/youtube.svg';
 
           <Button
             href="#story"
-            size="lg"
             variant="outline"
             class="text-gray-800 border-gray-300 hover:border-gray-500"
           >
@@ -91,13 +92,13 @@ import Youtube from '../assets/youtube.svg';
       </div>
 
       <div
-        class="relative z-0 flex w-full mt-12 lg:mt-0 h-full lg:col-span-5 items-center justify-center"
+        class="relative z-0 flex w-full mt-6 lg:mt-0 h-full lg:col-span-5 items-center justify-center"
         data-aos="fade"
       >
         <div class="flex flex-col items-center">
           <!-- Circular image container -->
           <div
-            class="relative w-[240px] h-[240px] lg:w-[380px] lg:h-[380px] animate-float"
+            class="relative w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] lg:w-[280px] lg:h-[280px] animate-float"
           >
             <!-- Animated border -->
             <div
@@ -119,8 +120,8 @@ import Youtube from '../assets/youtube.svg';
             </div>
           </div>
 
-          <div class="text-center mt-4 lg:mt-6">
-            <p class="text-gray-600">
+          <div class="text-center mt-2">
+            <p class="text-gray-600 text-sm sm:text-base">
               mit <span
                 class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                 >Gregor Woiwode</span
@@ -131,39 +132,47 @@ import Youtube from '../assets/youtube.svg';
       </div>
     </div>
 
-    <!-- Podcast platforms section - moved to bottom and centered -->
-    <div class="py-12 text-center">
-      <div class="flex flex-wrap items-center justify-center px-6 pb-4">
-        <p class="text-gray-700 font-medium text-xl">Jetzt anhören auf</p>
-        <PodcastPlatformIcon
-          href="https://creators.spotify.com/pod/show/entwicklungszeit"
-          label="Entwicklungszeit auf Spotify anhören"
-          platform="spotify"
+    <!-- Podcast platforms section - moved higher up for visibility -->
+    <div class="py-3 sm:py-4 text-center">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center sm:gap-2"
+      >
+        <p
+          class="text-gray-700 font-medium text-sm sm:text-base mb-2 sm:mb-0 sm:mr-2"
         >
-          <Spotify
-            class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
-          />
-        </PodcastPlatformIcon>
+          Jetzt anhören auf
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <PodcastPlatformIcon
+            href="https://creators.spotify.com/pod/show/entwicklungszeit"
+            label="Entwicklungszeit auf Spotify anhören"
+            platform="spotify"
+          >
+            <Spotify
+              class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+            />
+          </PodcastPlatformIcon>
 
-        <PodcastPlatformIcon
-          href="https://podcasts.apple.com/us/podcast/entwicklungszeit/id1767631664"
-          label="Entwicklungszeit auf Apple Podcasts anhören"
-          platform="apple"
-        >
-          <ApplePodcasts
-            class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
-          />
-        </PodcastPlatformIcon>
+          <PodcastPlatformIcon
+            href="https://podcasts.apple.com/us/podcast/entwicklungszeit/id1767631664"
+            label="Entwicklungszeit auf Apple Podcasts anhören"
+            platform="apple"
+          >
+            <ApplePodcasts
+              class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+            />
+          </PodcastPlatformIcon>
 
-        <PodcastPlatformIcon
-          href="https://www.youtube.com/@entwicklungszeit"
-          label="Entwicklungszeit auf YouTube ansehen"
-          platform="youtube"
-        >
-          <Youtube
-            class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
-          />
-        </PodcastPlatformIcon>
+          <PodcastPlatformIcon
+            href="https://www.youtube.com/@entwicklungszeit"
+            label="Entwicklungszeit auf YouTube ansehen"
+            platform="youtube"
+          >
+            <Youtube
+              class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+            />
+          </PodcastPlatformIcon>
+        </div>
       </div>
     </div>
 
@@ -210,11 +219,18 @@ import Youtube from '../assets/youtube.svg';
 
       /* Standardize SVG icon sizes */
       .platform-icon-container svg {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
+      }
+
+      @media (min-width: 640px) {
+        .platform-icon-container svg {
+          width: 32px;
+          height: 32px;
+        }
       }
     </style>
   </div>
