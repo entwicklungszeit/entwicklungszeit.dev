@@ -1,52 +1,72 @@
 ---
+import { Image } from 'astro:assets';
+import gregor from '../assets/images/gregor-thinking.jpg';
 import Section from './ui/Section.astro';
 ---
 
 <Section id="podcast" background="gray">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto">
-      <div class="text-left" data-aos="fade-up">
-        <h2
-          class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
+    <div class="max-w-5xl mx-auto">
+      <div
+        class="flex flex-col md:flex-row md:items-center md:gap-12"
+        data-aos="fade-up"
+      >
+        <div class="text-left flex-1">
+          <h2
+            class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
+          >
+            Dein Weg in der Softwareentwicklung
+            <span
+              class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
+            ></span>
+          </h2>
+
+          <div class="text-lg text-gray-700 space-y-8">
+            <p class="font-medium text-primary-dark">
+              "Du sitzt vor deinem Code-Editor und denkst: 'Naja geht schon
+              ...irgendwie. Warum weiß ich nicht, aber passt...'."
+            </p>
+
+            <p>
+              Mit "Entwicklungszeit" lade ich dich ein, aus diesem Zustand
+              auszubrechen, damit du all die fantastischen Facetten der
+              Softwareentwicklung bis hin zum Engineering im Team als die
+              kreativste und beflügelnste Arbeit empfindest.
+            </p>
+
+            <p>
+              Ich verfolge mit meiner Arbeit das Ziel, dass du deine Arbeit und
+              dein Können empfindest. Ich möchte dir Werkzeuge an die Hand
+              geben, die dir erlauben mit allen Stakeholdern auf Augenhöhe zu
+              kommunizieren, damit du deine technische Agenda voranbringen
+              kannst.
+            </p>
+
+            <p>
+              Hier geht es viel um verstanden werden, aber auch darum, dass du
+              verstehst, was die Erwartungen des Businesses sind.
+            </p>
+
+            <p>
+              Wenn du gerade auf dem Weg bist deine Karriere in der Software zu
+              entwickeln, freue ich mich, wenn ich dich auf deiner Reise ein
+              Stück begleiten darf.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="mt-8 md:mt-0 flex-shrink-0 flex flex-col items-center"
+          data-aos="fade-left"
         >
-          Dein Weg in der Softwareentwicklung
-          <span
-            class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
-          ></span>
-        </h2>
-
-        <div class="text-lg text-gray-700 space-y-8">
-          <p class="font-medium text-primary-dark">
-            "Du sitzt vor deinem Code-Editor und denkst: 'Naja geht schon
-            ...irgendwie. Warum weiß ich nicht, aber passt...'."
-          </p>
-
-          <p>
-            Mit "Entwicklungszeit" lade ich dich ein, aus diesem Zustand
-            auszubrechen, damit du all die fantastischen Facetten der
-            Softwareentwicklung bis hin zum Engineering im Team als die
-            kreativste und beflügelnste Arbeit empfindest.
-          </p>
-
-          <p>
-            Ich verfolge mit meiner Arbeit das Ziel, dass du deine Arbeit und
-            dein Können empfindest. Ich möchte dir Werkzeuge an die Hand geben,
-            die dir erlauben mit allen Stakeholdern auf Augenhöhe zu
-            kommunizieren, damit du deine technische Agenda voranbringen kannst.
-          </p>
-
-          <p>
-            Hier geht es viel um verstanden werden, aber auch darum, dass du
-            verstehst, was die Erwartungen des Businesses sind.
-          </p>
-
-          <p>
-            Wenn du gerade auf dem Weg bist deine Karriere in der Software zu
-            entwickeln, freue ich mich, wenn ich dich auf deiner Reise ein Stück
-            begleiten darf.
-          </p>
-
-          <p class="text-right font-medium text-primary-dark">
+          <div class="image-container">
+            <Image
+              src={gregor}
+              alt="Gregor thinking about software development"
+              class="rounded-2xl shadow-image max-w-full md:max-w-xs xl:max-w-sm h-auto object-cover"
+            />
+          </div>
+          <p class="text-right font-medium text-primary-dark mt-6 self-end">
             Rock on & code<br />
             Gregor
           </p>
@@ -69,5 +89,41 @@ import Section from './ui/Section.astro';
     box-shadow:
       0 10px 15px -3px rgba(0, 0, 0, 0.1),
       0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-image {
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 5px 15px -5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .shadow-image:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 15px 30px -5px rgba(0, 0, 0, 0.15),
+      0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .image-container::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      var(--color-primary-light),
+      var(--color-secondary-light)
+    );
+    border-radius: 1rem;
+    z-index: -1;
+    opacity: 0.5;
   }
 </style>
