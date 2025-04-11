@@ -18,12 +18,16 @@ Im Coaching gehe ich mit dir in die Tiefe und löse Blockaden auf, die dich dara
   },
   {
     question: 'Warum der Mix aus Mentoring und Coaching?',
-    answer: `Sicher hast du häufig Mentoring kennengelernt: Teste so, schreibe Commit-Nachrichten so, baue die Architektur so. Dabei helfe ich dir gern. Ich möchte dir darüber hinaus helfen, dass du deinen eigenen Weg gehen kannst. Projekte und Produktentwicklung scheitern selten an der Technologie, sondern an zwischenmenschlichen Beziehungen und unausgesprochenen Problemen. Leider passiert das sehr oft. Hier gehe ich mit dir zusammen in deine Situationen hinein und helfe dir, sie aufzulösen – für dich und für dein Team.`
+    answer: `Sicher hast du häufig Mentoring im Rahmen von Workshops, Bootcamps, Ausbildung oder Studium kennengelernt: Teste so, schreibe Commit-Nachrichten so, baue die Architektur so. Dabei helfe ich dir gern.
+
+      Ich möchte dir darüber hinaus helfen, dass du deinen eigenen Weg gehen kannst. Projekte und Produktentwicklung scheitern selten an der Technologie, sondern an zwischenmenschlichen Beziehungen und unausgesprochenen Problemen. Leider passiert das sehr oft. Hier gehe ich mit dir zusammen in deine Situationen hinein und helfe dir, sie aufzulösen - für dich und für dein Team.`
   },
   {
     question:
       'Warum nur ein Call? - Was ist, wenn ich ein akutes Problem habe?',
-    answer: `Erfahrungsgemäß gibt ein Call, bei dem ich übrigens nicht auf die Minute schaue, genügend Aufgaben für eine Woche. Es können auch Situationen entstehen, über die du für dich nachdenken musst. Veränderung ist nicht immer ein Spaziergang, sondern erfordert Mut. Ich lasse dich dabei aber nicht alleine. Du erhältst einen Zugang, sodass du mich jederzeit kontaktieren kannst, und ich stehe dir mit Rat und Tat zur Seite.`
+    answer: `Erfahrungsgemäß gibt ein Call, bei dem ich übrigens nicht auf die Minute schaue, genügend Aufgaben für eine Woche. Es können auch Situationen entstehen, über die du für dich nachdenken musst.
+
+    Veränderung ist nicht immer ein Spaziergang, sondern erfordert Mut. Ich lasse dich dabei aber nicht alleine. Du erhältst einen Zugang, sodass du mich jederzeit kontaktieren kannst, und ich stehe dir mit Rat und Tat zur Seite.`
   },
   {
     question: 'Wie kann ich unsere Live-Calls nacharbeiten?',
