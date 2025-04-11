@@ -1,0 +1,153 @@
+---
+import { faqs } from '../../data/faqData';
+---
+
+<div class="faq-accordion">
+  {
+    faqs.map((faq, index) => (
+      <div class="accordion-item">
+        <input
+          type="radio"
+          name="accordion"
+          id={`accordion-${index}`}
+          class="accordion-input"
+        />
+        <label class="accordion-header" for={`accordion-${index}`} tabindex="0">
+          {faq.question}
+          <span class="accordion-icon" aria-hidden="true" />
+        </label>
+        <div class="accordion-content">
+          <div class="accordion-content-inner">
+            {Array.isArray(faq.answer) ? (
+              <ul class="list-disc pl-5 space-y-2">
+                {faq.answer.map(item => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <p class="whitespace-pre-line">{faq.answer}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .faq-accordion {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .accordion-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    background: white;
+    overflow: hidden;
+  }
+
+  .accordion-input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-header:hover {
+    background: #f9fafb;
+  }
+
+  .accordion-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    position: relative;
+  }
+
+  .accordion-icon::before,
+  .accordion-icon::after {
+    content: '';
+    position: absolute;
+    background: #4b5563;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-icon::before {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .accordion-icon::after {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  .accordion-content {
+    max-height: 0;
+    padding: 0 1.25rem;
+    overflow: hidden;
+    transition: all 0.35s ease-out;
+    opacity: 0;
+  }
+
+  .accordion-content-inner {
+    padding: 0 0 1.25rem 0;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+
+  /* Active state */
+  .accordion-input:checked + .accordion-header {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .accordion-input:checked + .accordion-header .accordion-icon::after {
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  .accordion-input:checked ~ .accordion-content {
+    max-height: 100vh;
+    opacity: 1;
+    padding: 1.25rem;
+  }
+
+  /* Focus styles for accessibility */
+  .accordion-header:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: -2px;
+  }
+
+  /* Animation for content */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .accordion-input:checked ~ .accordion-content .accordion-content-inner {
+    animation: slideDown 0.35s ease-out;
+  }
+</style>
