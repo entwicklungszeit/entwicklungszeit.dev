@@ -24,7 +24,7 @@ Im Coaching gehe ich mit dir in die Tiefe und löse Blockaden auf, die dich dara
   },
   {
     question:
-      'Warum nur ein Call? - Was ist, wenn ich ein akutes Problem habe?',
+      'Warum nur ein Call pro Woche? - Was ist, wenn ich ein akutes Problem habe?',
     answer: `Erfahrungsgemäß gibt ein Call, bei dem ich übrigens nicht auf die Minute schaue, genügend Aufgaben für eine Woche. Es können auch Situationen entstehen, über die du für dich nachdenken musst.
 
     Veränderung ist nicht immer ein Spaziergang, sondern erfordert Mut. Ich lasse dich dabei aber nicht alleine. Du erhältst einen Zugang, sodass du mich jederzeit kontaktieren kannst, und ich stehe dir mit Rat und Tat zur Seite.`
