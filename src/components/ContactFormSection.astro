@@ -1,0 +1,118 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Kontakt',
+  description = 'Du hast Fragen oder möchtest mehr erfahren? Schreib mir eine Nachricht.'
+} = Astro.props;
+---
+
+<section class="py-16 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-6 text-white">{title}</h2>
+      <p class="text-center text-gray-300 mb-8">{description}</p>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="space-y-6"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>
+            Don't fill this out if you're human: <input name="bot-field" />
+          </label>
+        </p>
+
+        <div>
+          <label
+            for="name"
+            class="block text-sm font-medium text-gray-200 mb-1"
+          >
+            Dein Name <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 bg-gray-800 border-0 rounded-md text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="Dein Name"
+          />
+        </div>
+
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-200 mb-1"
+          >
+            Deine E-Mail-Adresse <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 bg-gray-800 border-0 rounded-md text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="deine@email.de"
+          />
+        </div>
+
+        <div>
+          <label
+            for="message"
+            class="block text-sm font-medium text-gray-200 mb-1"
+          >
+            Deine Nachricht <span class="text-red-500">*</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="4"
+            class="w-full px-4 py-3 bg-gray-800 border-0 rounded-md text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="Deine Nachricht an mich..."></textarea>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input
+              id="consent"
+              name="consent"
+              type="checkbox"
+              required
+              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 rounded bg-gray-800"
+            />
+          </div>
+          <div class="ml-3 text-sm">
+            <label for="consent" class="text-gray-300">
+              Ich stimme zu, dass meine Daten zur Kontaktaufnahme verarbeitet
+              werden. Die Daten werden nur für die Beantwortung meiner Anfrage
+              verwendet und nicht an Dritte weitergegeben. Weitere Informationen
+              findest du in der <a
+                href="/datenschutz"
+                class="text-blue-400 hover:text-blue-300"
+                >Datenschutzerklärung</a
+              >.
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center px-4 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Nachricht senden
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
