@@ -6,7 +6,7 @@ import Navigation from './Navigation.astro';
   id="main-header"
   class="fixed w-full bg-white/95 backdrop-blur-sm shadow-md z-50 top-0"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-0.5">
     <div class="flex h-16 items-center">
       <div class="flex items-center">
         <a href="/" class="flex items-center">
@@ -22,3 +22,16 @@ import Navigation from './Navigation.astro';
     </div>
   </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header?.classList.add('shadow-md');
+      } else {
+        header?.classList.remove('shadow-md');
+      }
+    });
+  });
+</script>
