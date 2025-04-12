@@ -4,10 +4,10 @@ export const faqs: FaqItem[] = [
   {
     question: 'Wie läuft das Impact Developer-Programm genau ab?',
     answer: [
-      'Jede Woche findet ein Live-Call statt',
+      'Jede Woche findet ein Live-Call statt (Dauer: 60 Minuten)',
       'Wir besprechen aktuelle Themen, setzen Prioritäten',
-      'Wir führen ein technisches Mentoring durch',
-      'Wir führen ein Coaching für deine Positionierung durch'
+      'Wir führen ein technisches Mentoring durch: Wissenstransfer Softwareentwicklung, Code Reviews, Architektur Dojos, Anforderungsanalyse',
+      'Wir führen ein Coaching für deine Positionierung durch: Kommunikationstechniken, Rhetorik, Konfliktmanagement, Persönlichkeitsentwicklung, Präsentationstechniken'
     ]
   },
   {
