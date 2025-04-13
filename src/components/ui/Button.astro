@@ -26,7 +26,7 @@ const {
 } = Astro.props;
 
 const baseStyles =
-  'inline-flex items-center rounded-full font-medium relative overflow-hidden transform transition-all duration-300 hover:scale-105 active:scale-95';
+  'inline-flex items-center justify-center w-full rounded-full font-medium relative overflow-hidden transform transition-all duration-300 hover:scale-105 active:scale-95';
 const sizeStyles = {
   sm: 'px-4 py-2 text-sm',
   md: 'px-6 py-3 text-base',
@@ -58,7 +58,7 @@ const Element = href ? 'a' : 'button';
       aria-current={ariaCurrent}
       role={role}
     >
-      <span class="relative z-10 flex items-center">
+      <span class="relative z-10 flex items-center justify-center w-full">
         <slot />
       </span>
       {variant !== 'outline' && (
@@ -80,7 +80,7 @@ const Element = href ? 'a' : 'button';
       aria-current={ariaCurrent}
       role={role}
     >
-      <span class="relative z-10 flex items-center">
+      <span class="relative z-10 flex items-center justify-center w-full">
         <slot />
       </span>
       {variant !== 'outline' && (
