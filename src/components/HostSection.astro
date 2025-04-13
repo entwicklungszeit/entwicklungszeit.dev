@@ -6,9 +6,9 @@ import Section from './ui/Section.astro';
 
 <Section id="host" background="gray">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-2 gap-8 lg:gap-20 items-start">
-      <div data-aos="fade-right" class="max-w-xl">
-        <div class="text-base sm:text-lg text-gray-700">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+      <div data-aos="fade-right" class="flex justify-center">
+        <div class="max-w-xl text-base sm:text-lg text-gray-700">
           <h2
             class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
           >
@@ -23,11 +23,13 @@ import Section from './ui/Section.astro';
 
       <div
         data-aos="fade-left"
-        class="relative flex items-center justify-center lg:sticky lg:top-32 py-8"
+        class="flex justify-center lg:sticky lg:top-32 py-8"
       >
         <div class="flex flex-col items-center">
           <!-- Circular image container -->
-          <div class="relative w-[240px] h-[240px] lg:w-[400px] lg:h-[400px]">
+          <div
+            class="relative w-[240px] h-[240px] lg:w-[400px] lg:h-[400px] mb-8"
+          >
             <!-- Animated border -->
             <div
               class="absolute -inset-0.5 rounded-full bg-gradient-to-r from-primary via-secondary to-primary border border-gray-200 animate-border-spin"
@@ -45,6 +47,16 @@ import Section from './ui/Section.astro';
                 class="w-full h-full object-cover object-top"
               />
             </div>
+          </div>
+
+          <!-- GDE Badge -->
+          <div class="w-[200px] lg:w-[300px]">
+            <img
+              src="/gde-angular-2025.svg"
+              alt="Google Developer Expert Angular 2025"
+              loading="lazy"
+              class="w-full h-auto"
+            />
           </div>
         </div>
       </div>
