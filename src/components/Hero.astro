@@ -33,8 +33,7 @@ import Youtube from '../assets/youtube.svg';
       class="relative flex flex-col lg:grid lg:grid-cols-12 lg:gap-6 items-center max-h-screen min-h-[75vh]"
     >
       <div
-        class="relative z-10 text-center lg:text-left space-y-5 lg:space-y-8 w-full lg:col-span-7 mt-12 sm:mt-0"
-        data-aos="fade"
+        class="relative z-10 text-center lg:text-left space-y-5 lg:space-y-8 w-full lg:col-span-7 mt-12 sm:mt-0 animate-fade-in-delay-50"
       >
         <div class="space-y-3 sm:space-y-4">
           <span
@@ -61,8 +60,7 @@ import Youtube from '../assets/youtube.svg';
       </div>
 
       <div
-        class="relative z-0 flex w-full mt-6 lg:mt-0 h-full lg:col-span-5 items-center justify-center"
-        data-aos="fade"
+        class="relative z-0 flex w-full mt-6 lg:mt-0 h-full lg:col-span-5 items-center justify-center animate-fade-in-delay-150"
       >
         <div class="flex flex-col items-center">
           <!-- Circular image container -->
@@ -101,7 +99,7 @@ import Youtube from '../assets/youtube.svg';
       </div>
     </div>
 
-    <!-- Podcast platforms section - moved higher up for visibility -->
+    <!-- Podcast platforms section -->
     <div class="py-3 sm:py-4 text-center">
       <div
         class="flex flex-col sm:flex-row items-center justify-center sm:gap-2"
@@ -146,19 +144,6 @@ import Youtube from '../assets/youtube.svg';
     </div>
 
     <style>
-      @keyframes continuousArrow {
-        0% {
-          transform: translateY(0);
-        }
-        10% {
-          transform: translateY(4px);
-        }
-        20%,
-        100% {
-          transform: translateY(0);
-        }
-      }
-
       .podcast-badge {
         position: relative;
       }

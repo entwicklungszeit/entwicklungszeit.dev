@@ -57,7 +57,10 @@ export default {
       },
       animation: {
         'border-spin': 'border-spin 20s linear infinite',
-        float: 'float 6s ease-in-out infinite'
+        float: 'float 6s ease-in-out infinite',
+        'fade-in': 'fadeIn 800ms ease forwards',
+        'fade-in-delay-50': 'fadeIn 800ms ease forwards 50ms',
+        'fade-in-delay-150': 'fadeIn 800ms ease forwards 150ms'
       },
       keyframes: {
         'border-spin': {
@@ -67,6 +70,16 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' }
+        },
+        fadeIn: {
+          from: {
+            opacity: '0',
+            transform: 'translateY(10px)'
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
         }
       }
     }
