@@ -17,6 +17,16 @@ export const faqs: FaqItem[] = [
 Im Coaching gehe ich mit dir in die Tiefe und löse Blockaden auf, die dich daran hindern, im Beruf noch erfolgreicher zu sein. Wir gehen auf Kommunikation und Persönlichkeit ein. Wir stärken deine Positionierung. Wir arbeiten an Spannungen und Konflikten mit dem Ziel, diese aufzulösen.`
   },
   {
+    question: 'Woher weiß ich, ob das Programm das Richtige für mich ist?',
+    answer: `Die Antwort auf diese Frage ist wirklich elementar. Das Programm soll dir wirklich helfen. Hier sind einige Anregungen, wie du in deine Entscheidungsfindung einbeziehen kannst.
+
+    1. Verschaff die innere Klarheit, über die Dinge, die du erreichen willst.
+    2. Stell mir deine inhaltlichen Fragen, vorab per Mail.
+    3. Höre in den Podcast rein und schau, ob dir meine Inhalte helfen.
+    4. Mach dir im Video-Call ein Bild von mir und meiner Arbeit.
+    `
+  },
+  {
     question: 'Warum der Mix aus Mentoring und Coaching?',
     answer: `Sicher hast du häufig Mentoring im Rahmen von Workshops, Bootcamps, Ausbildung oder Studium kennengelernt: Teste so, schreibe Commit-Nachrichten so, baue die Architektur so. Dabei helfe ich dir gern.
 
