@@ -1,0 +1,107 @@
+---
+interface Props {
+  totalPages?: number;
+  currentPage?: number;
+}
+
+const {
+  totalPages: initialTotalPages = 0,
+  currentPage: initialCurrentPage = 0
+} = Astro.props;
+---
+
+<div class="flex justify-center gap-2 mt-4" id="carousel-indicators">
+  {
+    Array.from({ length: initialTotalPages }).map((_, index) => (
+      <button
+        class:list={[
+          'w-2.5',
+          'h-2.5',
+          'rounded-full',
+          'transition-colors',
+          'focus:outline-none',
+          'focus:ring-2',
+          'focus:ring-primary/50',
+          index === initialCurrentPage ? 'bg-primary' : 'bg-gray-300'
+        ]}
+        aria-label={`Gehe zu Seite ${index + 1}`}
+        aria-current={index === initialCurrentPage ? 'true' : undefined}
+      />
+    ))
+  }
+</div>
+
+<script>
+  class IndicatorsManager {
+    private container: HTMLElement;
+    private totalPages: number;
+    private currentPage: number;
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.totalPages = 0;
+      this.currentPage = 0;
+
+      this.setupEventListeners();
+    }
+
+    private setupEventListeners() {
+      // Listen for click events on indicator buttons
+      this.container.addEventListener('click', e => {
+        const button = (e.target as Element).closest('button');
+        if (button) {
+          const index = Array.from(this.container.children).indexOf(button);
+          this.container.dispatchEvent(
+            new CustomEvent('pageChange', {
+              detail: { page: index },
+              bubbles: true
+            })
+          );
+        }
+      });
+
+      // Listen for updates from the carousel
+      document.addEventListener('updateIndicators', ((e: CustomEvent) => {
+        this.updateIndicators(e.detail.currentPage, e.detail.totalPages);
+      }) as EventListener);
+    }
+
+    private updateIndicators(currentPage: number, totalPages: number) {
+      this.currentPage = currentPage;
+      this.totalPages = totalPages;
+
+      // Clear existing indicators
+      this.container.innerHTML = '';
+
+      // Create new indicators
+      for (let i = 0; i < totalPages; i++) {
+        const button = document.createElement('button');
+        button.classList.add(
+          'w-2.5',
+          'h-2.5',
+          'rounded-full',
+          'transition-colors',
+          'focus:outline-none',
+          'focus:ring-2',
+          'focus:ring-primary/50'
+        );
+
+        if (i === currentPage) {
+          button.classList.add('bg-primary');
+          button.setAttribute('aria-current', 'true');
+        } else {
+          button.classList.add('bg-gray-300');
+        }
+
+        button.setAttribute('aria-label', `Gehe zu Seite ${i + 1}`);
+        this.container.appendChild(button);
+      }
+    }
+  }
+
+  // Initialize indicators manager when DOM is loaded
+  const indicators = document.getElementById('carousel-indicators');
+  if (indicators) {
+    new IndicatorsManager(indicators);
+  }
+</script>

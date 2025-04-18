@@ -1,0 +1,38 @@
+---
+interface Props {
+  link: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  maxWidth?: string;
+  width?: string;
+}
+
+const {
+  link,
+  thumbnail,
+  title,
+  description,
+  maxWidth = '280px',
+  width = 'w-full'
+} = Astro.props;
+---
+
+<a
+  href={link}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={`episode-card ${width} max-w-[${maxWidth}] aspect-square flex flex-col relative`}
+  aria-label={title}
+>
+  <div class="relative h-full w-full">
+    <img
+      src={thumbnail}
+      alt={title}
+      width="280"
+      height="280"
+      loading="lazy"
+      title={description}
+    />
+  </div>
+</a>

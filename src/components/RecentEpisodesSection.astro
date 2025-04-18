@@ -1,6 +1,18 @@
 ---
 import Section from './ui/Section.astro';
 import Heading from './Heading.astro';
+import CarouselPage from './CarouselPage.astro';
+import CarouselIndicators from './CarouselIndicators.astro';
+
+interface Episode {
+  link: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+}
+
+// This will be populated by client-side JavaScript
+const episodes: Episode[] = [];
 ---
 
 <Section id="recent-episodes" background="white">
@@ -16,28 +28,13 @@ import Heading from './Heading.astro';
         aria-roledescription="carousel"
         aria-label="Podcast-Episoden"
       >
-        <!-- Replace with a proper skeleton container that will be removed -->
-        <div
-          id="skeleton-container"
-          class="flex justify-center gap-4 md:gap-6 lg:gap-8"
-          aria-hidden="true"
-        >
-          <div
-            class="episode-skeleton w-full max-w-[280px] md:w-1/2 lg:w-1/4 aspect-square rounded-lg"
-          >
-          </div>
-          <div
-            class="episode-skeleton w-full max-w-[280px] md:w-1/2 lg:w-1/4 aspect-square rounded-lg hidden sm:block"
-          >
-          </div>
-          <div
-            class="episode-skeleton w-full max-w-[280px] md:w-1/2 lg:w-1/4 aspect-square rounded-lg hidden lg:block"
-          >
-          </div>
-          <div
-            class="episode-skeleton w-full max-w-[280px] md:w-1/2 lg:w-1/4 aspect-square rounded-lg hidden lg:block"
-          >
-          </div>
+        <!-- Loading State -->
+        <div id="skeleton-container" class="flex gap-4 md:gap-6 lg:gap-8">
+          {
+            Array.from({ length: 4 }).map(() => (
+              <div class="w-full md:w-1/2 lg:w-1/4 max-w-[280px] aspect-square bg-gray-200 animate-pulse" />
+            ))
+          }
         </div>
 
         <!-- Actual carousel track (will be populated by JavaScript) -->
@@ -51,13 +48,7 @@ import Heading from './Heading.astro';
       </div>
 
       <!-- Pagination indicators -->
-      <div
-        class="flex justify-center gap-2 mt-6"
-        id="carousel-indicators"
-        aria-hidden="true"
-      >
-        <!-- Pagination dots will be inserted here by JavaScript -->
-      </div>
+      <CarouselIndicators client:load />
 
       <!-- Navigation buttons -->
       <div>
@@ -158,378 +149,276 @@ import Heading from './Heading.astro';
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    // Get DOM elements
-    const carousel = document.getElementById('episode-carousel');
-    const track = document.getElementById('episode-track');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    const indicators = document.getElementById('carousel-indicators');
+  interface Episode {
+    link: string;
+    thumbnail: string;
+    title: string;
+    description: string;
+  }
 
-    // Return if any required element is missing
-    if (!carousel || !track || !prevButton || !nextButton || !indicators)
-      return;
+  class CarouselManager {
+    private carousel: HTMLElement;
+    private track: HTMLElement;
+    private prevButton: HTMLButtonElement;
+    private nextButton: HTMLButtonElement;
+    private episodes: Episode[] = [];
+    private currentPage = 0;
+    private totalPages = 0;
+    private itemsPerPage = 1;
 
-    // State variables
-    let currentPage = 0;
-    let totalPages = 0;
-    let episodes = [];
-    let itemsPerPage = 1; // Default for mobile
+    constructor() {
+      // Get DOM elements
+      this.carousel = document.getElementById('episode-carousel')!;
+      this.track = document.getElementById('episode-track')!;
+      this.prevButton = document.getElementById(
+        'carousel-prev'
+      ) as HTMLButtonElement;
+      this.nextButton = document.getElementById(
+        'carousel-next'
+      ) as HTMLButtonElement;
 
-    // Update items per page based on responsive breakpoints
-    const updateItemsPerPage = () => {
-      if (window.innerWidth >= 1024) {
-        // lg
-        itemsPerPage = 4;
-      } else if (window.innerWidth >= 768) {
-        // md
-        itemsPerPage = 2;
-      } else {
-        itemsPerPage = 1; // sm
-      }
+      // Initialize
+      this.setupEventListeners();
+      this.updateItemsPerPage();
+      this.loadEpisodes();
+    }
 
-      // Recalculate total pages
-      totalPages = Math.ceil(episodes.length / itemsPerPage);
+    private setupEventListeners() {
+      // Navigation buttons
+      this.prevButton.addEventListener('click', () => this.navigate(-1));
+      this.nextButton.addEventListener('click', () => this.navigate(1));
 
-      // Ensure current page is valid
-      if (currentPage >= totalPages) {
-        currentPage = totalPages > 0 ? totalPages - 1 : 0;
-      }
+      // Keyboard navigation
+      this.carousel.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') this.navigate(-1);
+        if (e.key === 'ArrowRight') this.navigate(1);
+      });
 
-      // Update UI
-      updateCarousel();
-      updateIndicators();
+      // Indicator clicks
+      document.addEventListener('pageChange', ((e: CustomEvent) => {
+        this.goToPage(e.detail.page);
+      }) as EventListener);
 
-      // Rebuild the carousel pages with new layout
-      buildCarouselPages();
-    };
+      // Responsive updates
+      let resizeTimeout: number;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = window.setTimeout(() => this.updateItemsPerPage(), 250);
+      });
+    }
 
-    // Function to build/rebuild carousel pages based on current itemsPerPage
-    const buildCarouselPages = () => {
-      if (!track) return;
-
-      // Clear existing content
-      track.innerHTML = '';
-
-      // Build carousel pages
-      for (let page = 0; page < totalPages; page++) {
-        // Create page container
-        const pageContainer = document.createElement('div');
-        pageContainer.className =
-          'flex-shrink-0 flex-grow-0 w-full flex justify-center gap-4 md:gap-6 lg:gap-8';
-        pageContainer.setAttribute('aria-roledescription', 'slide');
-        pageContainer.setAttribute(
-          'aria-label',
-          `Seite ${page + 1} von ${totalPages}`
+    private async loadEpisodes() {
+      try {
+        const response = await fetch(
+          'https://anchor.fm/s/1003c6b34/podcast/rss'
         );
-        pageContainer.style.width = '100%';
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        const items = xmlDoc.querySelectorAll('item');
+        const MAX_EPISODES = 12;
 
-        // Add episodes for this page
-        const startIdx = page * itemsPerPage;
-        const endIdx = Math.min(startIdx + itemsPerPage, episodes.length);
+        // Process episodes
+        for (let i = 0; i < Math.min(items.length, MAX_EPISODES); i++) {
+          const item = items[i];
 
-        for (let i = startIdx; i < endIdx; i++) {
-          const episode = episodes[i];
-
-          // Create episode card with max-width constraint for proper centering
-          const episodeCard = document.createElement('a');
-          episodeCard.href = episode.link;
-          episodeCard.target = '_blank';
-          episodeCard.rel = 'noopener noreferrer';
-
-          // Apply responsive classes with max-width
-          if (itemsPerPage === 1) {
-            episodeCard.className =
-              'episode-card w-full max-w-[280px] aspect-square flex flex-col relative';
-          } else if (itemsPerPage === 2) {
-            episodeCard.className =
-              'episode-card w-1/2 max-w-[280px] aspect-square flex flex-col relative';
-          } else {
-            episodeCard.className =
-              'episode-card w-1/4 max-w-[280px] aspect-square flex flex-col relative';
+          // Get episode link - prefer Spotify
+          let link = '';
+          const links = Array.from(item.querySelectorAll('link'));
+          for (const linkEl of links) {
+            const url = linkEl.textContent?.trim() || '';
+            if (url.includes('spotify.com')) {
+              link = url;
+              break;
+            }
+          }
+          if (!link) {
+            link = item.querySelector('link')?.textContent?.trim() || '';
           }
 
-          episodeCard.setAttribute('aria-label', episode.title);
+          // Get thumbnail
+          let thumbnail = '';
+          const allElements = item.getElementsByTagName('*');
+          for (const element of allElements) {
+            const nodeName = element.nodeName.toLowerCase();
+            if (
+              (nodeName.includes('itunes:image') ||
+                (nodeName.includes('image') &&
+                  element.namespaceURI?.includes('itunes'))) &&
+              element.hasAttribute('href')
+            ) {
+              thumbnail = element.getAttribute('href') || '';
+              break;
+            }
+          }
 
-          // Set card content with explicit image dimensions
-          episodeCard.innerHTML = `
-            <div class="relative h-full w-full">
-              <img
-                src="${episode.thumbnail}"
-                alt="${episode.title}"
-                width="280"
-                height="280"
-                loading="lazy"
-              />
+          // Fallback thumbnail
+          if (!thumbnail) {
+            const imageUrl = xmlDoc.querySelector('image url');
+            thumbnail =
+              imageUrl?.textContent ||
+              'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/42889269/f3920f44c23f9537.jpg';
+          }
+
+          // Get episode details
+          const title =
+            item.querySelector('title')?.textContent?.trim() ||
+            'Podcast Episode';
+          const description =
+            item.querySelector('description')?.textContent?.trim() || '';
+          const shortDesc =
+            description.replace(/<[^>]*>/g, '').substring(0, 100) +
+            (description.length > 100 ? '...' : '');
+
+          if (link && thumbnail) {
+            this.episodes.push({
+              link,
+              thumbnail,
+              title,
+              description: shortDesc
+            });
+          }
+        }
+
+        // Remove skeleton and update UI
+        const skeleton = document.getElementById('skeleton-container');
+        if (skeleton) skeleton.remove();
+
+        this.updateItemsPerPage();
+        this.updateCarousel();
+      } catch (error) {
+        console.error('Error loading podcast episodes:', error);
+        if (this.track) {
+          this.track.innerHTML = `
+            <div class="text-center text-gray-500 py-12">
+              Fehler beim Laden der Folgen
             </div>
           `;
-
-          pageContainer.appendChild(episodeCard);
         }
-
-        // Fill remaining slots with empty spaces if needed
-        const remaining = itemsPerPage - (endIdx - startIdx);
-        if (remaining > 0) {
-          for (let i = 0; i < remaining; i++) {
-            const emptySpace = document.createElement('div');
-            if (itemsPerPage === 1) {
-              emptySpace.className = 'w-full max-w-[280px] aspect-square';
-            } else if (itemsPerPage === 2) {
-              emptySpace.className = 'w-1/2 max-w-[280px] aspect-square';
-            } else {
-              emptySpace.className = 'w-1/4 max-w-[280px] aspect-square';
-            }
-            pageContainer.appendChild(emptySpace);
-          }
-        }
-
-        // Add to track
-        track.appendChild(pageContainer);
-      }
-    };
-
-    // Listen for window resize events with debounce
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-      // Clear the timeout if it exists
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
-
-      // Set a new timeout to avoid excessive updates during resize
-      resizeTimeout = setTimeout(() => {
-        updateItemsPerPage();
-      }, 250);
-    });
-
-    // Function to update carousel position
-    const updateCarousel = () => {
-      if (!track) return;
-
-      // Calculate width of elements for smooth sliding
-      const trackWidth = carousel.clientWidth;
-      const newPosition = -currentPage * trackWidth;
-
-      // Apply transform to slide the track
-      track.style.transform = `translateX(${newPosition}px)`;
-
-      // Update button states
-      if (prevButton instanceof HTMLButtonElement) {
-        prevButton.disabled = currentPage === 0;
-      }
-      if (nextButton instanceof HTMLButtonElement) {
-        nextButton.disabled =
-          currentPage === totalPages - 1 || totalPages === 0;
-      }
-
-      // Update ARIA attributes for accessibility
-      carousel.setAttribute('aria-live', 'polite');
-      setTimeout(() => {
-        carousel.setAttribute('aria-live', 'off');
-      }, 1000);
-    };
-
-    // Create and update pagination indicators
-    const updateIndicators = () => {
-      if (!indicators) return;
-
-      // Clear existing indicators
-      indicators.innerHTML = '';
-
-      // Create indicator dots
-      for (let i = 0; i < totalPages; i++) {
-        const dot = document.createElement('button');
-        dot.classList.add(
-          'w-2.5',
-          'h-2.5',
-          'rounded-full',
-          'transition-colors',
-          'focus:outline-none',
-          'focus:ring-2',
-          'focus:ring-primary/50'
-        );
-
-        // Highlight current page
-        if (i === currentPage) {
-          dot.classList.add('bg-primary');
-          dot.setAttribute('aria-current', 'true');
-        } else {
-          dot.classList.add('bg-gray-300');
-        }
-
-        // Add accessibility attributes
-        dot.setAttribute('aria-label', `Gehe zu Seite ${i + 1}`);
-
-        // Add click handler
-        dot.addEventListener('click', () => {
-          currentPage = i;
-          updateCarousel();
-          updateIndicators();
-        });
-
-        indicators.appendChild(dot);
-      }
-    };
-
-    // Handle navigation buttons
-    prevButton.addEventListener('click', () => {
-      if (currentPage > 0) {
-        currentPage--;
-        updateCarousel();
-        updateIndicators();
-      }
-    });
-
-    nextButton.addEventListener('click', () => {
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        updateCarousel();
-        updateIndicators();
-      }
-    });
-
-    // Add keyboard navigation support
-    carousel.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') {
-        if (currentPage > 0) {
-          currentPage--;
-          updateCarousel();
-          updateIndicators();
-        }
-      } else if (e.key === 'ArrowRight') {
-        if (currentPage < totalPages - 1) {
-          currentPage++;
-          updateCarousel();
-          updateIndicators();
-        }
-      }
-    });
-
-    // Fetch and process RSS feed
-    try {
-      // Fetch RSS feed
-      const response = await fetch('https://anchor.fm/s/1003c6b34/podcast/rss');
-      const xmlText = await response.text();
-
-      // Parse XML
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-
-      // Process episodes (limit to 12)
-      const items = xmlDoc.querySelectorAll('item');
-      const MAX_EPISODES = 12;
-
-      // Remove skeleton loader
-      const skeletonContainer = document.getElementById('skeleton-container');
-      if (skeletonContainer) {
-        skeletonContainer.remove();
-      }
-
-      // Clear track for actual content
-      track.innerHTML = '';
-
-      // Reset episodes array
-      episodes = [];
-
-      // Process up to MAX_EPISODES
-      for (let i = 0; i < Math.min(items.length, MAX_EPISODES); i++) {
-        const item = items[i];
-
-        // Get episode link - prefer Spotify if available
-        let link = '';
-        const links = Array.from(item.querySelectorAll('link'));
-        for (const linkEl of links) {
-          const url = linkEl.textContent?.trim() || '';
-          if (url.includes('spotify.com')) {
-            link = url;
-            break;
-          }
-        }
-
-        // Fallback to first link
-        if (!link) {
-          link = item.querySelector('link')?.textContent?.trim() || '';
-        }
-
-        // Find iTunes image using attribute selection
-        let thumbnail = '';
-        const allElements = item.getElementsByTagName('*');
-        for (let j = 0; j < allElements.length; j++) {
-          const element = allElements[j];
-          const nodeName = element.nodeName.toLowerCase();
-
-          if (
-            (nodeName.includes('itunes:image') ||
-              (nodeName.includes('image') &&
-                element.namespaceURI?.includes('itunes'))) &&
-            element.hasAttribute('href')
-          ) {
-            thumbnail = element.getAttribute('href') || '';
-            break;
-          }
-        }
-
-        // Fallback to channel image
-        if (!thumbnail) {
-          const imageUrl = xmlDoc.querySelector('image url');
-          thumbnail =
-            imageUrl?.textContent ||
-            'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/42889269/f3920f44c23f9537.jpg';
-        }
-
-        // Get episode title and description for accessibility
-        const title =
-          item.querySelector('title')?.textContent?.trim() || 'Podcast Episode';
-        const description =
-          item.querySelector('description')?.textContent?.trim() || '';
-
-        // Extract short description (first 100 characters)
-        const shortDesc =
-          description.replace(/<[^>]*>/g, '').substring(0, 100) +
-          (description.length > 100 ? '...' : '');
-
-        // Create episode object
-        if (link && thumbnail) {
-          episodes.push({
-            link,
-            thumbnail,
-            title,
-            description: shortDesc
-          });
-        }
-      }
-
-      // Update responsive layout
-      updateItemsPerPage();
-
-      // No need to build pages here, it's now handled inside updateItemsPerPage
-
-      // If no episodes were processed, show error
-      if (episodes.length === 0) {
-        const errorMsg = document.createElement('div');
-        errorMsg.className = 'text-center text-gray-500 py-12';
-        errorMsg.textContent = 'Keine Folgen gefunden';
-        track.appendChild(errorMsg);
-      }
-
-      // Update indicators
-      updateIndicators();
-
-      // Enable focus on carousel for keyboard navigation
-      carousel.tabIndex = 0;
-    } catch (error) {
-      console.error('Error loading podcast episodes:', error);
-
-      // Clear loading skeletons
-      if (track) {
-        track.innerHTML = '';
-
-        // Show error message
-        const errorMsg = document.createElement('div');
-        errorMsg.className = 'text-center text-gray-500 py-12';
-        errorMsg.textContent = 'Fehler beim Laden der Folgen';
-        track.appendChild(errorMsg);
       }
     }
+
+    private updateItemsPerPage() {
+      // Update items per page based on screen size
+      if (window.innerWidth >= 1024) {
+        this.itemsPerPage = 4;
+      } else if (window.innerWidth >= 768) {
+        this.itemsPerPage = 2;
+      } else {
+        this.itemsPerPage = 1;
+      }
+
+      // Update total pages
+      this.totalPages = Math.ceil(this.episodes.length / this.itemsPerPage);
+
+      // Ensure current page is valid
+      if (this.currentPage >= this.totalPages) {
+        this.currentPage = Math.max(0, this.totalPages - 1);
+      }
+
+      this.updateCarousel();
+    }
+
+    private updateCarousel() {
+      if (!this.track) return;
+
+      // Clear track
+      this.track.innerHTML = '';
+
+      // Create pages
+      for (let i = 0; i < this.totalPages; i++) {
+        const pageHtml = this.createCarouselPage(i);
+        this.track.insertAdjacentHTML('beforeend', pageHtml);
+      }
+
+      // Update transform
+      const trackWidth = this.carousel.clientWidth;
+      this.track.style.transform = `translateX(${-this.currentPage * trackWidth}px)`;
+
+      // Update button states
+      this.prevButton.disabled = this.currentPage === 0;
+      this.nextButton.disabled = this.currentPage === this.totalPages - 1;
+
+      // Update indicators
+      this.updateIndicators();
+    }
+
+    private createCarouselPage(pageIndex: number): string {
+      const startIdx = pageIndex * this.itemsPerPage;
+      const endIdx = Math.min(
+        startIdx + this.itemsPerPage,
+        this.episodes.length
+      );
+      const pageEpisodes = this.episodes.slice(startIdx, endIdx);
+
+      const cardWidth =
+        this.itemsPerPage === 1
+          ? 'w-full'
+          : this.itemsPerPage === 2
+            ? 'w-1/2'
+            : 'w-1/4';
+
+      let html = `
+        <div class="flex-shrink-0 flex-grow-0 w-full flex justify-center gap-4 md:gap-6 lg:gap-8"
+             aria-roledescription="slide"
+             aria-label="Seite ${pageIndex + 1} von ${this.totalPages}">
+      `;
+
+      // Add episode cards
+      pageEpisodes.forEach(episode => {
+        html += `
+          <a href="${episode.link}"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="episode-card ${cardWidth} max-w-[280px] aspect-square flex flex-col relative"
+             aria-label="${episode.title}">
+            <div class="relative h-full w-full">
+              <img src="${episode.thumbnail}"
+                   alt="${episode.title}"
+                   width="280"
+                   height="280"
+                   loading="lazy"
+                   title="${episode.description}" />
+            </div>
+          </a>
+        `;
+      });
+
+      // Add empty spaces if needed
+      const remaining = this.itemsPerPage - pageEpisodes.length;
+      for (let i = 0; i < remaining; i++) {
+        html += `<div class="${cardWidth} max-w-[280px] aspect-square"></div>`;
+      }
+
+      html += '</div>';
+      return html;
+    }
+
+    private updateIndicators() {
+      const event = new CustomEvent('updateIndicators', {
+        detail: {
+          currentPage: this.currentPage,
+          totalPages: this.totalPages
+        }
+      });
+      document.dispatchEvent(event);
+    }
+
+    private navigate(direction: number) {
+      const newPage = this.currentPage + direction;
+      if (newPage >= 0 && newPage < this.totalPages) {
+        this.goToPage(newPage);
+      }
+    }
+
+    private goToPage(page: number) {
+      this.currentPage = page;
+      this.updateCarousel();
+    }
+  }
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new CarouselManager();
   });
 </script>

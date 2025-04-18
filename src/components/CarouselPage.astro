@@ -1,0 +1,54 @@
+---
+import EpisodeCard from './EpisodeCard.astro';
+
+interface Episode {
+  link: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  episodes: Episode[];
+  pageIndex: number;
+  totalPages: number;
+  itemsPerPage: number;
+}
+
+const { episodes, pageIndex, totalPages, itemsPerPage } = Astro.props;
+
+// Calculate episode indices for this page
+const startIdx = pageIndex * itemsPerPage;
+const endIdx = Math.min(startIdx + itemsPerPage, episodes.length);
+const pageEpisodes = episodes.slice(startIdx, endIdx);
+
+// Calculate responsive widths based on itemsPerPage
+const getCardWidth = (itemsPerPage: number): string => {
+  switch (itemsPerPage) {
+    case 1:
+      return 'w-full';
+    case 2:
+      return 'w-1/2';
+    case 4:
+      return 'w-1/4';
+    default:
+      return 'w-full';
+  }
+};
+
+const cardWidth = getCardWidth(itemsPerPage);
+---
+
+<div
+  class="flex-shrink-0 flex-grow-0 w-full flex justify-center gap-4 md:gap-6 lg:gap-8"
+  aria-roledescription="slide"
+  aria-label={`Seite ${pageIndex + 1} von ${totalPages}`}
+>
+  {pageEpisodes.map(episode => <EpisodeCard {...episode} width={cardWidth} />)}
+  {
+    // Fill remaining slots with empty spaces if needed
+    Array.from({ length: itemsPerPage - pageEpisodes.length }).map(() => (
+      <div class={`${cardWidth} max-w-[280px] aspect-square`} />
+    ))
+  }
+</div>
