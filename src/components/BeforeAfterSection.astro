@@ -1,0 +1,123 @@
+---
+import Section from './ui/Section.astro';
+
+const transformationItems = [
+  {
+    category: "Softwareentwicklung",
+    icon: "code",
+    before: [
+      "Komplexe technische Herausforderungen überfordern dich",
+      "Arbeiten an Code-Problemen erfolgt isoliert",
+      "Du kannst technische Konzepte nicht klar erklären",
+      "Unsicherheit bei architektonischen Entscheidungen"
+    ],
+    after: [
+      "Du löst komplexe Probleme mit systematischen Ansätzen",
+      "Du schaffst kollaborative Entwicklungsumgebungen",
+      "Du kommunizierst technische Konzepte klar und verständlich",
+      "Du triffst selbstbewusst fundierte Architekturentscheidungen"
+    ]
+  },
+  {
+    category: "Kommunikation & Führung",
+    icon: "users",
+    before: [
+      "Schwierige Gespräche werden vermieden",
+      "Ideen werden nicht klar ausgedrückt",
+      "Unsicherheit bei der Führung technischer Entscheidungen",
+      "Schwierigkeiten bei der Delegation und im Vertrauen auf andere"
+    ],
+    after: [
+      "Du meisterst herausfordernde Diskussionen souverän",
+      "Du artikulierst Ideen mit Selbstvertrauen und Klarheit",
+      "Du führst Teams selbstsicher durch technische Herausforderungen",
+      "Du stärkst Teammitglieder durch effektive Delegation"
+    ]
+  }
+];
+---
+
+<Section id="transformation" background="gray">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2
+        class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
+        data-aos="fade-up"
+      >
+        <span class="text-xs uppercase tracking-wider text-gray-500 block mb-1">Der Weg zum Impact Developer</span>
+        Mach Du den Unterschied
+        <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"></span>
+      </h2>
+      <p class="text-xl text-gray-700 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+        Geh technisch noch tiefer und kombiniere deine Expertise mit Kommunikations- und Führungsfähigkeiten. Präge die Strategie deiner Kunden oder deines Unternehmens.
+      </p>
+    </div>
+
+    <div class="space-y-12 md:space-y-16">
+      {transformationItems.map((item, index) => (
+        <div
+          class="bg-white rounded-xl shadow-sm overflow-hidden"
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
+        >
+          <div class="p-6 border-b border-gray-100">
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-primary/10 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={item.icon === "code" ? "" : "hidden"}>
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={item.icon === "users" ? "" : "hidden"}>
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900">{item.category}</h3>
+            </div>
+          </div>
+
+          <div class="md:grid md:grid-cols-2">
+            <!-- Before -->
+            <div class="p-6 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50 relative">
+              <div class="absolute top-4 right-4 md:left-4 md:right-auto bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Vorher</div>
+              <ul class="space-y-3 mt-8">
+                {item.before.map(point => (
+                  <li class="flex items-start">
+                    <svg class="w-5 h-5 text-gray-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="text-gray-600">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- After - with warmer, friendlier colors -->
+            <div class="p-6 bg-gradient-to-br from-white via-blue-50 to-indigo-50 relative">
+              <div class="absolute top-4 right-4 md:left-4 md:right-auto bg-gradient-to-r from-primary to-secondary text-white px-3 py-1 rounded-full text-sm font-medium shadow-sm">Nachher</div>
+              <ul class="space-y-3 mt-8">
+                {item.after.map(point => (
+                  <li class="flex items-start">
+                    <svg class="w-5 h-5 text-primary mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="text-gray-800 font-medium">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* Add any custom styles here */
+  @media (max-width: 768px) {
+    /* Mobile-specific styles */
+  }
+</style>
