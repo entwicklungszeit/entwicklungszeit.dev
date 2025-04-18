@@ -9,10 +9,15 @@ const { testimonials } = Astro.props;
   <!-- Navigation Buttons -->
   <button
     onclick="moveCarousel('prev')"
-    class="hidden md:block absolute left-0 md:-left-4 lg:-left-12 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-10"
+    class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 sm:p-3 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transform transition-all disabled:opacity-30 disabled:cursor-not-allowed z-10"
     aria-label="Previous testimonial"
   >
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+      class="w-5 h-5 sm:w-6 sm:h-6 text-gray-700"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -41,10 +46,15 @@ const { testimonials } = Astro.props;
 
   <button
     onclick="moveCarousel('next')"
-    class="hidden md:block absolute right-0 md:-right-4 lg:-right-12 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-10"
+    class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-2 sm:p-3 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transform transition-all disabled:opacity-30 disabled:cursor-not-allowed z-10"
     aria-label="Next testimonial"
   >
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+      class="w-5 h-5 sm:w-6 sm:h-6 text-gray-700"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
