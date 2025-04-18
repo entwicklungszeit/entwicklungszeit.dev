@@ -1,6 +1,7 @@
 ---
 import { benefits } from '../data/benefits';
 import { coachingBenefits, programSteps } from '../data/coaching';
+import Heading from './Heading.astro';
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
 import Section from './ui/Section.astro';
@@ -9,16 +10,10 @@ import Section from './ui/Section.astro';
 <Section id="coaching" background="white">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2
-        class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
-        data-aos="fade-up"
-      >
-        <span class="text-xs uppercase tracking-wider text-gray-500 block mb-1">Mentoring trifft Coaching</span>
-        Impact Developer
-        <span
-          class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
-        ></span>
-      </h2>
+      <Heading
+        title="Impact Developer"
+        subheading="Mentoring trifft Coaching"
+      />
       <p class="text-xl text-gray-700 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
         Entwickle dich zum technischen Leader, der sowohl fachlich als auch menschlich überzeugt.
         Ein maßgeschneidertes 1:1 Format, das dich auf die nächste Stufe deiner Karriere bringt.

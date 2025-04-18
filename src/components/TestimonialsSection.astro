@@ -1,5 +1,6 @@
 ---
 import { testimonials } from '../data/testimonials';
+import Heading from './Heading.astro';
 import TestimonialCarousel from './TestimonialCarousel.astro';
 import Section from './ui/Section.astro';
 
@@ -10,14 +11,7 @@ const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
 <Section id="testimonials" background="gray">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
-      <h2
-        class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
-      >
-        Das sagen meine Partner
-        <span
-          class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
-        ></span>
-      </h2>
+      <Heading title="Das sagen meine Partner" />
     </div>
 
     <TestimonialCarousel testimonials={shuffledTestimonials} />

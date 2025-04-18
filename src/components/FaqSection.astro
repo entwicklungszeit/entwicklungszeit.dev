@@ -1,4 +1,5 @@
 ---
+import Heading from './Heading.astro';
 import Accordion from './ui/Accordion.astro';
 import Section from './ui/Section.astro';
 ---
@@ -6,14 +7,7 @@ import Section from './ui/Section.astro';
 <Section id="faq" background="white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
-      <h2
-        class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative inline-block"
-      >
-        Häufig gestellte Fragen
-        <span
-          class="absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
-        ></span>
-      </h2>
+      <Heading title="Häufig gestellte Fragen" />
       <p class="text-gray-600 max-w-2xl mx-auto">
         Hier findest du Antworten auf die häufigsten Fragen zum Impact
         Developer-Programm
