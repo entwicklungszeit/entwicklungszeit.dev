@@ -27,6 +27,21 @@ export const testimonials = [
     projectLink: 'https://www.bluehands.de/'
   },
   {
+    firstName: 'Daniel',
+    lastName: 'Marbach',
+    portraitImage: {
+      src: '/clients/daniel-marbach.jpeg',
+      alt: 'Daniel Marbach'
+    },
+    jobTitle: 'Engineer & Solutions Architect',
+    company: 'Particular Software Ltd',
+    reviewText: `Ich durfte Gregor über viele Jahre hinweg auf seinem Weg begleiten – von seinen ersten Schritten als Schüler in einem meiner Workshops bis hin zu einem fachlichen Austausch auf Augenhöhe, bei dem ich heute oft selbst von seinem Wissen profitieren kann. Besonders schätze ich seine pragmatische Herangehensweise: Gregor bleibt nie auf der rein technischen Ebene stehen, sondern betrachtet komplexe Herausforderungen stets im Gesamtbild. Dabei verliert er weder die unternehmerischen Ziele noch die Menschen aus dem Blick, die davon betroffen sind. Die Zusammenarbeit mit ihm ist besonders wertvoll – weil man immer wieder in seiner eigenen Denkweise herausgefordert wird und in der Wechselwirkung mit Gregor selbst wächst.`,
+    bio: `Daniel Marbach arbeitet als Software Engineer und Solution Architect bei Particular Software und ist Microsoft Azure MVP. Er kommt aus der Schweiz 🇨🇭 und spricht fließend Schweizerdeutsch als Muttersprache.
+Seit über zehn Jahren engagiert er sich als Mitorganisator der .NET Usergroup Zentralschweiz. Er hält regelmäßig Vorträge auf Konferenzen und bei Benutzergruppen. Sein Sessionize-Profil ist unter https://sessionize.com/daniel-marbach zu finden, und seine Vorträge hat er auf YouTube unter https://youtube.com zusammengestellt.
+In seiner Freizeit genießt er dunkle Schokolade 🍫, scharfes Essen 🌶️ und Gewichtheben 🏋️.`,
+    projectLink: 'https://particular.net/'
+  },
+  {
     firstName: 'František',
     lastName: 'Kolář',
     portraitImage: {
