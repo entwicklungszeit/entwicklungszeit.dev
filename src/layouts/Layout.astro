@@ -35,6 +35,8 @@ const {
     />
     <meta name="author" content="Gregor Woiwode" />
     <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="DE" />
+    <meta name="geo.placename" content="DACH-Region" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -95,7 +97,14 @@ const {
         "author": {
           "@type": "Person",
           "name": "Gregor Woiwode",
-          "url": "https://entwicklungszeit.dev"
+          "url": "https://entwicklungszeit.dev",
+          "jobTitle": "Tech Lead und Software Engineer Coach",
+          "knowsAbout": [
+            "Softwareentwicklung",
+            "Engineering Leadership",
+            "Technische Führung",
+            "Coaching"
+          ]
         },
         "publisher": {
           "@type": "Organization",
@@ -103,6 +112,20 @@ const {
           "logo": {
             "@type": "ImageObject",
             "url": "https://entwicklungszeit.dev/logo.svg"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "name": "Software Engineering Coaching",
+          "description": "Individuelles Coaching für Softwareentwickler und Tech Leads",
+          "areaServed": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+              "@type": "GeoCoordinates",
+              "latitude": 51.1657,
+              "longitude": 10.4515
+            },
+            "geoRadius": "1000"
           }
         }
       }
