@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 const { testimonial } = Astro.props;
 
 // Prepare the testimonial data for the onclick handler
@@ -39,7 +41,7 @@ const reviewPreview = hasLongReview
     <!-- Content -->
     <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 flex-grow">
       <div class="flex-shrink-0 mx-auto sm:mx-0">
-        <img
+        <Image
           src={testimonial.portraitImage.src}
           alt={testimonial.portraitImage.alt}
           class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-3xl"

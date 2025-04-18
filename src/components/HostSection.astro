@@ -1,8 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import { pages } from '../data/host';
 import Heading from './Heading.astro';
 import Gallery from './ui/Gallery.astro';
 import Section from './ui/Section.astro';
+
+import badgeGde from '../assets/gde-angular-2025.svg';
+import portraitGregor from '../assets/gregor-woiwode.png';
 ---
 
 <Section id="host" background="gray">
@@ -34,8 +38,8 @@ import Section from './ui/Section.astro';
             <div
               class="absolute inset-[1px] rounded-full overflow-hidden bg-gradient-to-b from-gray-50 to-white border border-gray-100"
             >
-              <img
-                src="/gregor-woiwode.png"
+              <Image
+                src={portraitGregor}
                 alt="Gregor Woiwode"
                 loading="lazy"
                 class="w-full h-full object-cover object-top"
@@ -45,8 +49,8 @@ import Section from './ui/Section.astro';
 
           <!-- GDE Badge -->
           <div class="w-[200px] lg:w-[300px]">
-            <img
-              src="/gde-angular-2025.svg"
+            <Image
+              src={badgeGde}
               alt="Google Developer Expert Angular 2025"
               loading="lazy"
               class="w-full h-auto"

@@ -6,6 +6,7 @@ export default defineConfig({
   integrations: [tailwind(), react()],
   experimental: { svg: true },
   image: {
-    service: { entrypoint: 'astro/assets/services/sharp' }
+    service: { entrypoint: 'astro/assets/services/sharp' },
+    remotePatterns: [{ protocol: 'https' }]
   }
 });
