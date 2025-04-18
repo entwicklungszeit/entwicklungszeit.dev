@@ -165,6 +165,10 @@ const episodes: Episode[] = [];
     private currentPage = 0;
     private totalPages = 0;
     private itemsPerPage = 1;
+    private touchStartX: number = 0;
+    private touchEndX: number = 0;
+    private minSwipeDistance: number = 50;
+    private isSwiping: boolean = false;
 
     constructor() {
       // Get DOM elements
@@ -193,6 +197,19 @@ const episodes: Episode[] = [];
         if (e.key === 'ArrowLeft') this.navigate(-1);
         if (e.key === 'ArrowRight') this.navigate(1);
       });
+
+      // Touch events for mobile swipe
+      this.carousel.addEventListener(
+        'touchstart',
+        e => this.handleTouchStart(e),
+        { passive: true }
+      );
+      this.carousel.addEventListener(
+        'touchmove',
+        e => this.handleTouchMove(e),
+        { passive: true }
+      );
+      this.carousel.addEventListener('touchend', () => this.handleTouchEnd());
 
       // Indicator clicks
       document.addEventListener('pageChange', ((e: CustomEvent) => {
@@ -331,8 +348,9 @@ const episodes: Episode[] = [];
         this.track.insertAdjacentHTML('beforeend', pageHtml);
       }
 
-      // Update transform
+      // Update transform with smooth transition
       const trackWidth = this.carousel.clientWidth;
+      this.track.style.transition = 'transform 300ms ease-out';
       this.track.style.transform = `translateX(${-this.currentPage * trackWidth}px)`;
 
       // Update button states
@@ -414,6 +432,62 @@ const episodes: Episode[] = [];
     private goToPage(page: number) {
       this.currentPage = page;
       this.updateCarousel();
+    }
+
+    private handleTouchStart(e: TouchEvent) {
+      this.touchStartX = e.touches[0].clientX;
+      this.isSwiping = true;
+      this.track.style.transition = 'none'; // Disable transition during swipe
+    }
+
+    private handleTouchMove(e: TouchEvent) {
+      if (!this.isSwiping) return;
+
+      this.touchEndX = e.touches[0].clientX;
+      const diffX = this.touchStartX - this.touchEndX;
+      const trackWidth = this.carousel.clientWidth;
+
+      // Calculate the new transform position
+      const currentTransform = -(this.currentPage * trackWidth);
+      const newTransform = currentTransform - diffX;
+
+      // Apply boundaries to prevent overscrolling
+      if (
+        (this.currentPage === 0 && diffX < 0) ||
+        (this.currentPage === this.totalPages - 1 && diffX > 0)
+      ) {
+        // Add resistance when trying to swipe beyond bounds
+        this.track.style.transform = `translateX(${currentTransform - diffX * 0.3}px)`;
+      } else {
+        this.track.style.transform = `translateX(${newTransform}px)`;
+      }
+    }
+
+    private handleTouchEnd() {
+      if (!this.isSwiping) return;
+
+      this.isSwiping = false;
+      this.track.style.transition = 'transform 300ms ease-out'; // Restore transition
+
+      const diffX = this.touchStartX - this.touchEndX;
+      const absX = Math.abs(diffX);
+
+      if (absX >= this.minSwipeDistance) {
+        // Swipe threshold met - navigate
+        if (diffX > 0 && this.currentPage < this.totalPages - 1) {
+          // Swipe left
+          this.navigate(1);
+        } else if (diffX < 0 && this.currentPage > 0) {
+          // Swipe right
+          this.navigate(-1);
+        } else {
+          // Reset to current page if at bounds
+          this.goToPage(this.currentPage);
+        }
+      } else {
+        // Swipe threshold not met - reset to current page
+        this.goToPage(this.currentPage);
+      }
     }
   }
 
