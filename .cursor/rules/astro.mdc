@@ -1,0 +1,371 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Security Best Practices Standards for Astro
+
+This document outlines security best practices for Astro projects, focusing on preventing common vulnerabilities, implementing secure coding patterns, and leveraging Astro's features to enhance application security.
+
+## 1. General Security Principles
+
+These foundational principles should guide all Astro development decisions.
+
+*   **Principle of Least Privilege:** Grant only the minimum necessary permissions to users and components.
+    *   **Do This:** Design your application so each component (e.g., server endpoints, API routes) only has the permissions needed to perform its specific task.
+    *   **Don't Do This:** Grant blanket permissions or run components with administrative privileges when they are not required.
+    *   **Why:** Limits the potential damage if a component is compromised.
+
+*   **Defense in Depth:** Implement multiple layers of security controls. If one fails, others are in place.
+    *   **Do This:** Combine input validation, output encoding, rate limiting, and regular security audits.
+    *   **Don't Do This:** Rely on a single security measure as the sole protection mechanism.
+    *   **Why:** Prevents a single vulnerability from leading to a complete system compromise.
+
+*   **Keep Security Simple:** Favor simple, well-understood security mechanisms over complex, custom solutions.
+    *   **Do This:** Use established libraries and frameworks for authentication, authorization, and encryption.
+    *   **Don't Do This:** Roll your own cryptographic algorithms or authentication schemes.
+    *   **Why:** Reduces the risk of introducing subtle flaws, increasing the chances of being exploited, and reduces the time spent debugging.
+
+*   **Regular Audits and Updates:** Conduct regular security audits and keep dependencies up-to-date.
+    *   **Do This:** Use security linters, dependency scanners, and penetration tests. Monitor components for known vulnerabilities.
+    *   **Don't Do This:** Neglect security audits or postpone applying security patches.
+    *   **Why:** Ensures you quickly learn about and address new vulnerabilities.
+
+## 2. Preventing Cross-Site Scripting (XSS)
+
+XSS vulnerabilities allow attackers to inject malicious scripts into your web pages. Astro, fortunately mitigates this by default by treating all files as components (rather than raw HTML).
+
+*   **Input Validation and Output Encoding:** Always validate user input and encode output displayed on the page.
+    *   **Do This:** Use Astro's component-based architecture to escape HTML entities server-side or at build time. Be aware of what could be dangerous and escape those specific characters.
+    *   **Don't Do This:** Directly insert user-provided data into the HTML without proper escaping.
+
+### Example: Encoding User Input
+
+"""astro
+---
+const userInput = Astro.request.url.searchParams.get('query') || ''; // Get user defined search query
+const encodedInput = encodeURIComponent(userInput); //Encoding user input
+---
+
+<p>You searched for: {encodedInput}</p>
+"""
+
+*Why: Encoding converts special characters to their HTML entities, preventing them from being interpreted as code.*
+
+### Anti-Pattern: Directly Inserting Input
+
+"""astro
+<!-- Anti-pattern: Directly inserting user input (unsafe) -->
+<p>You searched for: {Astro.request.url.searchParams.get('query') || ''}</p>
+"""
+
+*Why: This allows execution of arbitrary javascript if a malicious user were to exploit it.*
+
+*   **Use "sanitize-html" for Rich Text Content:** If you need to allow some HTML tags (e.g., for rich text content), use a library like "sanitize-html".
+
+### Example: Using "sanitize-html"
+
+First, install the package:
+
+"""bash
+npm install sanitize-html
+"""
+
+Then, use it in your Astro component:
+
+"""astro
+---
+import sanitizeHtml from 'sanitize-html';
+
+const unsafeHtml = '<p>Hello</p><img src="x" onerror="alert(\'XSS\')">';
+const safeHtml = sanitizeHtml(unsafeHtml, {
+  allowedTags: ['p'],
+  allowedAttributes: {},
+});
+---
+
+<Fragment set:html={safeHtml} />
+"""
+
+*Why: This library allows you to define which HTML tags and attributes are safe to include, removing any potentially malicious code.*
+
+## 3. Preventing Cross-Site Request Forgery (CSRF)
+
+CSRF attacks trick users into performing actions they didn't intend to, often by submitting unauthorized requests.
+
+*   **Implement CSRF Tokens:** Include a unique, unpredictable token in your forms and verify it on the server.
+    *   **Do This:** Generate a CSRF token and store it in the user's session or a cookie. Include the token as a hidden field in your forms and validate it when the form is submitted. Frameworks usually provide built-in CSRF protection mechanisms.
+    *   **Don't Do This:** Rely on simple techniques like checking the "Referer" header, as these can be easily bypassed.
+
+### Example: CSRF Protection with a Custom Implementation in an API endpoint
+
+This showcases a custom implementation.  Real applications should use a library.
+
+"""astro
+// api/submit-form.js
+import { randomBytes } from 'crypto';
+
+// Function to generate a CSRF token
+function generateCsrfToken() {
+  return randomBytes(64).toString('hex');
+}
+
+// Function to verify the CSRF token
+function verifyCsrfToken(sessionToken, submittedToken) {
+  return sessionToken === submittedToken;
+}
+
+//Generate the CSRF Token
+const csrfToken = generateCsrfToken();
+
+// Set the CSRF token in a secure, HTTP-only cookie
+Astro.response.headers.set('Set-Cookie', "csrfToken=${csrfToken}; Secure; HttpOnly; Path=/");
+
+//Handle form request with protected CSRF Token verification
+export async function post({request}){
+  const formData = await request.formData();
+  const submittedToken = formData.get('csrfToken');
+  const sessionToken = Astro.cookies.get('csrfToken').value;
+
+  if(!verifyCsrfToken(sessionToken, submittedToken)) {
+    return new Response(JSON.stringify({ message: 'CSRF token validation failed' }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
+ //Process the legit request here.
+}
+"""
+
+*Why: CSRF tokens ensure that the user intentionally submitted the request and that the request did not originate from a malicious site.*
+
+*   **Use SameSite Cookies:** Set the "SameSite" attribute on your cookies to "Strict" or "Lax" to prevent cross-site requests from accessing your cookies. Setting to "Strict" will prevent requests from other origins entirely.  "Lax" provides defense with reasonable usability (e.g. GET requests still work on cross-origin links).
+
+### Example: Setting "SameSite" Attribute
+
+"""javascript
+//Setting SameSite cookie
+Astro.response.headers.set('Set-Cookie', "sessionid=12345; Secure; HttpOnly; Path=/; SameSite=Strict");
+"""
+
+*Why: This tells the browser whether to send the cookie along with cross-site requests, mitigating the impact of CSRF attacks.*
+
+## 4. Secure Authentication and Authorization
+
+Properly securing user authentication and authorization is critical.
+
+*   **Use Strong Password Hashing:** Never store passwords in plain text. Use a strong password hashing algorithm like bcrypt or Argon2.
+    *   **Do This:** Use a library suited for password and authentication management such as Auth.js.
+    *   **Don't Do This:** Use weak hashing algorithms like MD5 or SHA1.
+
+### Example: Password Hashing with "bcrypt"
+
+First, install "bcrypt":
+
+"""bash
+npm install bcrypt
+"""
+
+Then, use it in your authentication logic:
+
+"""javascript
+import bcrypt from 'bcrypt';
+
+async function hashPassword(password) {
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+}
+
+async function verifyPassword(password, hashedPassword) {
+  const match = await bcrypt.compare(password, hashedPassword);
+  return match;
+}
+"""
+
+*Why: Strong hashing algorithms make it computationally infeasible for attackers to recover passwords from stolen password databases.*
+
+*   **Implement Multi-Factor Authentication (MFA):** Require users to provide multiple forms of authentication, such as a password and a one-time code from a mobile app.
+    *   **Do This:** Integrate a library or service that provides MFA functionality.
+    *   **Don't Do This:** Rely solely on passwords for authentication.
+
+*   **Implement Role-Based Access Control (RBAC):** Define roles with specific permissions and assign users to these roles.
+    *   **Do This:** Use a library that simplifies RBAC, tying it to specific Astro pages or API endpoints based on the logged-in user's permissions.
+    *   **Don't Do This:** Grant all users the same level of access or hardcode authorization checks.
+
+### Example: Basic Example of RBAC for an API Endpoint
+"""javascript
+// auth.js - a hypothetical authentication module
+import { getUserRole } from './auth'; // Function that returns the user's role from their authentication record
+
+export async function get({request}){
+  const role = getUserRole(request);
+
+  if (role !== 'admin') {
+    return new Response(JSON.stringify({
+      message: 'Unauthorized',
+    }), {
+      status: 403,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  // Admin-only logic here
+  const data = { message: 'Admin access granted!' };
+  return new Response(JSON.stringify(data), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+};
+"""
+
+*Why: RBAC allows you to control who can access which resources and perform which actions, minimizing the impact of a compromised account.*
+
+## 5. Secure Data Handling
+
+Protect sensitive data both in transit and at rest.
+
+*   **Use HTTPS:** Always use HTTPS to encrypt communication between the client and the server.
+    *   **Do This:** Configure your server with a valid SSL/TLS certificate. Astro and modern deployments have built-in support for HTTPS.
+    *   **Don't Do This:** Serve sensitive data over HTTP.
+
+*   **Encrypt Sensitive Data at Rest:** Encrypt sensitive data stored in databases or files.
+    *   **Do This:** Use a database encryption feature or a library like "crypto" to encrypt data before storing it.
+    *   **Don't Do This:** Store sensitive data in plain text or use weak encryption algorithms.
+
+### Example: Encryption with "crypto"
+
+"""javascript
+import crypto from 'crypto';
+
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32); // Generate a secure key
+const iv = crypto.randomBytes(16);  // Generate a secure initialization vector
+
+function encrypt(text) {
+  let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+  let encrypted = cipher.update(text);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+}
+
+function decrypt(encryptedData, iv) {
+  let ivBuffer = Buffer.from(iv, 'hex');
+  let encryptedText = Buffer.from(encryptedData, 'hex');
+  let decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), ivBuffer);
+  let decrypted = decipher.update(encryptedText);
+  decrypted = Buffer.concat([decrypted, decipher.final()]);
+  return decrypted.toString();
+}
+
+const data = 'Sensitive data to encrypt';
+const encrypted = encrypt(data);
+const decrypted = decrypt(encrypted.encryptedData, encrypted.iv);
+
+console.log('Encrypted:', encrypted);
+console.log('Decrypted:', decrypted);
+"""
+
+*Why: Encryption protects sensitive data from unauthorized access, even if the storage medium is compromised.*
+
+*   **Sanitize and Validate Data:** Always sanitize and validate data before storing it to prevent injection attacks.
+    *   **Do This:** Use prepared statements or parameterized queries to prevent SQL injection attacks. Validate data types and formats to prevent other types of injection attacks.
+    *   **Don't Do This:** Directly concatenate user input into database queries or trust client-side validation.
+
+## 6. Monitoring and Logging
+
+Implement robust monitoring and logging to detect and respond to security incidents.
+
+*   **Log Security Events:** Log all security-related events, such as authentication attempts, authorization failures, and suspicious activity.
+    *   **Do This:** Use a logging library to record security events in a structured format. Include timestamps, user IDs, IP addresses, and other relevant information.
+
+*   **Monitor Logs for Anomalies:** Continuously monitor logs for suspicious patterns and anomalies.
+    *   **Do This:** Use a security information and event management (SIEM) system or other log analysis tools.
+    *   **Don't Do This:** Ignore or infrequently review logs.
+
+*   **Implement Alerting:** Set up alerts for critical security events.
+    *   **Do This:** Configure alerts to notify security personnel when suspicious activity is detected.
+    *   **Don't Do This:** Rely solely on manual log reviews.
+
+### Example: Logging with "console" and potentially a more complex logging system
+
+"""javascript
+//  console.log is a basic logging primitive.
+console.log("[${new Date().toISOString()}] User login attempt from IP: ${Astro.clientAddress}");
+console.warn("[${new Date().toISOString()}] Suspicious activity detected for user ${userId}");
+console.error("[${new Date().toISOString()}] Authentication failure for user ${userId}");
+"""
+
+Utilize more complete logging methodologies, with error alerts, for production applications.
+
+*Why: Monitoring and logging provide visibility into your application's security posture, allowing you to quickly detect and respond to security incidents to prevent malicious users from gaining access.*
+
+## 7. Dependency Management
+
+Vulnerable dependencies are a common source of security vulnerabilities.
+
+*   **Keep Dependencies Up-to-Date:** Regularly update your dependencies to the latest versions.
+    *   **Do This:** Use tools like "npm update" or "yarn upgrade" to update your dependencies. Automate dependency updates with tools like Dependabot.
+    *   **Don't Do This:** Ignore dependency updates or postpone applying security patches.
+
+*   **Use Dependency Scanning:** Scan your dependencies for known vulnerabilities.
+    *   **Do This:** Use tools like "npm audit" or "yarn audit" to scan your dependencies for vulnerabilities.
+    *   **Don't Do This:** Only rely on manual dependency reviews.
+
+### Example: Using "npm audit"
+
+"""bash
+npm audit
+"""
+
+*Why: Regularly updating and auditing dependencies reduces the risk of incorporating known vulnerabilities into your application.*
+
+## 8. Astro-Specific Security Considerations
+
+These security considerations are unique to Astro projects.
+
+*   **Server-Side Rendering (SSR) Security:**  When using SSR, be extra careful with user input. Ensure all user-provided data is properly sanitized and validated before being rendered on the server. Similar XSS issues can exist server-side.
+
+*   **API Endpoint Security:** Properly authenticate and authorize access to your API endpoints if you're building an API with Astro. Securely manage API keys and tokens.
+
+*   **Environment Variables:** Store sensitive configuration data (e.g., API keys, database passwords) in environment variables, not directly in your code.
+    *   **Do This:** Use ".env" files for local development and configure environment variables in your deployment environment.
+
+### Example: Accessing Environment Variables
+
+"""javascript
+const apiKey = import.meta.env.API_KEY;
+
+if (!apiKey) {
+  console.error('API Key is not defined in environment variables.');
+}
+"""
+
+*Why: Storing sensitive data in environment variables prevents it from being accidentally exposed in your codebase or version control system.*
+
+## 9. Common Anti-Patterns
+
+*   **Ignoring Security Warnings:** Failing to address security warnings from linters, dependency scanners, or other security tools.
+*   **Assuming User Input is Safe:** Trusting user input without proper validation and sanitization.
+*   **Hardcoding Secrets:** Embedding API keys, passwords, or other secrets directly in your code.
+*   **Failing to Follow Best Security Practices:** Failing to follow industry-standard security practices such as using strong password hashing, implementing CSRF protection, and using HTTPS.
+*   **Not testing security:** A lot of the items listed can be tested via automated workflows and unit tests. Not testing increases the risk of missed malicious code.
+
+## 10. Performance Considerations
+
+Security implementations can impact performance, so balance security and performance.
+
+*   **Caching:** Cache authenticated and authorized responses whenever possible to reduce the load on your authentication and authorization systems.
+*   **Rate Limiting:** Implement rate limiting to prevent denial-of-service attacks and brute-force attacks.
+*   **Asynchronous operations:** Where possible, implement security functionalities asynchronously to avoid blocking the main thread and hindering performance.
+
+## 11. Conclusion
+
+By following these security best practices, you can significantly enhance the security of your Astro projects and protect your users and data. Remember that security is an ongoing process, and you should continuously review and update your security measures to address new threats and vulnerabilities.
