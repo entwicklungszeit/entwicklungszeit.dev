@@ -1,5 +1,24 @@
 export const testimonials = [
   {
+    firstName: 'Melory',
+    lastName: 'Ayala',
+    portraitImage: {
+      src: '/clients/melory-ayala.jpeg',
+      alt: 'Melory Ayala'
+    },
+    jobTitle: 'Full Stack Developer & UX/UI Designer',
+    company: 'Freelancer',
+    bio: `Melory Ayala is a full stack developer and UX/UI designer with a passion for creating user-friendly and efficient web applications. She has a strong understanding of both front-end and back-end development, and is dedicated to delivering high-quality solutions that meet the needs of her clients.`,
+    reviewText: `Gregor helped me a lot in my learning process. During our pair programming sessions, Gregor would often bring up useful programming concepts and share good ways of thinking through problems. Whenever something helped him figure something out, he’d take the time to explain it to me too. I'm really grateful for that, because I learned a lot from working with him.
+
+I had the chance to work with Gregor in two main areas: UX/UI design and Development. On the design side, Gregor always showed a strong understanding of user experience. He also made a point of thinking about technical limitations early on, already considering how things would work when the design was implemented.
+
+When we worked together in Development, Gregor was always very tuned in to new technologies and the latest tools and practices in the industry. He stayed up to date with news about frameworks and features, and he always cared about following best practices while coding.
+
+    `,
+    projectLink: 'https://www.linkedin.com/in/melory-ayala/'
+  },
+  {
     firstName: 'Mareike',
     lastName: 'Kirch',
     portraitImage: {
