@@ -1,0 +1,20 @@
+---
+import TestimonialCard from './TestimonialCard.astro';
+import TestimonialModal from './TestimonialModal.astro';
+
+const { testimonials } = Astro.props;
+
+// Shuffle testimonials before rendering
+const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
+---
+
+<div class="w-full">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+    {
+      shuffledTestimonials.map(testimonial => (
+        <TestimonialCard testimonial={testimonial} />
+      ))
+    }
+  </div>
+  <TestimonialModal />
+</div>

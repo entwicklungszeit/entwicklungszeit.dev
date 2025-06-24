@@ -1,7 +1,7 @@
 ---
 import { testimonials } from '../data/testimonials';
 import Heading from './Heading.astro';
-import TestimonialCarousel from './TestimonialCarousel.astro';
+import TestimonialGrid from './TestimonialGrid.astro';
 import Section from './ui/Section.astro';
 
 // Shuffle testimonials
@@ -14,6 +14,6 @@ const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
       <Heading title="Das sagen meine Partner" />
     </div>
 
-    <TestimonialCarousel testimonials={shuffledTestimonials} />
+    <TestimonialGrid testimonials={shuffledTestimonials} />
   </div>
 </Section>
