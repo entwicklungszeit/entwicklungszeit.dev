@@ -99,5 +99,20 @@ In seiner Freizeit genießt er dunkle Schokolade 🍫, scharfes Essen 🌶️ un
       'Die moderne Softwareentwicklung wird neben dem Produkt, den Prozessen vor allem durch den Menschen dahinter gestaltet und beeinflusst. Während für Produkte und Prozesse eine Vielzahl von Experten existieren, ist dies im Bereich der Menschen anders. Gregor bringt für dieses fehlende Puzzleteil herausragende Eigenschaften und Fähigkeiten mit, die so in der Branche ihresgleichen suchen. Dank seiner Erfahrung und Flexibilität kann ich ihn bedingungslos in verschiedensten Projektsituationen weiterempfehlen!',
     bio: 'David Tielke ist freiberuflicher Berater, Coach und Trainer mit einer Leidenschaft für hochqualitative Softwareentwicklung. Er unterstützt seine Kunden mit zertifiziertem Wissen und langjähriger Erfahrung in allen Phasen der Softwareentwicklung – von den Anforderungen über Architektur und Implementierung bis hin zu Bereitstellung und Betrieb. In seinen Projekten steht neben innovativen und nachhaltigen Lösungen stets die Wirtschaftlichkeit im Fokus.',
     projectLink: 'https://david-tielke.de/'
+  },
+  {
+    firstName: 'Markus',
+    lastName: 'Ende',
+    portraitImage: {
+      src: '/clients/markus-ende.jpeg',
+      alt: 'Markus Ende'
+    },
+    jobTitle: 'Software Engineer & Co-Founder',
+    company: 'qupaya technologies GmbH',
+    reviewText: `Ich hatte das Glück, mehrfach mit Gregor zusammenzuarbeiten, als Trainer und bei gemeinsamen Open-Source-Projekten. Seine drei Superkräfte sind:
+      - Er ist immer freundlich und hilfsbereit. Egal ob Berufseinsteiger oder Kollege, man kann sich in jeder Situation an ihn wenden.
+      - Er ist super kompetent und teilt sein Wissen gern, dabei immer auf Augenhöhe, nie von oben herab.
+      - Er steckt voller Energie, packt an und bringt Dinge ins Rollen - mit ansteckenden Professionalität.`,
+    projectLink: 'https://qupaya.com/'
   }
 ];
