@@ -4,19 +4,19 @@ import Button from './ui/Button.astro';
 
 <div class="navigation-container flex items-center justify-between w-full">
   <div
-    class="brand-title text-gray-900 font-semibold ml-4 text-base md:text-xl truncate"
+    class="brand-title text-gray-900 font-semibold ml-4 sm:ml-6 text-base sm:text-lg md:text-xl truncate"
   >
     <span>Entwicklungszeit</span>
   </div>
 
   <nav aria-label="Main navigation">
-    <ul class="flex items-center space-x-6">
+    <ul class="flex items-center gap-3 sm:gap-4">
       <li class="hidden md:block">
         <Button
           href="#coaching"
           variant="outline"
           size="sm"
-          aria-label="Impact Developer"
+          aria-label="Zum Coaching-Angebot springen"
         >
           Impact Developer
         </Button>
@@ -27,7 +27,7 @@ import Button from './ui/Button.astro';
           target="_blank"
           rel="noopener noreferrer"
           size="sm"
-          aria-label="Termin buchen"
+          aria-label="Termin buchen (öffnet neues Fenster)"
         >
           Termin buchen
         </Button>

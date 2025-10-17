@@ -3,6 +3,8 @@ interface Props {
   href?: string;
   variant?: 'primary' | 'gradient' | 'outline';
   size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  loading?: boolean;
   target?: string;
   rel?: string;
   class?: string;
@@ -16,6 +18,8 @@ const {
   href,
   variant = 'primary',
   size = 'md',
+  disabled = false,
+  loading = false,
   target,
   rel,
   class: className = '',
@@ -26,20 +30,22 @@ const {
 } = Astro.props;
 
 const baseStyles =
-  'inline-flex items-center justify-center w-full rounded-full font-medium relative overflow-hidden transform transition-all duration-300 hover:scale-105 active:scale-95';
+  'inline-flex items-center justify-center rounded-full font-medium relative overflow-hidden transform transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary';
 const sizeStyles = {
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3 text-base',
-  lg: 'px-8 py-4 text-lg'
+  sm: 'px-4 py-2 text-sm gap-2',
+  md: 'px-6 py-3 text-base gap-2',
+  lg: 'px-8 py-4 text-lg gap-3'
 };
 const variantStyles = {
   primary:
-    'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-primary/20',
+    'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-hover hover:shadow-primary/20 active:scale-95',
   gradient:
-    'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-primary/20',
+    'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-hover hover:shadow-primary/20 active:scale-95',
   outline:
-    'bg-transparent border border-current text-primary hover:bg-primary/5 hover:shadow-lg'
+    'bg-transparent border-2 border-current text-primary hover:bg-primary/5 active:scale-95'
 };
+
+const disabledStyles = 'opacity-60 cursor-not-allowed';
 
 const Element = href ? 'a' : 'button';
 ---
@@ -48,20 +54,45 @@ const Element = href ? 'a' : 'button';
   Element === 'button' ? (
     <button
       type={type}
+      disabled={disabled || loading}
       class:list={[
         baseStyles,
         sizeStyles[size],
         variantStyles[variant],
+        disabled || loading ? disabledStyles : 'hover:scale-105',
         className
       ]}
       aria-label={ariaLabel}
       aria-current={ariaCurrent}
+      aria-busy={loading}
       role={role}
     >
+      {loading && (
+        <svg
+          class="w-4 h-4 animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      )}
       <span class="relative z-10 flex items-center justify-center w-full">
         <slot />
       </span>
-      {variant !== 'outline' && (
+      {variant !== 'outline' && !disabled && !loading && (
         <div class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 hover:opacity-100 transition-opacity duration-300" />
       )}
     </button>
@@ -74,16 +105,18 @@ const Element = href ? 'a' : 'button';
         baseStyles,
         sizeStyles[size],
         variantStyles[variant],
+        disabled ? disabledStyles : 'hover:scale-105',
         className
       ]}
       aria-label={ariaLabel}
       aria-current={ariaCurrent}
       role={role}
+      {...(disabled && { 'aria-disabled': 'true', role: 'button' })}
     >
       <span class="relative z-10 flex items-center justify-center w-full">
         <slot />
       </span>
-      {variant !== 'outline' && (
+      {variant !== 'outline' && !disabled && (
         <div class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 hover:opacity-100 transition-opacity duration-300" />
       )}
     </a>

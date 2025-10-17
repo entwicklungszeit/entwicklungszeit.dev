@@ -13,16 +13,16 @@ const { text, color, textColor } = Astro.props;
   <div class="relative w-full group">
     <span
       class={`
-        inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-medium w-full
+        inline-flex items-center px-5 py-3 rounded-xl text-sm font-medium w-full
         justify-center lg:justify-start relative overflow-hidden group
-        transition-all duration-300 transform hover:scale-105 shadow-sm
-        hover:shadow-lg
+        transition-all duration-300 transform hover:scale-105 shadow-md
+        hover:shadow-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
         ${textColor} bg-gradient-to-r ${color}
       `}
     >
-      <span class="relative z-10 flex items-center">
+      <span class="relative z-10 flex items-center gap-2">
         <svg
-          class="w-4 h-4 mr-2 flex-shrink-0"
+          class="w-5 h-5 flex-shrink-0"
           fill="currentColor"
           viewBox="0 0 20 20"
         >

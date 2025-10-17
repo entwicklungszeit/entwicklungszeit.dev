@@ -11,7 +11,7 @@ import Spotify from '../assets/spotify.svg';
 import Youtube from '../assets/youtube.svg';
 ---
 
-<Section background="white" class="pt-24 sm:pt-16 lg:pt-16 pb-4 lg:pb-6">
+<Section background="white" class="pt-32 sm:pt-40 lg:pt-48 pb-8 lg:pb-12">
   <!-- Background pattern for depth -->
   <div class="absolute inset-0 opacity-10">
     <div
@@ -19,48 +19,48 @@ import Youtube from '../assets/youtube.svg';
     >
     </div>
     <div
-      class="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-primary/10 to-transparent"
+      class="absolute top-0 inset-x-0 h-80 bg-gradient-to-b from-primary/10 to-transparent"
     >
     </div>
     <div
-      class="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-gray-100/50 to-transparent"
+      class="absolute bottom-0 inset-x-0 h-80 bg-gradient-to-t from-gray-100/50 to-transparent"
     >
     </div>
   </div>
 
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
     <div
-      class="relative flex flex-col lg:grid lg:grid-cols-12 lg:gap-6 items-center max-h-screen min-h-[75vh]"
+      class="relative flex flex-col lg:grid lg:grid-cols-12 lg:gap-8 items-center max-h-screen min-h-[75vh]"
     >
       <div
-        class="relative z-10 text-center lg:text-left space-y-5 lg:space-y-8 w-full lg:col-span-7 mt-12 sm:mt-0 animate-fade-in-delay-50"
+        class="relative z-10 text-center lg:text-left space-y-6 sm:space-y-8 w-full lg:col-span-7 mt-12 sm:mt-0 animate-fade-in-delay-50"
       >
-        <div class="space-y-3 sm:space-y-4">
+        <div class="space-y-4 sm:space-y-6">
           <span
             class="inline-block text-sm font-medium tracking-[0.2em] uppercase text-primary"
             >Willkommen bei</span
           >
           <h1
-            class="font-sans text-[2.25rem] sm:text-5xl lg:text-6xl text-gray-900 font-extrabold tracking-tight leading-[1.1]"
+            class="font-sans text-4xl sm:text-5xl lg:text-6xl text-gray-900 font-extrabold tracking-tight leading-[1.1]"
           >
             Entwicklungszeit
           </h1>
           <p
-            class="text-base sm:text-lg text-gray-700 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+            class="text-lg sm:text-xl text-gray-700 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
           >
             Entdecke dein volles Potenzial in der Softwareentwicklung
           </p>
         </div>
 
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg mx-auto lg:mx-0 relative z-20"
+          class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto lg:mx-0 relative z-20"
         >
           {benefits.map(benefit => <Badge {...benefit} />)}
         </div>
       </div>
 
       <div
-        class="relative z-0 flex w-full mt-6 lg:mt-0 h-full lg:col-span-5 items-center justify-center animate-fade-in-delay-150"
+        class="relative z-0 flex w-full mt-12 lg:mt-0 h-full lg:col-span-5 items-center justify-center animate-fade-in-delay-150"
       >
         <div class="flex flex-col items-center">
           <!-- Circular image container -->
@@ -87,7 +87,7 @@ import Youtube from '../assets/youtube.svg';
             </div>
           </div>
 
-          <div class="text-center mt-2">
+          <div class="text-center mt-4">
             <p class="text-gray-600 text-sm sm:text-base">
               mit <span
                 class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
@@ -100,12 +100,12 @@ import Youtube from '../assets/youtube.svg';
     </div>
 
     <!-- Podcast platforms section -->
-    <div class="py-3 sm:py-4 text-center">
+    <div class="py-4 sm:py-6 lg:py-8 text-center">
       <div
-        class="flex flex-col sm:flex-row items-center justify-center sm:gap-2"
+        class="flex flex-col sm:flex-row items-center justify-center sm:gap-3 gap-2"
       >
         <p
-          class="text-gray-700 font-medium text-sm sm:text-base mb-2 sm:mb-0 sm:mr-2"
+          class="text-gray-700 font-medium text-sm sm:text-base mb-3 sm:mb-0 sm:mr-1"
         >
           Jetzt anhören auf
         </p>
@@ -116,7 +116,7 @@ import Youtube from '../assets/youtube.svg';
             platform="spotify"
           >
             <Spotify
-              class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+              class="w-full h-full transform transition-transform duration-300 group-hover:scale-110"
             />
           </PodcastPlatformIcon>
 
@@ -126,7 +126,7 @@ import Youtube from '../assets/youtube.svg';
             platform="apple"
           >
             <ApplePodcasts
-              class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+              class="w-full h-full transform transition-transform duration-300 group-hover:scale-110"
             />
           </PodcastPlatformIcon>
 
@@ -136,7 +136,7 @@ import Youtube from '../assets/youtube.svg';
             platform="youtube"
           >
             <Youtube
-              class="w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+              class="w-full h-full transform transition-transform duration-300 group-hover:scale-110"
             />
           </PodcastPlatformIcon>
         </div>

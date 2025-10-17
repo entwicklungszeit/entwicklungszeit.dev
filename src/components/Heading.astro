@@ -8,18 +8,18 @@ const { title, subheading } = Astro.props;
 ---
 
 <h2
-  class="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 relative block text-center md:text-left"
+  class="font-display text-4xl sm:text-5xl lg:text-5xl font-bold text-gray-900 mb-8 sm:mb-10 relative block text-center md:text-left leading-tight"
   data-aos="fade-up"
 >
   {
     subheading && (
-      <span class="text-xs uppercase tracking-wider text-gray-500 block mb-1">
+      <span class="text-xs sm:text-sm uppercase tracking-widest text-primary font-semibold block mb-3 sm:mb-4">
         {subheading}
       </span>
     )
   }
   {title}
   <span
-    class="absolute -bottom-2 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-1/3 h-1 bg-gradient-to-r from-primary to-secondary"
+    class="absolute -bottom-3 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-1/3 h-1.5 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
   ></span>
 </h2>

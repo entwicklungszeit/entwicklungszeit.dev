@@ -142,10 +142,13 @@ const {
       import AOS from 'aos';
 
       document.addEventListener('astro:page-load', () => {
-        // Initialize AOS with default options
+        // Initialize AOS with refined options
         AOS.init({
-          duration: 800,
-          once: true
+          duration: 600,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 50,
+          delay: 0
         });
 
         // Apply custom animation settings based on component type
@@ -173,6 +176,9 @@ const {
             element.setAttribute('data-aos', 'fade');
           }
         });
+
+        // Refresh animations after DOM changes
+        AOS.refresh();
       });
     </script>
     <!-- Simple Analytics -->
@@ -225,5 +231,17 @@ const {
   .prose h3,
   .prose h4 {
     font-family: var(--inter);
+  }
+
+  /* Focus ring styles for better accessibility */
+  :focus-visible {
+    outline: 2px solid #1e3a8a;
+    outline-offset: 2px;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #1e3a8a;
+    outline-offset: 2px;
   }
 </style>

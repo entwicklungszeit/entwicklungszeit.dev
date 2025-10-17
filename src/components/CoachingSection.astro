@@ -9,19 +9,19 @@ import Section from './ui/Section.astro';
 
 <Section id="coaching" background="white">
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
+    <div class="text-center mb-20">
       <Heading
         title="Impact Developer"
         subheading="Mentoring trifft Coaching"
       />
-      <p class="text-xl text-gray-700 max-w-3xl text-center sm:text-left" data-aos="fade-up" data-aos-delay="100">
+      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto text-center" data-aos="fade-up" data-aos-delay="100">
         Entwickle dich zum technischen Leader, der sowohl fachlich als auch menschlich überzeugt.
         Ein maßgeschneidertes 1:1 Format, das dich auf die nächste Stufe deiner Karriere bringt.
       </p>
     </div>
 
     <!-- Program Timeline -->
-    <div class="relative mb-24 py-12 px-4">
+    <div class="relative mb-32 py-12 px-4">
       <!-- Background Pattern -->
       <div class="absolute inset-0 opacity-5">
         <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@ import Section from './ui/Section.astro';
       <div class="absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary to-secondary opacity-20 transform lg:-translate-x-px hidden lg:block"></div>
 
       <!-- Timeline Steps -->
-      <div class="relative space-y-12">
+      <div class="relative space-y-16">
         {programSteps.map((step, index) => (
           <div
             class={`relative flex flex-col items-center lg:items-start pl-0 lg:pl-0 group ${
@@ -52,8 +52,8 @@ import Section from './ui/Section.astro';
           >
             <!-- Timeline Marker -->
             <div class="absolute left-0 lg:left-1/2 -translate-x-[15px] lg:-translate-x-[11px] top-0 hidden lg:block">
-              <div class="w-[22px] h-[22px] bg-white rounded-full border-4 border-primary shadow-lg
-                         group-hover:scale-125 transition-transform duration-300"></div>
+              <div class="w-[22px] h-[22px] bg-white rounded-full border-4 border-primary shadow-md
+                         group-hover:scale-125 group-hover:shadow-lg transition-all duration-300"></div>
 
               <!-- Pulse effect for last item -->
               {index === programSteps.length - 1 && (
@@ -69,13 +69,13 @@ import Section from './ui/Section.astro';
                 ? 'lg:mr-auto lg:text-right'
                 : 'lg:ml-auto lg:text-left'
             }`}>
-              <div class="p-6 bg-white/50 rounded-xl backdrop-blur-sm border border-gray-100 shadow-sm
-                         hover:shadow-md hover:bg-white/80 transition-all duration-300">
-                <span class="inline-block px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary mb-3">
+              <div class="p-6 sm:p-7 bg-white rounded-xl backdrop-blur-sm border border-gray-200 shadow-md
+                         hover:shadow-lg hover:border-gray-300 hover:bg-gray-50/50 transition-all duration-300">
+                <span class="inline-block px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
                   {step.week}
                 </span>
-                <h4 class="text-xl font-medium text-gray-900 mb-2">{step.title}</h4>
-                <p class="text-gray-600 leading-relaxed">{step.description}</p>
+                <h4 class="text-xl font-semibold text-gray-900 mb-3">{step.title}</h4>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">{step.description}</p>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ import Section from './ui/Section.astro';
 
     <!-- Benefits Grid -->
     <div
-      class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+      class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
       data-aos="fade"
       data-aos-duration="400"
       data-aos-easing="ease-out-cubic"
@@ -95,22 +95,22 @@ import Section from './ui/Section.astro';
         const benefit = benefits.find(b => b.text === category);
         return (
           <div
-            class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300"
+            class="bg-white rounded-xl shadow-md p-7 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 hover:scale-105"
           >
-            <div class="mb-4">
+            <div class="mb-5">
               <Badge
                 text={category}
                 color={benefit.color}
                 textColor={benefit.textColor}
               />
             </div>
-            <ul class="space-y-2 mt-4">
+            <ul class="space-y-3 mt-5">
               {items.map(item => (
-                <li class="flex items-center text-gray-700">
-                  <svg class="w-5 h-5 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <li class="flex items-start text-gray-700 gap-3">
+                  <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                   </svg>
-                  {item}
+                  <span class="text-sm sm:text-base">{item}</span>
                 </li>
               ))}
             </ul>
@@ -121,11 +121,11 @@ import Section from './ui/Section.astro';
 
     <!-- CTA Section -->
     <div
-      class="text-center p-8 rounded-2xl bg-gradient-to-r from-gray-900 to-gray-800 text-white relative overflow-hidden"
+      class="text-center p-8 sm:p-12 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden"
       data-aos="fade-up"
     >
       <!-- Decorative elements -->
-      <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0 opacity-5">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(255,255,255,0.2),transparent)]"></div>
         <svg class="absolute left-0 top-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -137,13 +137,13 @@ import Section from './ui/Section.astro';
         </svg>
       </div>
 
-      <div class="relative">
-        <h3 class="text-2xl font-bold mb-4">Bist du bereit für deinen Karriere-Sprung?</h3>
-        <p class="text-lg text-gray-300 mb-8  mx-auto">
-          Vorschlag. - Wir planen einen Video-Call. In entspannter Atmosphäre schilderst du mir deine Situation und deiner Herausforderungen. Danach beantworte ich dir, ob und wo ich dich unterstützen kann.
+      <div class="relative z-10">
+        <h3 class="text-3xl sm:text-4xl font-bold mb-6">Bist du bereit für deinen Karriere-Sprung?</h3>
+        <p class="text-lg sm:text-xl text-gray-300 mb-10 mx-auto max-w-2xl leading-relaxed">
+          Vorschlag: Wir planen einen Video-Call. In entspannter Atmosphäre schilderst du mir deine Situation und deinen Herausforderungen. Danach beantworte ich dir, ob und wo ich dich unterstützen kann.
           Nach dem Gespräch weißt du, ob sich eine <strong>Zusammenarbeit lohnt</strong>.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-end">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             href="#contact"
             size="lg"
@@ -168,15 +168,6 @@ import Section from './ui/Section.astro';
 </Section>
 
 <style>
-  /* Other styles remain */
-
-  /* Remove the fadeInCard animation */
-  .transform {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-
   @keyframes pulse {
     0%, 100% {
       opacity: 0.1;
