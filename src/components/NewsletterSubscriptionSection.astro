@@ -1,0 +1,18 @@
+---
+import NewsletterForm from './NewsletterForm.astro';
+
+interface Props {
+  title?: string;
+  id?: string;
+}
+
+const { title = 'Newsletter', id = 'newsletter' } = Astro.props;
+---
+
+<section class="py-16 bg-gray-900" id={id}>
+  <div class="container mx-auto px-4">
+    <div class="max-w-2xl mx-auto">
+      <NewsletterForm />
+    </div>
+  </div>
+</section>
