@@ -6,6 +6,11 @@ import Section from './ui/Section.astro';
 
 // Shuffle testimonials
 const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
+
+// Split into initial (first 2) and remaining
+const initialTestimonials = shuffledTestimonials.slice(0, 2);
+const remainingTestimonials = shuffledTestimonials.slice(2);
+const remainingCount = remainingTestimonials.length;
 ---
 
 <Section id="testimonials" background="gray">
@@ -14,6 +19,87 @@ const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
       <Heading title="Das sagen meine Partner" />
     </div>
 
-    <TestimonialGrid testimonials={shuffledTestimonials} />
+    <!-- Initial testimonials (always visible) -->
+    <TestimonialGrid testimonials={initialTestimonials} />
+
+    <!-- Toggle button -->
+    <div class="flex justify-center mt-8">
+      <button
+        id="testimonial-toggle-btn"
+        data-remaining-count={remainingCount}
+        class="px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center gap-2"
+      >
+        <span id="btn-text">{remainingCount} weitere</span>
+        <svg
+          id="btn-icon"
+          class="w-4 h-4 transition-transform duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Remaining testimonials (hidden by default) -->
+    <div
+      id="remaining-testimonials"
+      class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out"
+    >
+      <div class="mt-8">
+        <TestimonialGrid testimonials={remainingTestimonials} />
+      </div>
+    </div>
   </div>
 </Section>
+
+<script>
+  function setupTestimonialToggle() {
+    const button = document.getElementById('testimonial-toggle-btn');
+    const remainingContainer = document.getElementById(
+      'remaining-testimonials'
+    );
+    const btnText = document.getElementById('btn-text');
+    const btnIcon = document.getElementById('btn-icon');
+    const remainingCount = button?.dataset.remainingCount || '0';
+
+    let isExpanded = false;
+
+    button?.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+
+      if (isExpanded) {
+        // Show remaining testimonials
+        btnText!.textContent = 'Weniger anziegen';
+        btnIcon?.classList.add('rotate-180');
+        remainingContainer?.classList.remove('max-h-0', 'opacity-0');
+        remainingContainer?.classList.add('opacity-100');
+        // Set max-height to scrollHeight for smooth animation
+        remainingContainer?.style.setProperty(
+          'max-height',
+          remainingContainer!.scrollHeight + 'px'
+        );
+      } else {
+        // Hide remaining testimonials
+        btnText!.textContent = `${remainingCount} weitere`;
+        btnIcon?.classList.remove('rotate-180');
+        remainingContainer?.classList.add('max-h-0', 'opacity-0');
+        remainingContainer?.classList.remove('opacity-100');
+        remainingContainer?.style.setProperty('max-height', '0');
+      }
+    });
+  }
+
+  // Setup on load
+  setupTestimonialToggle();
+
+  // Also setup on document ready in case script runs before DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTestimonialToggle);
+  }
+</script>
