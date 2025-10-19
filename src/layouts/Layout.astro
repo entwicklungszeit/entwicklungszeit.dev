@@ -31,7 +31,7 @@ const {
     <meta name="description" content={description} />
     <meta
       name="keywords"
-      content="Softwareentwicklung, Podcast, Entwickler, Führung, Kommunikation, Tech Lead, Software Engineering, Developer, Programming"
+      content="Software Coaching, Programmier:innen Coaching, Software Engineer Mentor, Tech Lead Mentor, Karriere Mentor Software Development, Softwareentwicklung, Podcast, Developer, Engineering Leadership"
     />
     <meta name="author" content="Gregor Woiwode" />
     <meta name="robots" content="index, follow" />
@@ -101,10 +101,14 @@ const {
           "url": "https://entwicklungszeit.dev",
           "jobTitle": "Tech Lead und Software Engineer Coach",
           "knowsAbout": [
+            "Software Coaching",
+            "Programmier Coaching",
+            "Software Engineer Mentor",
+            "Tech Lead Mentoring",
             "Softwareentwicklung",
             "Engineering Leadership",
             "Technische Führung",
-            "Coaching"
+            "Karriere Entwicklung"
           ]
         },
         "publisher": {
@@ -129,6 +133,54 @@ const {
             "geoRadius": "1000"
           }
         }
+      }
+    </script>
+
+    <!-- Service Schema for Software Coaching -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Software Coaching & Tech Leadership Mentoring",
+        "provider": {
+          "@type": "Person",
+          "name": "Gregor Woiwode",
+          "url": "https://entwicklungszeit.dev"
+        },
+        "serviceType": [
+          "Software Coaching",
+          "Programmier Coaching",
+          "Tech Lead Mentoring",
+          "Engineering Leadership Coaching"
+        ],
+        "areaServed": {
+          "@type": "Country",
+          "name": "DE"
+        },
+        "description": "1:1 Software Coaching und Mentoring für Entwickler und Tech Leads",
+        "url": "https://entwicklungszeit.dev"
+      }
+    </script>
+
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Entwicklungszeit - Software Coaching",
+        "description": "Software Coaching und Tech Leadership Mentoring mit Gregor Woiwode",
+        "url": "https://entwicklungszeit.dev",
+        "image": "https://entwicklungszeit.dev/logo.svg",
+        "areaServed": "DE",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Sales"
+        },
+        "sameAs": [
+          "https://www.youtube.com/@entwicklungszeit",
+          "https://creators.spotify.com/pod/show/entwicklungszeit",
+          "https://podcasts.apple.com/us/podcast/entwicklungszeit/id1767631664"
+        ]
       }
     </script>
   </head>
