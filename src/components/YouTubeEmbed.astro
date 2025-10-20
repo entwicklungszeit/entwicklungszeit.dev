@@ -1,0 +1,38 @@
+---
+interface Props {
+  videoId: string;
+  title?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { videoId, title = 'YouTube Video', loading = 'lazy' } = Astro.props;
+---
+
+<div class="youtube-embed-container" data-video-id={videoId}>
+  <iframe
+    class="youtube-iframe"
+    src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
+    title={title}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading={loading}></iframe>
+</div>
+
+<style>
+  .youtube-embed-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .youtube-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
