@@ -18,26 +18,26 @@
       />
 
       <!-- Modal Dialog Container -->
-      <div class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-20">
-        <div class="flex flex-col items-center gap-6 p-8 rounded-2xl border border-white/60 w-full max-w-[420px]"
+      <div class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-20 p-2 sm:p-4">
+        <div class="flex flex-col items-center gap-3 sm:gap-4 lg:gap-6 p-3 sm:p-4 lg:p-6 xl:p-8 rounded-lg sm:rounded-xl lg:rounded-2xl border border-white/60 w-full max-w-[98vw] sm:max-w-[95vw] lg:max-w-[420px] mx-auto"
              style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.99) 0%, rgba(249, 250, 251, 0.99) 100%); box-shadow: 0 25px 100px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.8); animation: modal-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
-          <div class="text-center flex flex-col gap-2">
-            <h3 class="text-xl font-bold text-gray-800 m-0" style="letter-spacing: -0.5px;">Externes Video</h3>
-            <p class="text-sm text-gray-600 leading-relaxed m-0">
+          <div class="text-center flex flex-col gap-2 sm:gap-3">
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800 m-0" style="letter-spacing: -0.5px;">Externes Video</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed m-0 px-2">
               Dieses Video wird von YouTube bereitgestellt. Durch das Abspielen akzeptieren Sie die Datenschutzbedingungen von YouTube.
             </p>
           </div>
 
           <button
-            class="relative flex items-center justify-center gap-2 px-8 py-4 text-white border-none rounded-xl cursor-pointer font-bold text-base transition-all duration-300 min-w-[200px] overflow-hidden"
-            style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3), 0 0 0 0 rgba(255, 0, 0, 0.2);"
+            class="relative flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-6 xl:px-8 py-2.5 sm:py-3 lg:py-4 text-white border-none rounded-md sm:rounded-lg lg:rounded-xl cursor-pointer font-bold text-xs sm:text-sm lg:text-base transition-all duration-300 w-full sm:min-w-[180px] lg:min-w-[200px] sm:w-auto overflow-hidden touch-manipulation"
+            style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3), 0 0 0 0 rgba(255, 0, 0, 0.2); min-height: 44px;"
             aria-label="Externen Inhalt von YouTube abspielen"
             :data-video-id="videoId"
             :data-title="title"
             @click="handlePlayClick"
           >
-            <span class="relative z-10 flex items-center gap-2">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <span class="relative z-10 flex items-center gap-1.5 sm:gap-2">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg>
               <span class="font-bold whitespace-nowrap">Video abspielen</span>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Iframe container - iframe will be injected here after consent -->
-    <div v-if="isIframeLoaded" class="absolute inset-0 w-full h-full fade-in bg-red-500">
+    <div v-if="isIframeLoaded" class="absolute inset-0 w-full h-full fade-in">
       <iframe
         :src="iframeSrc"
         :title="title"
