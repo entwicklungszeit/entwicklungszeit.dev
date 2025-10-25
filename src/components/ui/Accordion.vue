@@ -7,16 +7,17 @@
     >
       <input
         :id="`accordion-${index}`"
-        v-model="openIndex"
-        type="radio"
-        :name="`accordion-group`"
-        :value="index"
+        type="checkbox"
+        :checked="openIndex === index"
         class="accordion-input"
+        @change="toggleAccordion(index)"
       />
       <label
         :for="`accordion-${index}`"
         class="accordion-header"
         tabindex="0"
+        @keydown.enter.prevent="toggleAccordion(index)"
+        @keydown.space.prevent="toggleAccordion(index)"
       >
         {{ item.question }}
         <span class="accordion-icon" aria-hidden="true" />
@@ -46,6 +47,16 @@ interface Props {
 defineProps<Props>();
 
 const openIndex = ref<number | null>(null);
+
+const toggleAccordion = (index: number) => {
+  if (openIndex.value === index) {
+    // If clicking the same item, close it
+    openIndex.value = null;
+  } else {
+    // Open the clicked item
+    openIndex.value = index;
+  }
+};
 </script>
 
 <style scoped>
@@ -142,6 +153,12 @@ const openIndex = ref<number | null>(null);
   max-height: 100vh;
   opacity: 1;
   padding: 1.25rem;
+}
+
+.accordion-input:not(:checked) ~ .accordion-content {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 1.25rem;
 }
 
 .accordion-header:focus-visible {
