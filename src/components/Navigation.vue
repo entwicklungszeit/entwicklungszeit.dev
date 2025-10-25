@@ -1,11 +1,5 @@
 <template>
-  <div class="navigation-container flex items-center justify-between w-full">
-    <div
-      class="brand-title text-gray-900 font-semibold ml-4 sm:ml-6 text-base sm:text-lg md:text-xl truncate"
-    >
-      <span>Entwicklungszeit</span>
-    </div>
-
+  <div class="navigation-container flex items-center">
     <!-- Desktop Navigation -->
     <nav aria-label="Main navigation" class="hidden md:block">
       <ul class="flex items-center gap-3 sm:gap-4">

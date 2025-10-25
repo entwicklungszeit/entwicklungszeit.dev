@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
 interface Props {
   link: string;
   thumbnail: string;
@@ -28,13 +26,14 @@ const {
   aria-label={title}
 >
   <div class="relative h-full w-full">
-    <Image
+    <img
       src={thumbnail}
       alt={title}
       width="280"
       height="280"
       loading="lazy"
       title={description}
+      class="w-full h-full object-cover rounded-xl"
     />
   </div>
 </a>

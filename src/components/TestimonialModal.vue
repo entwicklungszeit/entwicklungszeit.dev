@@ -37,6 +37,7 @@
                 class="w-28 h-28 rounded-full object-cover shadow-lg"
                 width="112"
                 height="112"
+                loading="lazy"
               />
               <div class="space-y-3">
                 <h3 class="font-display text-2xl font-bold text-gray-900 tracking-tight">

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import Logo from '../assets/logo.svg';
 import Navigation from './Navigation.vue';
 ---
 
@@ -7,13 +9,18 @@ import Navigation from './Navigation.vue';
   class="fixed w-full bg-white/95 backdrop-blur-sm shadow-md z-50 top-0"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-0.5">
-    <div class="flex h-16 items-center">
-      <div class="flex items-center">
-        <a href="/" class="flex items-center">
-          <img
-            src="/logo.svg"
+    <div class="flex h-16 items-center justify-between w-full">
+      <div class="flex items-center flex-shrink-0">
+        <a
+          href="/"
+          class="flex items-center"
+          aria-label="Entwicklungszeit Home"
+        >
+          <Image
+            src={Logo}
             alt="Entwicklungszeit Logo"
-            class="h-8 sm:h-10"
+            class="h-8 sm:h-10 w-auto"
+            loading="eager"
           />
         </a>
       </div>

@@ -8,6 +8,7 @@
         class="w-24 h-24 md:w-28 md:h-28 object-cover rounded-2xl border-2 border-gray-100 shadow-sm"
         width="112"
         height="112"
+        loading="lazy"
       />
     </div>
 
