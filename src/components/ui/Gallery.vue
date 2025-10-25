@@ -33,12 +33,10 @@
           :key="index"
           class="gallery-page w-full flex-shrink-0 px-4 sm:px-6 py-2"
         >
-          <div class="prose prose-lg max-w-none">
-            <p
-              class="text-base sm:text-lg text-gray-700"
-              v-html="page.parsedContent"
-            />
-          </div>
+          <div
+            class="prose prose-lg max-w-none text-base sm:text-lg text-gray-700"
+            v-html="page.parsedContent"
+          />
         </div>
       </div>
     </div>
