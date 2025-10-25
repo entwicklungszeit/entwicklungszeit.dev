@@ -207,8 +207,8 @@ const props = withDefaults(defineProps<Props>(), {
 const isMenuOpen = ref(false);
 
 // Computed properties
-const isHomePage = computed(() => props.currentPath === '/');
-const isAngebotePage = computed(() => props.currentPath === '/angebote');
+const isHomePage = computed(() => props.currentPath === '/' || props.currentPath === '');
+const isAngebotePage = computed(() => props.currentPath === '/angebote' || props.currentPath === '/angebote/');
 
 // Methods
 const openMenu = () => {
