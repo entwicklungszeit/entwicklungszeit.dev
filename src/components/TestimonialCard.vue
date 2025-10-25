@@ -36,7 +36,7 @@
       <button
         v-if="testimonial.bio"
         class="px-4 py-1.5 border-2 border-primary text-primary hover:text-secondary hover:border-secondary rounded-full text-xs font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        @click="$emit('openModal', testimonial)"
+        @click="handleOpenModal"
       >
         BIO
       </button>
@@ -51,8 +51,12 @@ interface Props {
   testimonial: Testimonial;
 }
 
-defineProps<Props>();
-defineEmits<{
+const props = defineProps<Props>();
+const emit = defineEmits<{
   openModal: [testimonial: Testimonial];
 }>();
+
+const handleOpenModal = () => {
+  emit('openModal', props.testimonial);
+};
 </script>

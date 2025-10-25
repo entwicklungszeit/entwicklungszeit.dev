@@ -1,5 +1,5 @@
 ---
-import Navigation from './Navigation.astro';
+import Navigation from './Navigation.vue';
 ---
 
 <header
@@ -18,7 +18,7 @@ import Navigation from './Navigation.astro';
         </a>
       </div>
 
-      <Navigation />
+      <Navigation client:load currentPath={Astro.url.pathname} />
     </div>
   </div>
 </header>

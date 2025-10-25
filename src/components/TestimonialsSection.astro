@@ -4,12 +4,10 @@ import Heading from './Heading.astro';
 import TestimonialGrid from './TestimonialGrid.vue';
 import Section from './ui/Section.astro';
 
-// Shuffle testimonials
-const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
-
 // Split into initial (first 2) and remaining
-const initialTestimonials = shuffledTestimonials.slice(0, 2);
-const remainingTestimonials = shuffledTestimonials.slice(2);
+// Note: Vue component handles shuffling to avoid SSR mismatch
+const initialTestimonials = testimonials.slice(0, 2);
+const remainingTestimonials = testimonials.slice(2);
 const remainingCount = remainingTestimonials.length;
 ---
 

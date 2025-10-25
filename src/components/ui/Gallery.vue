@@ -29,14 +29,21 @@
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
       >
         <div
-          v-for="(page, index) in parsedPages"
+          v-for="(page, index) in pages"
           :key="index"
           class="gallery-page w-full flex-shrink-0 px-4 sm:px-6 py-2"
         >
           <div
+            v-if="parsedPages.length > 0 && parsedPages[index]"
             class="prose prose-lg max-w-none text-base sm:text-lg text-gray-700"
-            v-html="page.parsedContent"
+            v-html="parsedPages[index].parsedContent"
           />
+          <div
+            v-else
+            class="prose prose-lg max-w-none text-base sm:text-lg text-gray-700"
+          >
+            {{ page.content }}
+          </div>
         </div>
       </div>
     </div>
@@ -61,7 +68,7 @@
     <div class="mt-12 px-4">
       <div class="max-w-3xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4">
         <button
-          v-for="(page, index) in parsedPages"
+          v-for="(page, index) in pages"
           :key="index"
           class="gallery-indicator group flex flex-col items-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50"
           :aria-label="`Go to slide ${index + 1}`"
@@ -108,7 +115,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { marked } from 'marked';
 import { useGallery } from '../../composables/useGallery';
 import type { GalleryPage } from '../../types/gallery';
@@ -127,9 +134,11 @@ const { currentIndex, navigate, goToPage, handleTouchStart, handleTouchMove, han
 const canGoPrev = computed(() => currentIndex.value > 0);
 const canGoNext = computed(() => currentIndex.value < props.pages.length - 1);
 
-// Pre-parse all content to ensure it works during SSR
-const parsedPages = computed(() => {
-  return props.pages.map(page => ({
+// Parse content after mount to avoid SSR mismatch
+const parsedPages = ref<Array<GalleryPage & { parsedContent: string }>>([]);
+
+onMounted(() => {
+  parsedPages.value = props.pages.map(page => ({
     ...page,
     parsedContent: marked.parse(page.content)
   }));

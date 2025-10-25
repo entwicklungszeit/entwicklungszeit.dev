@@ -229,11 +229,18 @@ const episodes: Episode[] = [];
         const response = await fetch(
           'https://anchor.fm/s/1003c6b34/podcast/rss'
         );
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch RSS feed: ${response.status}`);
+        }
+
         const xmlText = await response.text();
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
         const items = xmlDoc.querySelectorAll('item');
         const MAX_EPISODES = 12;
+
+        console.log(`Found ${items.length} items in RSS feed`);
 
         // Process episodes
         for (let i = 0; i < Math.min(items.length, MAX_EPISODES); i++) {
@@ -253,19 +260,37 @@ const episodes: Episode[] = [];
             link = item.querySelector('link')?.textContent?.trim() || '';
           }
 
-          // Get thumbnail
+          // Get thumbnail - try multiple approaches
           let thumbnail = '';
-          const allElements = item.getElementsByTagName('*');
-          for (const element of allElements) {
-            const nodeName = element.nodeName.toLowerCase();
-            if (
-              (nodeName.includes('itunes:image') ||
-                (nodeName.includes('image') &&
-                  element.namespaceURI?.includes('itunes'))) &&
-              element.hasAttribute('href')
-            ) {
-              thumbnail = element.getAttribute('href') || '';
-              break;
+
+          // Method 1: Try itunes:image with href attribute
+          const itunesImage = item.querySelector('itunes\\:image, image[href]');
+          if (itunesImage && itunesImage.hasAttribute('href')) {
+            thumbnail = itunesImage.getAttribute('href') || '';
+          }
+
+          // Method 2: Try any element with itunes namespace and image
+          if (!thumbnail) {
+            const allElements = item.getElementsByTagName('*');
+            for (const element of allElements) {
+              const nodeName = element.nodeName.toLowerCase();
+              if (
+                (nodeName.includes('itunes:image') ||
+                  (nodeName.includes('image') &&
+                    element.namespaceURI?.includes('itunes'))) &&
+                element.hasAttribute('href')
+              ) {
+                thumbnail = element.getAttribute('href') || '';
+                break;
+              }
+            }
+          }
+
+          // Method 3: Try enclosure with type image
+          if (!thumbnail) {
+            const enclosure = item.querySelector('enclosure[type^="image"]');
+            if (enclosure && enclosure.hasAttribute('url')) {
+              thumbnail = enclosure.getAttribute('url') || '';
             }
           }
 
@@ -287,6 +312,8 @@ const episodes: Episode[] = [];
             description.replace(/<[^>]*>/g, '').substring(0, 100) +
             (description.length > 100 ? '...' : '');
 
+          console.log(`Episode ${i + 1}:`, { title, thumbnail, link });
+
           if (link && thumbnail) {
             this.episodes.push({
               link,
@@ -296,6 +323,8 @@ const episodes: Episode[] = [];
             });
           }
         }
+
+        console.log(`Successfully loaded ${this.episodes.length} episodes`);
 
         // Remove skeleton and update UI
         const skeleton = document.getElementById('skeleton-container');
@@ -396,7 +425,9 @@ const episodes: Episode[] = [];
                    width="280"
                    height="280"
                    loading="lazy"
-                   title="${episode.description}" />
+                   title="${episode.description}"
+                   class="w-full h-full object-cover rounded-xl"
+                   onerror="this.onerror=null; this.src='https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/42889269/f3920f44c23f9537.jpg';" />
             </div>
           </a>
         `;

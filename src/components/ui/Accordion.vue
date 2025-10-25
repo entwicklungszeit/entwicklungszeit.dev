@@ -46,6 +46,7 @@ interface Props {
 
 defineProps<Props>();
 
+// Initialize with null for SSR, will only be set to actual index on client-side
 const openIndex = ref<number | null>(null);
 
 const toggleAccordion = (index: number) => {
