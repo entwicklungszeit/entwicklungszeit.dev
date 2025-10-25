@@ -11,7 +11,6 @@ import NewsletterSubscriptionSection from '../components/NewsletterSubscriptionS
 import PodcastSection from '../components/PodcastSection.astro';
 import RecentEpisodesSection from '../components/RecentEpisodesSection.astro';
 import TestimonialsSection from '../components/TestimonialsSection.astro';
-import ScrollToTop from '../components/ui/ScrollToTop.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -20,7 +19,7 @@ import Layout from '../layouts/Layout.astro';
   description="Podcast, Coaching & Mentoring für Softwareentwickler und Tech Leads. Gregor Woiwode unterstützt dich als Programmier Coach auf dem Weg zur technischen Führung. Kostenlose Erstberatung buchbar."
 >
   <Header />
-  <main>
+  <main id="main-content">
     <HeroSection />
     <PodcastSection id="podcast-section" />
     <RecentEpisodesSection />
@@ -33,5 +32,4 @@ import Layout from '../layouts/Layout.astro';
     <ContactFormSection />
   </main>
   <Footer />
-  <ScrollToTop />
 </Layout>
