@@ -3,7 +3,7 @@ import { benefits } from '../data/benefits';
 import Badge from './ui/Badge.astro';
 import PodcastPlatformIcon from './ui/PodcastPlatformIcon.astro';
 import Section from './ui/Section.astro';
-import YouTubeEmbed from './YouTubeEmbed.astro';
+import YouTubeEmbed from './YouTubeEmbed.vue';
 
 import ApplePodcasts from '../assets/apple-podcasts.svg';
 import Spotify from '../assets/spotify.svg';
@@ -73,10 +73,10 @@ import Youtube from '../assets/youtube.svg';
           <!-- YouTube Video Embed Container -->
           <div class="relative w-full">
             <YouTubeEmbed
+              client:load
               videoId="ipwsc7b5mdU"
               title="Gregor Woiwode - Entwicklungszeit Software Coaching"
               loading="eager"
-              gdprCompliant={true}
             />
           </div>
 

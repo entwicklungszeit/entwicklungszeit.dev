@@ -1,202 +1,148 @@
 <template>
-  <div class="youtube-embed-container">
-    <!-- GDPR Compliant Preview -->
-    <div v-if="gdprCompliant && shouldShowPreview" class="gdpr-preview-container">
+  <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden" :data-video-id="videoId">
+    <!-- GDPR Compliant Preview with Modal -->
+    <div v-if="!isIframeLoaded" class="relative w-full h-full flex items-center justify-center overflow-hidden">
+      <!-- Prefetch the thumbnail -->
       <link rel="prefetch" :href="thumbnailUrl" as="image" />
       <link rel="prefetch" :href="fallbackThumbnailUrl" as="image" />
 
       <img
-        :src="thumbnailUrl"
+        ref="previewImageRef"
+        :src="useFallbackImage ? fallbackThumbnailUrl : thumbnailUrl"
         :alt="title"
-        class="preview-image"
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 ease-out"
+        style="filter: blur(8px) brightness(0.7);"
         loading="eager"
-        @load="onImageLoad"
-        @error="onImageError"
+        @load="handleImageLoad"
+        @error="handleImageError"
       />
 
       <!-- Modal Dialog Container -->
-      <div class="modal-backdrop">
-        <div class="modal-content">
-          <div class="modal-text-content">
-            <h3 class="modal-title">Externes Video</h3>
-            <p class="modal-description">
+      <div class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-20">
+        <div class="flex flex-col items-center gap-6 p-8 rounded-2xl border border-white/60 w-full max-w-[420px]"
+             style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.99) 0%, rgba(249, 250, 251, 0.99) 100%); box-shadow: 0 25px 100px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.8); animation: modal-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+          <div class="text-center flex flex-col gap-2">
+            <h3 class="text-xl font-bold text-gray-800 m-0" style="letter-spacing: -0.5px;">Externes Video</h3>
+            <p class="text-sm text-gray-600 leading-relaxed m-0">
               Dieses Video wird von YouTube bereitgestellt. Durch das Abspielen akzeptieren Sie die Datenschutzbedingungen von YouTube.
             </p>
           </div>
 
           <button
-            class="play-button"
+            class="relative flex items-center justify-center gap-2 px-8 py-4 text-white border-none rounded-xl cursor-pointer font-bold text-base transition-all duration-300 min-w-[200px] overflow-hidden"
+            style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3), 0 0 0 0 rgba(255, 0, 0, 0.2);"
             aria-label="Externen Inhalt von YouTube abspielen"
-            @click="handleConsent"
+            :data-video-id="videoId"
+            :data-title="title"
+            @click="handlePlayClick"
           >
-            <span class="button-content">
-              <svg class="button-icon" viewBox="0 0 24 24" fill="currentColor">
+            <span class="relative z-10 flex items-center gap-2">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg>
-              <span class="button-text">Video abspielen</span>
+              <span class="font-bold whitespace-nowrap">Video abspielen</span>
             </span>
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Iframe Container -->
-    <div v-if="!gdprCompliant || !shouldShowPreview" ref="iframeContainer" class="iframe-container">
+    <!-- Iframe container - iframe will be injected here after consent -->
+    <div v-if="isIframeLoaded" class="absolute inset-0 w-full h-full fade-in bg-red-500">
       <iframe
-        v-if="iframeSrc"
-        class="youtube-iframe"
         :src="iframeSrc"
         :title="title"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
         :loading="loading"
-      ></iframe>
+        class="absolute inset-0 w-full h-full border-none"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { useYouTubeConsent } from '../composables/useYouTubeConsent';
 
 interface Props {
   videoId: string;
   title?: string;
   loading?: 'lazy' | 'eager';
-  gdprCompliant?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'YouTube Video',
-  loading: 'lazy',
-  gdprCompliant: false,
+  loading: 'lazy'
 });
 
-const thumbnailUrl = computed(() => `https://img.youtube.com/vi/${props.videoId}/maxresdefault.jpg`);
-const fallbackThumbnailUrl = computed(() => `https://img.youtube.com/vi/${props.videoId}/hqdefault.jpg`);
+// GDPR consent storage key
+const STORAGE_KEY = 'youtube-consent-accepted';
 
-const { hasConsent, shouldShowPreview, checkConsent, giveConsent, loadIframe } = useYouTubeConsent();
-const iframeContainer = ref<HTMLDivElement | null>(null);
-const imageSrc = ref(props.gdprCompliant ? thumbnailUrl.value : '');
-const iframeSrc = ref<string | null>(null);
+// Reactive state
+const isIframeLoaded = ref(false);
+const imageLoaded = ref(false);
+const useFallbackImage = ref(false);
+const shouldAutoplay = ref(false);
 
-const handleConsent = () => {
-  giveConsent();
-  loadIframeIntoContainer();
-};
+// Template refs
+const previewImageRef = ref<HTMLImageElement | null>(null);
 
-const loadIframeIntoContainer = () => {
-  if (typeof document === 'undefined' || !iframeContainer.value) return;
+// Computed properties
+const thumbnailUrl = computed(() =>
+  `https://img.youtube.com/vi/${props.videoId}/maxresdefault.jpg`
+);
 
-  const iframe = loadIframe(props.videoId, props.title);
-  iframeContainer.value.innerHTML = '';
-  iframeContainer.value.appendChild(iframe);
-  iframeSrc.value = `https://www.youtube-nocookie.com/embed/${props.videoId}?rel=0`;
-};
+const fallbackThumbnailUrl = computed(() =>
+  `https://img.youtube.com/vi/${props.videoId}/hqdefault.jpg`
+);
 
-const onImageLoad = (event: Event) => {
-  const img = event.target as HTMLImageElement;
-  if (img) img.style.opacity = '1';
-};
+const iframeSrc = computed(() => {
+  const baseUrl = `https://www.youtube-nocookie.com/embed/${props.videoId}?rel=0`;
+  return shouldAutoplay.value ? `${baseUrl}&autoplay=1` : baseUrl;
+});
 
-const onImageError = (event: Event) => {
-  const img = event.target as HTMLImageElement;
-  if (img) img.src = fallbackThumbnailUrl.value;
-};
-
-onMounted(() => {
-  if (props.gdprCompliant) {
-    if (checkConsent()) {
-      loadIframeIntoContainer();
+// Methods
+const handleImageLoad = () => {
+  imageLoaded.value = true;
+  // Show the image with a slight delay for smooth transition
+  setTimeout(() => {
+    if (previewImageRef.value) {
+      previewImageRef.value.style.opacity = '1';
     }
-  } else {
-    iframeSrc.value = `https://www.youtube-nocookie.com/embed/${props.videoId}?rel=0`;
-  }
+  }, 100);
+};
+
+const handleImageError = () => {
+  useFallbackImage.value = true;
+};
+
+const handlePlayClick = () => {
+  // Store consent in localStorage
+    localStorage.setItem(STORAGE_KEY, 'true');
+
+  // Set autoplay to true for fresh consent
+  shouldAutoplay.value = true;
+  isIframeLoaded.value = true;
+};
+
+const checkExistingConsent = () => {
+  // Check if user has already given consent
+  const consent = localStorage.getItem(STORAGE_KEY);
+    if (consent === 'true') {
+      // Load iframe but don't autoplay on reload
+      shouldAutoplay.value = false;
+      isIframeLoaded.value = true;
+    }
+};
+
+// Lifecycle
+onMounted(() => {
+  checkExistingConsent();
 });
 </script>
 
 <style scoped>
-.youtube-embed-container {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.youtube-iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  transition: opacity 0.6s ease-out;
-}
-
-.youtube-iframe.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.youtube-iframe.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.gdpr-preview-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.gdpr-preview-container.hidden {
-  display: none;
-}
-
-.preview-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(8px) brightness(0.7);
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
-}
-
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 20;
-}
-
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding: 40px 32px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.99) 0%, rgba(249, 250, 251, 0.99) 100%);
-  border-radius: 20px;
-  box-shadow: 0 25px 100px rgba(0, 0, 0, 0.35),
-              inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  max-width: 90%;
-  width: 100%;
-  max-width: 420px;
-  animation: modal-slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
+/* Custom animations and pseudo-elements that can't be done with Tailwind */
 @keyframes modal-slide-up {
   from {
     opacity: 0;
@@ -208,47 +154,13 @@ onMounted(() => {
   }
 }
 
-.modal-text-content {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.modal-title {
-  font-size: 1.375rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-.modal-description {
-  font-size: 0.9375rem;
-  color: #6b7280;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.play-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 16px 32px;
-  background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
-              0 0 0 0 rgba(255, 0, 0, 0.2);
-  overflow: hidden;
-  min-width: 200px;
+@keyframes fade-in-iframe {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .play-button::before {
@@ -261,9 +173,8 @@ onMounted(() => {
 }
 
 .play-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4),
-              0 0 0 6px rgba(255, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4), 0 0 0 6px rgba(255, 0, 0, 0.1);
 }
 
 .play-button:hover::before {
@@ -271,67 +182,17 @@ onMounted(() => {
 }
 
 .play-button:active {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
 }
 
 .play-button:focus {
   outline: none;
-  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3),
-              0 0 0 8px rgba(255, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3), 0 0 0 8px rgba(255, 0, 0, 0.15);
 }
 
-.button-content {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.button-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.button-text {
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.iframe-container {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.6s ease-out;
-  display: block;
-}
-
-.iframe-container.fade-in {
+.fade-in {
   animation: fade-in-iframe 0.6s ease-out forwards;
-}
-
-.iframe-container iframe {
-  position: absolute;
-  inset: 0;
-  width: 100% !important;
-  height: 100% !important;
-  border: none;
-  display: block;
-}
-
-@keyframes fade-in-iframe {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.youtube-iframe.fade-in {
-  animation: fade-in-iframe 0.6s ease-out forwards;
+  opacity: 1;
 }
 </style>
