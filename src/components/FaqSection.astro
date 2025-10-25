@@ -1,6 +1,7 @@
 ---
+import { faqs } from '../data/faqData';
 import Heading from './Heading.astro';
-import Accordion from './ui/Accordion.astro';
+import Accordion from './ui/Accordion.vue';
 import Section from './ui/Section.astro';
 ---
 
@@ -15,7 +16,7 @@ import Section from './ui/Section.astro';
     </div>
 
     <div class="mb-16">
-      <Accordion />
+      <Accordion client:visible items={faqs} />
     </div>
   </div>
 </Section>

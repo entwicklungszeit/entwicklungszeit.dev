@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { pages } from '../data/host';
 import Heading from './Heading.astro';
-import Gallery from './ui/Gallery.astro';
+import Gallery from './ui/Gallery.vue';
 import Section from './ui/Section.astro';
 
 import badgeGde from '../assets/gde-angular-2025.svg';
@@ -15,7 +15,7 @@ import portraitGregor from '../assets/gregor-woiwode.png';
       <div class="flex justify-center">
         <div class="max-w-xl text-base sm:text-lg text-gray-700">
           <Heading title="Hallo, ich bin Gregor" />
-          <Gallery pages={pages} />
+          <Gallery client:idle pages={pages} />
         </div>
       </div>
 

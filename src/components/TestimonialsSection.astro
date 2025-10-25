@@ -1,7 +1,7 @@
 ---
 import { testimonials } from '../data/testimonials';
 import Heading from './Heading.astro';
-import TestimonialGrid from './TestimonialGrid.astro';
+import TestimonialGrid from './TestimonialGrid.vue';
 import Section from './ui/Section.astro';
 
 // Shuffle testimonials
@@ -20,7 +20,7 @@ const remainingCount = remainingTestimonials.length;
     </div>
 
     <!-- Initial testimonials (always visible) -->
-    <TestimonialGrid testimonials={initialTestimonials} />
+    <TestimonialGrid client:load testimonials={initialTestimonials} />
 
     <!-- Toggle button -->
     <div class="flex justify-center mt-8">
@@ -52,7 +52,7 @@ const remainingCount = remainingTestimonials.length;
       class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out"
     >
       <div class="mt-8">
-        <TestimonialGrid testimonials={remainingTestimonials} />
+        <TestimonialGrid client:load testimonials={remainingTestimonials} />
       </div>
     </div>
   </div>

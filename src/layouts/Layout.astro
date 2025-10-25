@@ -1,5 +1,5 @@
 ---
-import ScrollToTop from '../components/ui/ScrollToTop.astro';
+import ScrollToTop from '../components/ui/ScrollToTop.vue';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -193,7 +193,7 @@ const {
     </a>
     <div class="relative w-full overflow-x-hidden">
       <slot />
-      <ScrollToTop />
+      <ScrollToTop client:visible />
     </div>
     <!-- Simple Analytics -->
     <!-- 100% privacy-first analytics -->
