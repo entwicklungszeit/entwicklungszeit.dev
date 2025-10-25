@@ -107,13 +107,6 @@ export default {
       animation: {
         'border-spin': 'border-spin 20s linear infinite',
         'float': 'float 6s ease-in-out infinite',
-        'fade-in': 'fadeIn 600ms ease forwards',
-        'fade-in-delay-50': 'fadeIn 600ms ease forwards 50ms',
-        'fade-in-delay-100': 'fadeIn 600ms ease forwards 100ms',
-        'fade-in-delay-150': 'fadeIn 600ms ease forwards 150ms',
-        'fade-in-delay-200': 'fadeIn 600ms ease forwards 200ms',
-        'slide-up': 'slideUp 600ms ease forwards',
-        'scale-in': 'scaleIn 600ms ease forwards',
         'bounce': 'bounce 1.5s infinite',
         'pulse-down': 'pulseDown 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
       },
@@ -125,36 +118,6 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' }
-        },
-        fadeIn: {
-          from: {
-            opacity: '0',
-            transform: 'translateY(8px)'
-          },
-          to: {
-            opacity: '1',
-            transform: 'translateY(0)'
-          }
-        },
-        slideUp: {
-          from: {
-            opacity: '0',
-            transform: 'translateY(16px)'
-          },
-          to: {
-            opacity: '1',
-            transform: 'translateY(0)'
-          }
-        },
-        scaleIn: {
-          from: {
-            opacity: '0',
-            transform: 'scale(0.95)'
-          },
-          to: {
-            opacity: '1',
-            transform: 'scale(1)'
-          }
         },
         bounce: {
           '0%, 100%': {
