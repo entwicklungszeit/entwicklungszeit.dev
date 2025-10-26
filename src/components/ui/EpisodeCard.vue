@@ -73,18 +73,9 @@ const handleImageError = () => {
         width="280"
         height="280"
         loading="lazy"
-        class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+        class="w-full h-full object-cover"
         @error="handleImageError"
       />
-
-      <!-- Overlay on hover -->
-      <div
-        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
-      >
-        <div class="text-white">
-          <p class="text-sm font-semibold line-clamp-2">{{ episode.title }}</p>
-        </div>
-      </div>
     </div>
 
     <!-- Focus ring for accessibility -->
