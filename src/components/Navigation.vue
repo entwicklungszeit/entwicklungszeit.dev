@@ -38,6 +38,16 @@
           </a>
         </li>
         <li>
+          <a
+            href="#contact"
+            class="relative px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-300 hover:text-primary"
+            aria-label="Kontakt"
+            @click="handleScrollToContact"
+          >
+            Kontakt
+          </a>
+        </li>
+        <li>
           <Button
             href="https://calendly.com/gregor-entwicklungszeit/30min"
             target="_blank"
@@ -165,6 +175,16 @@
               ></span>
             </a>
           </li>
+          <li>
+            <a
+              href="#contact"
+              class="block relative px-4 py-3 text-base font-medium rounded-md transition-colors duration-300 text-gray-900 hover:bg-gray-100"
+              aria-label="Kontakt"
+              @click="handleScrollToContactMobile"
+            >
+              Kontakt
+            </a>
+          </li>
           <li class="pt-4">
             <Button
               href="https://calendly.com/gregor-entwicklungszeit/30min"
@@ -230,6 +250,25 @@ const handleLinkClick = () => {
   // Scroll to top after navigation
   setTimeout(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 100);
+};
+
+const handleScrollToContact = (event: MouseEvent) => {
+  event.preventDefault();
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const handleScrollToContactMobile = (event: MouseEvent) => {
+  event.preventDefault();
+  closeMenu();
+  setTimeout(() => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, 100);
 };
 
