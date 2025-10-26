@@ -1,36 +1,37 @@
 ---
 import Section from './ui/Section.astro';
 import YouTubeEmbed from './YouTubeEmbed.vue';
+import Heading from './Heading.astro';
 ---
 
 <Section id="video-section" background="gray">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center space-y-6">
-        <h2
-          class="font-sans text-3xl sm:text-4xl lg:text-5xl text-gray-900 font-extrabold tracking-tight"
-        >
-          Dein Entwicklungszeit-Kosmos
-        </h2>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-1 gap-8 items-center">
+      <div class="flex justify-center">
+        <div class="max-w-5xl w-full">
+          <div class="text-center mb-8">
+            <Heading title="Dein Entwicklungszeit-Kosmos" />
+          </div>
 
-        <!-- YouTube Video Embed -->
-        <div class="relative w-full">
-          <YouTubeEmbed
-            client:load
-            videoId="ipwsc7b5mdU"
-            title="Gregor Woiwode - Entwicklungszeit Software Coaching"
-            loading="lazy"
-          />
-        </div>
+          <!-- YouTube Video Embed -->
+          <div class="relative w-full mb-6">
+            <YouTubeEmbed
+              client:load
+              videoId="ipwsc7b5mdU"
+              title="Gregor Woiwode - Entwicklungszeit Software Coaching"
+              loading="lazy"
+            />
+          </div>
 
-        <div class="text-center">
-          <p class="text-gray-600 text-sm sm:text-base">
-            mit <span
-              class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
-            >
-              Gregor Woiwode
-            </span>
-          </p>
+          <div class="text-center">
+            <p class="text-base sm:text-lg text-gray-700">
+              mit <span
+                class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              >
+                Gregor Woiwode
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
