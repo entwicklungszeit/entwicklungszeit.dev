@@ -1,10 +1,13 @@
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import type { CarouselConfig } from '../types/carousel';
+import { ref, computed } from 'vue';
 
-export function useCarousel(config: CarouselConfig) {
-  const currentPage = ref(config.currentPage);
-  const itemsPerPage = ref(config.itemsPerPage);
-  const totalPages = ref(config.totalPages);
+/**
+ * Composable for managing carousel state and navigation
+ * Follows Single Responsibility Principle - only handles carousel logic
+ */
+export function useCarousel() {
+  const currentPage = ref(0);
+  const itemsPerPage = ref(1);
+  const totalPages = ref(0);
   const isAnimating = ref(false);
 
   const touchStartX = ref(0);
@@ -15,32 +18,41 @@ export function useCarousel(config: CarouselConfig) {
   const canGoPrev = computed(() => currentPage.value > 0);
   const canGoNext = computed(() => currentPage.value < totalPages.value - 1);
 
-  const navigate = (direction: 'prev' | 'next') => {
+  /**
+   * Navigate by a relative amount (e.g., -1 for previous, 1 for next)
+   */
+  const navigate = (direction: number) => {
     if (isAnimating.value) return;
 
-    const newPage = direction === 'next'
-      ? currentPage.value + 1
-      : currentPage.value - 1;
+    const newPage = currentPage.value + direction;
 
     if (newPage >= 0 && newPage < totalPages.value) {
       goToPage(newPage);
     }
   };
 
+  /**
+   * Navigate to a specific page
+   */
   const goToPage = (page: number) => {
     if (isAnimating.value || page === currentPage.value) return;
+    if (page < 0 || page >= totalPages.value) return;
 
     isAnimating.value = true;
     currentPage.value = page;
 
-    // Reset animation lock
+    // Reset animation lock after transition
     setTimeout(() => {
       isAnimating.value = false;
-    }, 500);
+    }, 300);
   };
 
+  /**
+   * Touch event handlers for mobile swipe gestures
+   */
   const handleTouchStart = (e: TouchEvent) => {
     touchStartX.value = e.touches[0].clientX;
+    touchEndX.value = e.touches[0].clientX;
     isSwiping.value = true;
   };
 
@@ -53,39 +65,17 @@ export function useCarousel(config: CarouselConfig) {
     if (!isSwiping.value) return;
 
     isSwiping.value = false;
-    const swipeDistance = touchEndX.value - touchStartX.value;
+    const swipeDistance = touchStartX.value - touchEndX.value;
     const absDistance = Math.abs(swipeDistance);
 
     if (absDistance > minSwipeDistance) {
       if (swipeDistance > 0) {
-        navigate('prev');
+        // Swiped left - go to next
+        navigate(1);
       } else {
-        navigate('next');
+        // Swiped right - go to previous
+        navigate(-1);
       }
-    }
-  };
-
-  const handleKeyboard = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') navigate('prev');
-    if (e.key === 'ArrowRight') navigate('next');
-  };
-
-  const updateItemsPerPage = (width: number) => {
-    if (width >= 1024) {
-      itemsPerPage.value = 4;
-    } else if (width >= 768) {
-      itemsPerPage.value = 2;
-    } else {
-      itemsPerPage.value = 1;
-    }
-  };
-
-  const updateTotalPages = (totalItems: number) => {
-    totalPages.value = Math.ceil(totalItems / itemsPerPage.value);
-
-    // Ensure current page is valid
-    if (currentPage.value >= totalPages.value) {
-      currentPage.value = Math.max(0, totalPages.value - 1);
     }
   };
 
@@ -101,8 +91,5 @@ export function useCarousel(config: CarouselConfig) {
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
-    handleKeyboard,
-    updateItemsPerPage,
-    updateTotalPages,
   };
 }
