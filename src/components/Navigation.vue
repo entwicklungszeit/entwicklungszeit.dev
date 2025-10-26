@@ -1,14 +1,17 @@
 <template>
-  <div class="navigation-container flex items-center">
+  <div class="navigation-container flex items-center w-full justify-end md:justify-normal">
     <!-- Desktop Navigation -->
-    <nav aria-label="Main navigation" class="hidden md:block">
+    <nav aria-label="Main navigation" class="hidden md:flex items-center w-full">
+      <div class="flex-1"></div>
       <ul class="flex items-center gap-3 sm:gap-4">
         <li>
           <a
             href="/"
             :class="[
-              'relative px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-300',
-              isHomePage && 'text-primary'
+              'relative px-4 py-2 text-sm transition-all duration-300',
+              isHomePage
+                ? 'font-bold text-primary scale-105'
+                : 'font-medium text-gray-900 hover:text-primary'
             ]"
             aria-label="Podcast"
             :aria-current="isHomePage ? 'page' : undefined"
@@ -16,7 +19,7 @@
             Podcast
             <span
               v-if="isHomePage"
-              class="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
+              class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
             ></span>
           </a>
         </li>
@@ -24,8 +27,10 @@
           <a
             href="/angebote"
             :class="[
-              'relative px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-300',
-              isAngebotePage && 'text-primary'
+              'relative px-4 py-2 text-sm transition-all duration-300',
+              isAngebotePage
+                ? 'font-bold text-primary scale-105'
+                : 'font-medium text-gray-900 hover:text-primary'
             ]"
             aria-label="Angebote"
             :aria-current="isAngebotePage ? 'page' : undefined"
@@ -33,7 +38,7 @@
             Angebote
             <span
               v-if="isAngebotePage"
-              class="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
+              class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
             ></span>
           </a>
         </li>
@@ -47,19 +52,19 @@
             Kontakt
           </a>
         </li>
-        <li>
-          <Button
-            href="https://calendly.com/gregor-entwicklungszeit/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="sm"
-            aria-label="Termin buchen (öffnet neues Fenster)"
-            data-astro-prefetch="false"
-          >
-            Termin buchen
-          </Button>
-        </li>
       </ul>
+      <div class="flex-1 flex justify-end">
+        <Button
+          href="https://calendly.com/gregor-entwicklungszeit/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          size="sm"
+          aria-label="Termin buchen (öffnet neues Fenster)"
+          data-astro-prefetch="false"
+        >
+          Termin buchen
+        </Button>
+      </div>
     </nav>
 
     <!-- Mobile Menu Button -->
@@ -141,18 +146,21 @@
             <a
               href="/"
               :class="[
-                'block relative px-4 py-3 text-base font-medium rounded-md transition-colors duration-300',
+                'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
                 isHomePage
-                  ? 'text-primary bg-primary/5'
-                  : 'text-gray-900 hover:bg-gray-100'
+                  ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
+                  : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
               ]"
               :aria-current="isHomePage ? 'page' : undefined"
               @click="handleLinkClick"
             >
-              Podcast
+              <span class="flex items-center gap-2">
+                <span v-if="isHomePage" class="text-lg">▶</span>
+                Podcast
+              </span>
               <span
                 v-if="isHomePage"
-                class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
+                class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
               ></span>
             </a>
           </li>
@@ -160,25 +168,28 @@
             <a
               href="/angebote"
               :class="[
-                'block relative px-4 py-3 text-base font-medium rounded-md transition-colors duration-300',
+                'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
                 isAngebotePage
-                  ? 'text-primary bg-primary/5'
-                  : 'text-gray-900 hover:bg-gray-100'
+                  ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
+                  : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
               ]"
               :aria-current="isAngebotePage ? 'page' : undefined"
               @click="handleLinkClick"
             >
-              Angebote
+              <span class="flex items-center gap-2">
+                <span v-if="isAngebotePage" class="text-lg">▶</span>
+                Angebote
+              </span>
               <span
                 v-if="isAngebotePage"
-                class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
+                class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
               ></span>
             </a>
           </li>
           <li>
             <a
               href="#contact"
-              class="block relative px-4 py-3 text-base font-medium rounded-md transition-colors duration-300 text-gray-900 hover:bg-gray-100"
+              class="block relative px-4 py-3 text-base font-medium rounded-md transition-all duration-300 transform text-gray-900 hover:bg-gray-100 hover:translate-x-1"
               aria-label="Kontakt"
               @click="handleScrollToContactMobile"
             >
