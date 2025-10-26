@@ -1,7 +1,5 @@
 ---
-import ApplePodcasts from '../assets/apple-podcasts.svg';
-import Spotify from '../assets/spotify.svg';
-import Youtube from '../assets/youtube.svg';
+
 ---
 
 <section
@@ -94,14 +92,13 @@ import Youtube from '../assets/youtube.svg';
         <p
           class="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-light px-4 sm:px-0"
         >
-          Entdecke dein volles Potenzial:
           <span
             class="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent inline-block"
           >
-            Software Coaching
+            Podcast, Coaching & Mentoring
           </span>
           <span class="block sm:inline">
-            für ambitionierte Tech Leads und Entwickler</span
+            für ambitionierte Entwickler:innen & Tech-Leads</span
           >
         </p>
 
@@ -128,66 +125,6 @@ import Youtube from '../assets/youtube.svg';
             <div
               class="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
             >
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Podcast platforms - logos only -->
-      <div class="relative w-full">
-        <div class="text-center mb-4 sm:mb-6">
-          <p
-            class="text-sm sm:text-base md:text-lg text-gray-600 font-light px-4"
-          >
-            Verfügbar auf allen großen Plattformen
-          </p>
-        </div>
-
-        <div
-          class="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10"
-        >
-          <!-- Spotify -->
-          <a
-            href="https://creators.spotify.com/pod/show/entwicklungszeit"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="podcast-logo-button group"
-            aria-label="Entwicklungszeit auf Spotify anhören"
-          >
-            <div
-              class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 transition-transform group-hover:scale-110"
-            >
-              <Spotify class="w-full h-full" />
-            </div>
-          </a>
-
-          <!-- Apple Podcasts -->
-          <a
-            href="https://podcasts.apple.com/us/podcast/entwicklungszeit/id1767631664"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="podcast-logo-button group"
-            aria-label="Entwicklungszeit auf Apple Podcasts anhören"
-          >
-            <div
-              class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 transition-transform group-hover:scale-110"
-            >
-              <ApplePodcasts class="w-full h-full" />
-            </div>
-          </a>
-
-          <!-- YouTube -->
-          <a
-            href="https://www.youtube.com/@entwicklungszeit"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="podcast-logo-button group"
-            aria-label="Entwicklungszeit auf YouTube ansehen"
-          >
-            <div
-              class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 transition-transform group-hover:scale-110"
-            >
-              <Youtube class="w-full h-full" />
             </div>
           </a>
         </div>
@@ -272,39 +209,6 @@ import Youtube from '../assets/youtube.svg';
     }
   }
 
-  /* Podcast logo buttons - larger and more prominent */
-  .podcast-logo-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem;
-    border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  @media (min-width: 640px) {
-    .podcast-logo-button {
-      padding: 1rem;
-      border-radius: 1.25rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .podcast-logo-button {
-      padding: 1.5rem;
-      border-radius: 1.5rem;
-    }
-  }
-
-  .podcast-logo-button:hover {
-    background: rgba(255, 255, 255, 0.95);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15);
-  }
-
   /* Mobile-specific adjustments */
   @media (max-width: 640px) {
     /* Ensure proper centering on small screens */
@@ -317,13 +221,6 @@ import Youtube from '../assets/youtube.svg';
     .animate-blob {
       width: 200px;
       height: 200px;
-    }
-  }
-
-  /* Extra small devices */
-  @media (max-width: 375px) {
-    .podcast-logo-button {
-      padding: 0.5rem;
     }
   }
 
