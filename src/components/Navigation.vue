@@ -32,10 +32,10 @@
                 ? 'font-bold text-primary scale-105'
                 : 'font-medium text-gray-900 hover:text-primary'
             ]"
-            aria-label="Angebote"
+            aria-label="Begleitung"
             :aria-current="isAngebotePage ? 'page' : undefined"
           >
-            Angebote
+            Begleitung
             <span
               v-if="isAngebotePage"
               class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
