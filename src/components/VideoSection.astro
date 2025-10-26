@@ -78,14 +78,14 @@ import YouTubeEmbed from './YouTubeEmbed.vue';
           {
             benefits.map((benefit, index) => (
               <div
-                class="benefit-card group"
+                class="benefit-card"
                 style={`animation-delay: ${index * 100}ms`}
               >
-                <div class="relative p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <div class="relative p-5 bg-white rounded-xl border border-gray-200 shadow-sm">
                   <div class="flex items-start gap-4">
                     {/* Icon with gradient */}
                     <div
-                      class={`flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br ${benefit.color} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}
+                      class={`flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br ${benefit.color} flex items-center justify-center`}
                     >
                       <svg
                         class="w-6 h-6 text-white"
@@ -122,21 +122,6 @@ import YouTubeEmbed from './YouTubeEmbed.vue';
                           'Persönliche Entwicklung und Work-Life-Balance'}
                       </p>
                     </div>
-
-                    {/* Arrow indicator */}
-                    <svg
-                      class="w-5 h-5 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
                   </div>
                 </div>
               </div>
