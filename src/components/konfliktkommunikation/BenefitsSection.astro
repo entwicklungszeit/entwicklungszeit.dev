@@ -1,0 +1,38 @@
+---
+const benefits = [
+  'Du lernst, Konflikte zu klären statt sie zu umgehen',
+  'Du lernst, Konflikte zu lesen',
+  'Du lernst, Konfliktanalysen durchzuführen',
+  'Du lernst, Wertungsfehler zu unterbinden',
+  'Du lernst, Konfliktausweitung vorzubeugen',
+  'Du gewinnst mehr Energie im Job und privat'
+];
+---
+
+<section class="py-16 sm:py-20 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2
+      class="text-2xl sm:text-3xl font-bold text-gray-900 mb-10 sm:mb-12 relative inline-block"
+    >
+      Was du im Kurs lernst
+      <span
+        class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
+      ></span>
+    </h2>
+
+    <ul class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+      {
+        benefits.map((benefit, index) => (
+          <li class="flex items-start gap-4 p-4 sm:p-5 rounded-xl bg-gray-50 border border-gray-100 hover:border-primary/20 transition-colors duration-300">
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold text-sm">
+              {index + 1}
+            </span>
+            <span class="text-base sm:text-lg text-gray-800 font-medium pt-0.5">
+              {benefit}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

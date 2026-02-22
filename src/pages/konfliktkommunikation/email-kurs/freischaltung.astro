@@ -1,0 +1,78 @@
+---
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Freischaltung – E-Mail bestätigen | E-Mail-Kurs Konfliktkommunikation"
+  description="Bestätige deine E-Mail-Adresse, um den E-Mail-Kurs Konfliktkommunikation freizuschalten. Prüfe ggf. deinen Spam-Ordner."
+  canonicalURL="https://entwicklungszeit.dev/konfliktkommunikation/email-kurs/freischaltung"
+>
+  <Header />
+  <main id="main-content" class="pt-32 pb-16">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-8"
+      >
+        <svg
+          class="w-8 h-8 text-primary"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 text-center">
+        Fast geschafft – bitte bestätige deine E-Mail-Adresse
+      </h1>
+
+      <div class="space-y-6 text-lg text-gray-700">
+        <p>
+          Wir haben dir eine Bestätigungs-E-Mail geschickt. Bitte klicke auf den
+          Link in der E-Mail, um deine Anmeldung zum E-Mail-Kurs zur
+          Konfliktkommunikation abzuschließen.
+        </p>
+
+        <div class="p-4 sm:p-6 rounded-xl bg-amber-50 border border-amber-200">
+          <h2 class="font-semibold text-gray-900 mb-2">
+            E-Mail nicht erhalten? Prüfe deinen Spam-Ordner
+          </h2>
+          <p class="mb-0">
+            Manche E-Mail-Anbieter sortieren Bestätigungsmails in den
+            Spam-Ordner. Schau dort nach, falls die E-Mail nicht in deinem
+            Posteingang landet.
+          </p>
+        </div>
+
+        <div class="p-4 sm:p-6 rounded-xl bg-gray-50 border border-gray-200">
+          <h2 class="font-semibold text-gray-900 mb-2">
+            Warum ist eine Bestätigung nötig?
+          </h2>
+          <p>
+            Wir nehmen Datenschutz und deine Privatsphäre ernst. Mit der
+            doppelten Bestätigung stellen wir sicher, dass nur du Zugang zu
+            deinem Postfach hast und der E-Mail-Versand von dir gewünscht ist.
+            Ohne Bestätigung kannst du den Kurs leider nicht freischalten.
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-6 text-center">
+        <a
+          href="/konfliktkommunikation"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          Zurück zur Kursseite
+        </a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>

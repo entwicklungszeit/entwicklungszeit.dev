@@ -23,6 +23,25 @@
             ></span>
           </a>
         </li>
+           <li>
+          <a
+            href="/konfliktkommunikation"
+            :class="[
+              'relative px-4 py-2 text-sm transition-all duration-300',
+              isKonfliktkommunikationPage
+                ? 'font-bold text-primary scale-105'
+                : 'font-medium text-gray-900 hover:text-primary'
+            ]"
+            aria-label="Konfliktkommunikation"
+            :aria-current="isKonfliktkommunikationPage ? 'page' : undefined"
+          >
+            Konfliktkommunikation
+            <span
+              v-if="isKonfliktkommunikationPage"
+              class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
+            ></span>
+          </a>
+        </li>
         <li>
           <a
             href="/angebote"
@@ -42,6 +61,7 @@
             ></span>
           </a>
         </li>
+
         <li>
           <a
             href="#contact"
@@ -188,6 +208,28 @@
           </li>
           <li>
             <a
+              href="/konfliktkommunikation"
+              :class="[
+                'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
+                isKonfliktkommunikationPage
+                  ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
+                  : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
+              ]"
+              :aria-current="isKonfliktkommunikationPage ? 'page' : undefined"
+              @click="handleLinkClick"
+            >
+              <span class="flex items-center gap-2">
+                <span v-if="isKonfliktkommunikationPage" class="text-lg">▶</span>
+                Konfliktkommunikation
+              </span>
+              <span
+                v-if="isKonfliktkommunikationPage"
+                class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
+              ></span>
+            </a>
+          </li>
+          <li>
+            <a
               href="#contact"
               class="block relative px-4 py-3 text-base font-medium rounded-md transition-all duration-300 transform text-gray-900 hover:bg-gray-100 hover:translate-x-1"
               aria-label="Kontakt"
@@ -216,7 +258,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import Button from './ui/Button.vue';
 
 // Props
@@ -234,6 +276,11 @@ const isMenuOpen = ref(false);
 // Computed properties
 const isHomePage = computed(() => props.currentPath === '/' || props.currentPath === '');
 const isAngebotePage = computed(() => props.currentPath === '/angebote' || props.currentPath === '/angebote/');
+const isKonfliktkommunikationPage = computed(
+  () =>
+    props.currentPath === '/konfliktkommunikation' ||
+    props.currentPath === '/konfliktkommunikation/'
+);
 
 // Methods
 const openMenu = () => {

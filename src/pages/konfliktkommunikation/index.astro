@@ -1,0 +1,24 @@
+---
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import BenefitsSection from '../../components/konfliktkommunikation/BenefitsSection.astro';
+import HeroSection from '../../components/konfliktkommunikation/HeroSection.astro';
+import ProcessSection from '../../components/konfliktkommunikation/ProcessSection.astro';
+import SignUpForm from '../../components/konfliktkommunikation/SignUpForm.astro';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Konfliktkommunikation – klar bleiben | Kostenloser 6-Wochen E-Mail-Kurs"
+  description="Kostenloser 6-Wochen E-Mail-Kurs: Konflikte klären, Konfliktanalyse durchführen, Wertungsfehler unterbinden. Lerne, klar zu bleiben, wenn es schwierig wird – mit praxisnahen Lektionen und Übungen."
+  canonicalURL="https://entwicklungszeit.dev/konfliktkommunikation"
+>
+  <Header />
+  <main id="main-content">
+    <HeroSection />
+    <BenefitsSection />
+    <ProcessSection />
+    <SignUpForm />
+  </main>
+  <Footer />
+</Layout>
