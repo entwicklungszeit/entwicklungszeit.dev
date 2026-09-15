@@ -1,0 +1,40 @@
+---
+import { hostStats } from '../data/host';
+---
+
+<section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10 grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:items-end">
+    <div>
+      <p class="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
+        Podcast · Blog · Coaching
+      </p>
+      <h1
+        class="font-serif text-4xl sm:text-5xl lg:text-[68px] font-normal leading-[1.1] lg:leading-[1.06] tracking-tight text-ink mb-7 max-w-[16ch]"
+      >
+        Bessere Software entsteht, wenn Teams verstehen, <em class="italic text-primary">warum</em> sie
+        tun, was sie tun.
+      </h1>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[52ch]">
+        Entwicklungszeit ist Podcast und Blog für Entwickler und Tech Leads, die
+        Softwareentwicklung als Teamsport verstehen – mit Themen zu Kommunikation, Führung und dem
+        KI-Wandel der Branche.
+      </p>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[52ch] mt-4">
+        Von <strong class="font-semibold text-ink">Gregor Woiwode</strong>, Google Developer Expert
+        for Angular &amp; Web Technologies.
+      </p>
+    </div>
+    <div
+      class="flex flex-col gap-7 border-t border-rule pt-8 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0"
+    >
+      {
+        hostStats.map(stat => (
+          <div>
+            <div class="font-serif text-4xl text-primary leading-none">{stat.value}</div>
+            <div class="text-sm text-ink-soft mt-1.5">{stat.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

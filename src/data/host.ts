@@ -20,3 +20,12 @@ export const pages = [
     caption: 'Award'
   }
 ];
+
+// Compact credibility stats derived from the prose above (17 Jahre, 900+
+// Teilnehmer, GDE seit 2019) — single source so a stat line (e.g. the start
+// page hero) doesn't hardcode these numbers separately.
+export const hostStats = [
+  { value: '17', label: 'Jahre Softwareentwicklung' },
+  { value: '900+', label: 'Workshop-Teilnehmer:innen' },
+  { value: 'GDE', label: 'Google Developer Expert seit 2019' }
+];

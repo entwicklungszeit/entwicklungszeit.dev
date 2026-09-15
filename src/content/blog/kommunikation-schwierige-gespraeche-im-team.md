@@ -3,6 +3,9 @@ title: 'Schwierige Gespräche im Team: Ein einfacher Einstieg'
 description: 'Die meisten schwierigen Gespräche werden nicht wegen des Inhalts schwierig, sondern wegen des Einstiegs. Ein Muster, das hilft.'
 category: kommunikation
 pubDate: 2025-01-24
+relatedEpisodes:
+  - folge-024-konflikte-in-deinem-softwareteam
+  - folge-025-intrapersonelle-konflikte
 ---
 
 Ob Feedback zu wiederkehrend verspäteten Deployments oder ein Konflikt

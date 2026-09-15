@@ -23,7 +23,22 @@ export default {
         'secondary-glow': 'rgba(2, 132, 199, 0.2)',
         'text-primary': '#111827',
         'text-secondary': '#374151',
-        'text-tertiary': '#6B7280'
+        'text-tertiary': '#6B7280',
+        // Editorial design system (Redesign Phase 1). Additive tokens only —
+        // nothing existing is renamed/removed, so unmigrated pages are
+        // unaffected until a component opts in by using these classes.
+        paper: '#FAF8F4',
+        'paper-raised': '#FFFFFF',
+        ink: '#15181F',
+        'ink-soft': '#565B68',
+        'ink-faint': '#8A8F9C',
+        rule: '#E7E1D6',
+        // Blog category accent colors, converted from the design canvas's
+        // OKLCH values to hex to match this file's existing format.
+        leadership: '#AB4400',
+        kommunikation: '#007EB3',
+        ai: '#794DB6',
+        angular: '#385DB8'
       },
       spacing: {
         '4.5': '1.125rem',
@@ -33,7 +48,15 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif']
+        display: ['Inter', 'system-ui', 'sans-serif'],
+        // Editorial display serif for migrated pages (Redesign Phase 1).
+        serif: ['Instrument Serif', 'Georgia', 'serif']
+      },
+      maxWidth: {
+        // Editorial page container ("wrap" in the design canvas).
+        wrap: '1160px',
+        // Narrow reading width for prose-heavy sections/articles.
+        reading: '680px'
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1.5' }],

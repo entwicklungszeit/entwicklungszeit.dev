@@ -1,7 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import Heading from './Heading.astro';
-import Section from './ui/Section.astro';
 import { formatDate } from '../lib/formatDate';
 
 const episodes = (await getCollection('podcast'))
@@ -9,13 +7,18 @@ const episodes = (await getCollection('podcast'))
   .slice(0, 3);
 ---
 
-<Section id="recent-episodes" background="gray">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
-      <Heading title="Neueste Folgen" />
+<section id="recent-episodes" class="bg-paper-raised border-y border-rule py-16 sm:py-20">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="flex flex-wrap items-baseline justify-between gap-4 mb-8 sm:mb-10">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-2">
+          Podcast
+        </p>
+        <h2 class="font-serif text-3xl sm:text-[34px] font-normal text-ink">Neueste Folgen</h2>
+      </div>
       <a
         href="/podcast"
-        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
+        class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
       >
         Alle Folgen →
       </a>
@@ -23,25 +26,32 @@ const episodes = (await getCollection('podcast'))
 
     {
       episodes.length === 0 ? (
-        <p class="text-gray-500">Noch keine Episoden veröffentlicht.</p>
+        <p class="text-ink-soft">Noch keine Episoden veröffentlicht.</p>
       ) : (
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="border-t border-rule">
           {episodes.map(episode => (
             <a
               href={`/podcast/${episode.id}`}
-              class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-6 flex flex-col"
+              class="flex items-baseline gap-5 sm:gap-7 py-5 sm:py-6 border-b border-rule group"
             >
-              <span class="text-xs font-medium text-primary mb-2">
-                Folge {episode.data.episodeNumber}
+              <span class="font-serif text-2xl sm:text-3xl text-ink-faint w-10 sm:w-12 flex-shrink-0">
+                {String(episode.data.episodeNumber).padStart(2, '0')}
               </span>
-              <h3 class="text-lg font-semibold text-gray-900 mb-4 flex-1">{episode.data.title}</h3>
-              <time datetime={episode.data.pubDate.toISOString()} class="text-xs text-gray-400">
-                {formatDate(episode.data.pubDate)}
-              </time>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-serif text-lg sm:text-xl font-normal text-ink mb-1 group-hover:text-primary transition-colors duration-300">
+                  {episode.data.title}
+                </h3>
+                <time datetime={episode.data.pubDate.toISOString()} class="text-xs sm:text-sm text-ink-soft">
+                  {formatDate(episode.data.pubDate)}
+                </time>
+              </div>
+              <span class="hidden sm:inline text-sm font-semibold text-primary flex-shrink-0">
+                Shownotes →
+              </span>
             </a>
           ))}
         </div>
       )
     }
   </div>
-</Section>
+</section>

@@ -1,8 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Heading from './Heading.astro';
-import Section from './ui/Section.astro';
-import { blogCategoryLabels } from '../data/blogCategories';
+import { blogCategoryLabels, blogCategoryTextClass } from '../data/blogCategories';
 import { formatDate } from '../lib/formatDate';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -10,13 +8,18 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .slice(0, 3);
 ---
 
-<Section id="recent-posts" background="white">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
-      <Heading title="Neueste Artikel" />
+<section id="recent-posts" class="bg-paper py-16 sm:py-20">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div
+      class="flex flex-wrap items-baseline justify-between gap-4 mb-8 sm:mb-10 pb-6 border-b border-rule"
+    >
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-2">Blog</p>
+        <h2 class="font-serif text-3xl sm:text-[34px] font-normal text-ink">Neueste Artikel</h2>
+      </div>
       <a
         href="/blog"
-        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
+        class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
       >
         Alle Artikel →
       </a>
@@ -24,20 +27,21 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
     {
       posts.length === 0 ? (
-        <p class="text-gray-500">Noch keine Artikel veröffentlicht.</p>
+        <p class="text-ink-soft">Noch keine Artikel veröffentlicht.</p>
       ) : (
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map(post => (
-            <a
-              href={`/blog/${post.id}`}
-              class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-6 flex flex-col"
-            >
-              <span class="inline-block self-start px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-4">
+            <a href={`/blog/${post.id}`} class="block group">
+              <p
+                class={`text-xs font-bold uppercase tracking-[0.06em] mb-3.5 ${blogCategoryTextClass[post.data.category]}`}
+              >
                 {blogCategoryLabels[post.data.category]}
-              </span>
-              <h3 class="text-lg font-semibold text-gray-900 mb-2">{post.data.title}</h3>
-              <p class="text-sm text-gray-600 mb-4 flex-1">{post.data.description}</p>
-              <time datetime={post.data.pubDate.toISOString()} class="text-xs text-gray-400">
+              </p>
+              <h3 class="font-serif text-2xl font-normal leading-snug text-ink mb-3 group-hover:text-primary transition-colors duration-300">
+                {post.data.title}
+              </h3>
+              <p class="text-sm leading-relaxed text-ink-soft mb-4">{post.data.description}</p>
+              <time datetime={post.data.pubDate.toISOString()} class="text-xs text-ink-faint">
                 {formatDate(post.data.pubDate)}
               </time>
             </a>
@@ -46,4 +50,4 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
       )
     }
   </div>
-</Section>
+</section>

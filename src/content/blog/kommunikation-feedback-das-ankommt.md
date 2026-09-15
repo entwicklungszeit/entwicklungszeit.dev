@@ -4,6 +4,8 @@ description: 'Feedback scheitert selten an der Absicht und fast immer an der For
 category: kommunikation
 pubDate: 2025-02-18
 draft: false
+relatedEpisodes:
+  - folge-023-sprich-mit-mir-nicht-ueber-mich
 ---
 
 "Ich meine das ja nur konstruktiv" ist einer der häufigsten Sätze vor

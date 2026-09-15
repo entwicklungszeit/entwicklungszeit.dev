@@ -3,8 +3,6 @@ title: 'Signals in Angular: Ein praktischer Einstieg'
 description: 'Signals verändern, wie Angular Change Detection denkt. Ein praktisches Beispiel für die Migration eines klassischen Property-Bindings.'
 category: angular
 pubDate: 2025-05-12
-relatedEpisodes:
-  - folge-003-angular-signals-deep-dive
 ---
 
 Signals sind Angulars Antwort auf feingranulare Reaktivität ohne die
