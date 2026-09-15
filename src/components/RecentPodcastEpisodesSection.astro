@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import Heading from './Heading.astro';
+import Section from './ui/Section.astro';
+import { formatDate } from '../lib/formatDate';
+
+const episodes = (await getCollection('podcast'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Section id="recent-episodes" background="gray">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <Heading title="Neueste Folgen" />
+      <a
+        href="/podcast"
+        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
+      >
+        Alle Folgen →
+      </a>
+    </div>
+
+    {
+      episodes.length === 0 ? (
+        <p class="text-gray-500">Noch keine Episoden veröffentlicht.</p>
+      ) : (
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {episodes.map(episode => (
+            <a
+              href={`/podcast/${episode.id}`}
+              class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-6 flex flex-col"
+            >
+              <span class="text-xs font-medium text-primary mb-2">
+                Folge {episode.data.episodeNumber}
+              </span>
+              <h3 class="text-lg font-semibold text-gray-900 mb-4 flex-1">{episode.data.title}</h3>
+              <time datetime={episode.data.pubDate.toISOString()} class="text-xs text-gray-400">
+                {formatDate(episode.data.pubDate)}
+              </time>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</Section>

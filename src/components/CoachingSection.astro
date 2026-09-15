@@ -3,7 +3,6 @@ import { benefits } from '../data/benefits';
 import { coachingBenefits, programSteps } from '../data/coaching';
 import Heading from './Heading.astro';
 import Badge from './ui/Badge.astro';
-import Button from './ui/Button.astro';
 import Section from './ui/Section.astro';
 ---
 
@@ -114,51 +113,6 @@ import Section from './ui/Section.astro';
           </div>
         );
       })}
-    </div>
-
-    <!-- CTA Section -->
-    <div
-      class="text-center p-8 sm:p-12 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden"
-    >
-      <!-- Decorative elements -->
-      <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(255,255,255,0.2),transparent)]"></div>
-        <svg class="absolute left-0 top-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-              <path d="M0 32V0h32" fill="none" stroke="white" stroke-width="0.5" opacity="0.2"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)"/>
-        </svg>
-      </div>
-
-      <div class="relative z-10">
-        <h3 class="text-3xl sm:text-4xl font-bold mb-6">Bereit für dein Software Engineering Coaching?</h3>
-        <p class="text-lg sm:text-xl text-gray-300 mb-10 mx-auto max-w-2xl leading-relaxed">
-          Vorschlag: Wir planen einen Video-Call für deine kostenlose Coaching-Erstberatung. In entspannter Atmosphäre schilderst du mir deine Situation und deinen Herausforderungen als Entwickler oder Tech Lead. Danach beantworte ich dir, ob und wo ich dich mit meinem Mentoring unterstützen kann.
-          Nach dem Gespräch weißt du, ob sich eine <strong>Zusammenarbeit lohnt</strong>.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button
-            href="#contact"
-            size="lg"
-            variant="outline"
-            class="bg-transparent border-white text-white hover:bg-white hover:text-gray-900"
-          >
-            Werde deine Fragen los
-          </Button>
-          <Button
-            href="https://calendly.com/gregor-entwicklungszeit/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="lg"
-            variant="gradient"
-          >
-            Termin buchen
-          </Button>
-        </div>
-      </div>
     </div>
   </div>
 </Section>

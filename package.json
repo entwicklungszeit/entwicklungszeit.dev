@@ -8,17 +8,24 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^6.0.2",
     "@astrojs/vue": "^5.1.1",
     "@tailwindcss/typography": "^0.5.19",
     "astro": "^5.15.1",
+    "astro-expressive-code": "^0.44.2",
     "marked": "^16.4.1",
     "sharp": "^0.34.4",
     "tailwindcss": "^3.4.18",
     "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^5.9.3"
   }
 }

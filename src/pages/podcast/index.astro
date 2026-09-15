@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import Heading from '../../components/Heading.astro';
+import Section from '../../components/ui/Section.astro';
+import Layout from '../../layouts/Layout.astro';
+import { formatDate } from '../../lib/formatDate';
+
+const episodes = (await getCollection('podcast')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout
+  title="Podcast - Entwicklungszeit"
+  description="Alle Folgen des Entwicklungszeit Podcasts mit Shownotes: Softwareentwicklung, Führung und Kommunikation."
+>
+  <Header />
+  <main id="main-content">
+    <Section id="podcast-overview" background="white" class="pt-32 sm:pt-40">
+      <div class="max-w-4xl mx-auto">
+        <Heading title="Podcast" subheading="Entwicklungszeit" />
+        <p class="text-lg text-gray-700 max-w-2xl mb-12">
+          Alle Folgen mit Shownotes. Die komplette Historie findest du außerdem
+          auf Spotify, Apple Podcasts und YouTube.
+        </p>
+
+        {
+          episodes.length === 0 ? (
+            <p class="text-gray-500">Noch keine redaktionellen Episodenseiten veröffentlicht.</p>
+          ) : (
+            <ul class="space-y-6">
+              {episodes.map(episode => (
+                <li class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
+                  <div class="flex flex-wrap items-center gap-3 mb-2 text-sm text-gray-500">
+                    <span class="font-medium text-primary">Folge {episode.data.episodeNumber}</span>
+                    <span>·</span>
+                    <time datetime={episode.data.pubDate.toISOString()}>
+                      {formatDate(episode.data.pubDate)}
+                    </time>
+                    {episode.data.guest && (
+                      <>
+                        <span>·</span>
+                        <span>mit {episode.data.guest}</span>
+                      </>
+                    )}
+                  </div>
+                  <h2 class="text-xl font-semibold text-gray-900">
+                    <a href={`/podcast/${episode.id}`} class="hover:text-primary transition-colors duration-300">
+                      {episode.data.title}
+                    </a>
+                  </h2>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </Section>
+  </main>
+  <Footer />
+</Layout>

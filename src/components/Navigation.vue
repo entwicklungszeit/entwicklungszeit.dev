@@ -1,90 +1,28 @@
 <template>
   <div class="navigation-container flex items-center w-full justify-end md:justify-normal">
     <!-- Desktop Navigation -->
-    <nav aria-label="Main navigation" class="hidden md:flex items-center w-full">
-      <div class="flex-1"></div>
+    <nav aria-label="Main navigation" class="hidden md:flex items-center w-full justify-end">
       <ul class="flex items-center gap-3 sm:gap-4">
-        <li>
+        <li v-for="item in navItems" :key="item.href">
           <a
-            href="/"
+            :href="item.href"
             :class="[
               'relative px-4 py-2 text-sm transition-all duration-300',
-              isHomePage
+              isActive(item.href)
                 ? 'font-bold text-primary scale-105'
                 : 'font-medium text-gray-900 hover:text-primary'
             ]"
-            aria-label="Podcast"
-            :aria-current="isHomePage ? 'page' : undefined"
+            :aria-label="item.label"
+            :aria-current="isActive(item.href) ? 'page' : undefined"
           >
-            Podcast
+            {{ item.label }}
             <span
-              v-if="isHomePage"
+              v-if="isActive(item.href)"
               class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
             ></span>
-          </a>
-        </li>
-           <li>
-          <a
-            href="/konfliktkommunikation"
-            :class="[
-              'relative px-4 py-2 text-sm transition-all duration-300',
-              isKonfliktkommunikationPage
-                ? 'font-bold text-primary scale-105'
-                : 'font-medium text-gray-900 hover:text-primary'
-            ]"
-            aria-label="Konfliktkommunikation"
-            :aria-current="isKonfliktkommunikationPage ? 'page' : undefined"
-          >
-            Konfliktkommunikation
-            <span
-              v-if="isKonfliktkommunikationPage"
-              class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
-            ></span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="/angebote"
-            :class="[
-              'relative px-4 py-2 text-sm transition-all duration-300',
-              isAngebotePage
-                ? 'font-bold text-primary scale-105'
-                : 'font-medium text-gray-900 hover:text-primary'
-            ]"
-            aria-label="Begleitung"
-            :aria-current="isAngebotePage ? 'page' : undefined"
-          >
-            Begleitung
-            <span
-              v-if="isAngebotePage"
-              class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
-            ></span>
-          </a>
-        </li>
-
-        <li>
-          <a
-            href="#contact"
-            class="relative px-4 py-2 text-sm font-medium text-gray-900 transition-colors duration-300 hover:text-primary"
-            aria-label="Kontakt"
-            @click="handleScrollToContact"
-          >
-            Kontakt
           </a>
         </li>
       </ul>
-      <div class="flex-1 flex justify-end">
-        <Button
-          href="https://calendly.com/gregor-entwicklungszeit/30min"
-          target="_blank"
-          rel="noopener noreferrer"
-          size="sm"
-          aria-label="Termin buchen (öffnet neues Fenster)"
-          data-astro-prefetch="false"
-        >
-          Termin buchen
-        </Button>
-      </div>
     </nav>
 
     <!-- Mobile Menu Button -->
@@ -162,94 +100,27 @@
       <!-- Navigation Links -->
       <nav class="px-6 py-8 bg-white">
         <ul class="space-y-6">
-          <li>
+          <li v-for="item in navItems" :key="item.href">
             <a
-              href="/"
+              :href="item.href"
               :class="[
                 'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
-                isHomePage
+                isActive(item.href)
                   ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
                   : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
               ]"
-              :aria-current="isHomePage ? 'page' : undefined"
+              :aria-current="isActive(item.href) ? 'page' : undefined"
               @click="handleLinkClick"
             >
               <span class="flex items-center gap-2">
-                <span v-if="isHomePage" class="text-lg">▶</span>
-                Podcast
+                <span v-if="isActive(item.href)" class="text-lg">▶</span>
+                {{ item.label }}
               </span>
               <span
-                v-if="isHomePage"
+                v-if="isActive(item.href)"
                 class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
               ></span>
             </a>
-          </li>
-          <li>
-            <a
-              href="/angebote"
-              :class="[
-                'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
-                isAngebotePage
-                  ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
-                  : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
-              ]"
-              :aria-current="isAngebotePage ? 'page' : undefined"
-              @click="handleLinkClick"
-            >
-              <span class="flex items-center gap-2">
-                <span v-if="isAngebotePage" class="text-lg">▶</span>
-                Angebote
-              </span>
-              <span
-                v-if="isAngebotePage"
-                class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
-              ></span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/konfliktkommunikation"
-              :class="[
-                'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
-                isKonfliktkommunikationPage
-                  ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
-                  : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
-              ]"
-              :aria-current="isKonfliktkommunikationPage ? 'page' : undefined"
-              @click="handleLinkClick"
-            >
-              <span class="flex items-center gap-2">
-                <span v-if="isKonfliktkommunikationPage" class="text-lg">▶</span>
-                Konfliktkommunikation
-              </span>
-              <span
-                v-if="isKonfliktkommunikationPage"
-                class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
-              ></span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              class="block relative px-4 py-3 text-base font-medium rounded-md transition-all duration-300 transform text-gray-900 hover:bg-gray-100 hover:translate-x-1"
-              aria-label="Kontakt"
-              @click="handleScrollToContactMobile"
-            >
-              Kontakt
-            </a>
-          </li>
-          <li class="pt-4">
-            <Button
-              href="https://calendly.com/gregor-entwicklungszeit/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              size="md"
-              class="w-full"
-              aria-label="Termin buchen (öffnet neues Fenster)"
-              data-astro-prefetch="false"
-            >
-              Termin buchen
-            </Button>
           </li>
         </ul>
       </nav>
@@ -258,8 +129,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-import Button from './ui/Button.vue';
+import { onMounted, onUnmounted, ref } from 'vue';
+import { navItems } from '../data/navigation';
 
 // Props
 interface Props {
@@ -273,14 +144,18 @@ const props = withDefaults(defineProps<Props>(), {
 // Reactive state
 const isMenuOpen = ref(false);
 
-// Computed properties
-const isHomePage = computed(() => props.currentPath === '/' || props.currentPath === '');
-const isAngebotePage = computed(() => props.currentPath === '/angebote' || props.currentPath === '/angebote/');
-const isKonfliktkommunikationPage = computed(
-  () =>
-    props.currentPath === '/konfliktkommunikation' ||
-    props.currentPath === '/konfliktkommunikation/'
-);
+// A nav item is active if the current path matches it exactly, or (for
+// non-root items) if the current path is nested under it, e.g. `/blog/my-post`
+// keeps the `/blog` nav item highlighted.
+const isActive = (href: string): boolean => {
+  const currentPath = props.currentPath || '/';
+
+  if (href === '/') {
+    return currentPath === '/' || currentPath === '';
+  }
+
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+};
 
 // Methods
 const openMenu = () => {
@@ -308,25 +183,6 @@ const handleLinkClick = () => {
   // Scroll to top after navigation
   setTimeout(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 100);
-};
-
-const handleScrollToContact = (event: MouseEvent) => {
-  event.preventDefault();
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
-
-const handleScrollToContactMobile = (event: MouseEvent) => {
-  event.preventDefault();
-  closeMenu();
-  setTimeout(() => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }, 100);
 };
 

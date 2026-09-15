@@ -1,0 +1,26 @@
+---
+// Calm, low-pressure closing contact link for the coaching page.
+// Deliberately no countdown/urgency element and no multi-step sales form.
+const email = 'gregor@entwicklungszeit.dev';
+---
+
+<section id="coaching-contact" class="py-16 bg-white">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="text-lg text-gray-700">
+      Interesse an einer Zusammenarbeit? Schreib mir eine Mail an
+      <a
+        href={`mailto:${email}`}
+        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
+      >
+        {email}
+      </a>
+      oder nutze das
+      <a
+        href="/kontakt"
+        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
+      >
+        Kontaktformular
+      </a>.
+    </p>
+  </div>
+</section>

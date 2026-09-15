@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import Heading from '../../../components/Heading.astro';
+import Section from '../../../components/ui/Section.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { blogCategories, blogCategoryLabels, type BlogCategory } from '../../../data/blogCategories';
+import { formatDate } from '../../../lib/formatDate';
+
+export async function getStaticPaths() {
+  return blogCategories.map(category => ({ params: { category } }));
+}
+
+const { category } = Astro.params as { category: BlogCategory };
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.category === category)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const categoryLabel = blogCategoryLabels[category];
+---
+
+<Layout
+  title={`${categoryLabel} Artikel - Entwicklungszeit Blog`}
+  description={`Alle Blog-Artikel aus der Kategorie ${categoryLabel} auf Entwicklungszeit.`}
+>
+  <Header />
+  <main id="main-content">
+    <Section id="blog-category" background="white" class="pt-32 sm:pt-40">
+      <div class="max-w-5xl mx-auto">
+        <Heading title={categoryLabel} subheading="Blog-Kategorie" />
+
+        <div class="flex flex-wrap gap-3 mb-12" aria-label="Kategorie-Filter">
+          <a
+            href="/blog"
+            class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-300"
+          >
+            Alle
+          </a>
+          {
+            blogCategories.map(item => (
+              <a
+                href={`/blog/kategorie/${item}`}
+                class:list={[
+                  'px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300',
+                  item === category
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ]}
+              >
+                {blogCategoryLabels[item]}
+              </a>
+            ))
+          }
+        </div>
+
+        {
+          posts.length === 0 ? (
+            <p class="text-gray-500">Noch keine Artikel in dieser Kategorie.</p>
+          ) : (
+            <ul class="grid gap-8 sm:grid-cols-2">
+              {posts.map(post => (
+                <li class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-6 flex flex-col">
+                  <h2 class="text-xl font-semibold text-gray-900 mb-2">
+                    <a href={`/blog/${post.id}`} class="hover:text-primary transition-colors duration-300">
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  <p class="text-gray-600 mb-4 flex-1">{post.data.description}</p>
+                  <time datetime={post.data.pubDate.toISOString()} class="text-sm text-gray-400">
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </Section>
+  </main>
+  <Footer />
+</Layout>

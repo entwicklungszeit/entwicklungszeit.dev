@@ -1,28 +1,22 @@
 ---
-import CoachingTeaserSection from '../components/CoachingTeaserSection.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import HeroSection from '../components/HeroSection.astro';
-import HostSection from '../components/HostSection.astro';
 import NewsletterSubscriptionSection from '../components/NewsletterSubscriptionSection.astro';
-import PodcastSection from '../components/PodcastSection.astro';
-import RecentEpisodesSection from '../components/RecentEpisodesSection.astro';
-import VideoSection from '../components/VideoSection.astro';
+import PositioningSection from '../components/PositioningSection.astro';
+import RecentBlogPostsSection from '../components/RecentBlogPostsSection.astro';
+import RecentPodcastEpisodesSection from '../components/RecentPodcastEpisodesSection.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Entwicklungszeit - Podcast, Coaching & Mentoring mit Gregor Woiwode"
-  description="Podcast, Coaching & Mentoring für Softwareentwickler und Tech Leads. Gregor Woiwode unterstützt dich als Programmier Coach auf dem Weg zur technischen Führung. Kostenlose Erstberatung buchbar."
+  title="Entwicklungszeit - Podcast & Blog über Softwareentwicklung, Führung und Kommunikation"
+  description="Entwicklungszeit ist Podcast und Blog für Softwareentwickler und Tech Leads: Kommunikation, Führung, AI Engineering und Angular mit Gregor Woiwode."
 >
   <Header />
-  <main id="main-content">
-    <HeroSection />
-    <VideoSection />
-    <RecentEpisodesSection />
-    <PodcastSection id="podcast-section" />
-    <HostSection />
-    <CoachingTeaserSection />
+  <main id="main-content" class="pt-16">
+    <PositioningSection />
+    <RecentBlogPostsSection />
+    <RecentPodcastEpisodesSection />
     <NewsletterSubscriptionSection />
   </main>
   <Footer />
