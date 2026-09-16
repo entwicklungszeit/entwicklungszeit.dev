@@ -7,10 +7,10 @@
           <a
             :href="item.href"
             :class="[
-              'relative px-4 py-2 text-sm transition-all duration-300',
+              'relative px-4 py-2 text-sm transition-colors duration-300',
               isActive(item.href)
-                ? 'font-bold text-primary scale-105'
-                : 'font-medium text-gray-900 hover:text-primary'
+                ? 'font-semibold text-ink'
+                : 'font-medium text-ink-soft hover:text-ink'
             ]"
             :aria-label="item.label"
             :aria-current="isActive(item.href) ? 'page' : undefined"
@@ -18,7 +18,7 @@
             {{ item.label }}
             <span
               v-if="isActive(item.href)"
-              class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary rounded-full"
+              class="absolute -bottom-1 left-4 right-4 h-px bg-primary"
             ></span>
           </a>
         </li>
@@ -28,7 +28,7 @@
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-button"
-      class="md:hidden p-2 rounded-md text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
+      class="md:hidden p-2 rounded-md text-ink hover:bg-rule/50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
       aria-label="Menü öffnen"
       :aria-expanded="isMenuOpen"
       aria-controls="mobile-menu"
@@ -61,22 +61,22 @@
   >
     <!-- Light Backdrop -->
     <div
-      class="absolute inset-0 bg-white/60"
+      class="absolute inset-0 bg-ink/20"
       id="mobile-menu-backdrop"
     ></div>
 
     <!-- Menu Panel -->
     <div
-      class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white transform transition-transform duration-300 ease-in-out z-10"
+      class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-paper transform transition-transform duration-300 ease-in-out z-10"
       id="mobile-menu-panel"
       @click.stop
     >
       <!-- Header -->
-      <div class="flex items-center justify-between h-16 px-6 bg-white">
-        <h2 class="text-lg font-semibold text-gray-900">Menü</h2>
+      <div class="flex items-center justify-between h-16 px-6 border-b border-rule">
+        <h2 class="font-serif text-lg text-ink">Menü</h2>
         <button
           id="mobile-menu-close"
-          class="p-2 rounded-md text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
+          class="p-2 rounded-md text-ink hover:bg-rule/50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
           aria-label="Menü schließen"
           @click="closeMenu"
         >
@@ -98,28 +98,21 @@
       </div>
 
       <!-- Navigation Links -->
-      <nav class="px-6 py-8 bg-white">
-        <ul class="space-y-6">
+      <nav class="px-6 py-8">
+        <ul class="space-y-2">
           <li v-for="item in navItems" :key="item.href">
             <a
               :href="item.href"
               :class="[
-                'block relative px-4 py-3 text-base rounded-md transition-all duration-300 transform',
+                'block px-4 py-3 text-base rounded-md transition-colors duration-300',
                 isActive(item.href)
-                  ? 'font-bold text-primary bg-gradient-to-r from-primary/10 to-secondary/10 shadow-md scale-105 border-l-4 border-primary'
-                  : 'font-medium text-gray-900 hover:bg-gray-100 hover:translate-x-1'
+                  ? 'font-semibold text-ink bg-rule/40'
+                  : 'font-medium text-ink-soft hover:bg-rule/30 hover:text-ink'
               ]"
               :aria-current="isActive(item.href) ? 'page' : undefined"
               @click="handleLinkClick"
             >
-              <span class="flex items-center gap-2">
-                <span v-if="isActive(item.href)" class="text-lg">▶</span>
-                {{ item.label }}
-              </span>
-              <span
-                v-if="isActive(item.href)"
-                class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-secondary to-tertiary rounded-l-md"
-              ></span>
+              {{ item.label }}
             </a>
           </li>
         </ul>
@@ -224,7 +217,7 @@ onUnmounted(() => {
 <style scoped>
 #mobile-menu-panel {
   transform: translateX(100%);
-  background-color: #ffffff !important;
+  background-color: #faf8f4 !important;
   opacity: 1 !important;
 }
 
@@ -233,6 +226,6 @@ onUnmounted(() => {
 }
 
 #mobile-menu-backdrop {
-  background-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgba(21, 24, 31, 0.2) !important;
 }
 </style>

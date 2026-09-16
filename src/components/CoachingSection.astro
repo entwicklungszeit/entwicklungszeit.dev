@@ -1,135 +1,58 @@
 ---
-import { benefits } from '../data/benefits';
 import { coachingBenefits, programSteps } from '../data/coaching';
-import Heading from './Heading.astro';
-import Badge from './ui/Badge.astro';
-import Section from './ui/Section.astro';
 ---
 
-<Section id="coaching" background="white">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-20">
-      <Heading
-        title="Software Coaching & Mentoring"
-        subheading="Impact Developer - Dein Tech Lead Coach für Engineering Excellence"
-      />
-      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto text-center">
-        Entwickle dich zum technischen Leader, der sowohl fachlich als auch menschlich überzeugt. Ein maßgeschneidertes 1:1 Software Coaching Format, das dich auf die nächste Stufe deiner Karriere als Tech Lead bringt.
+<section id="coaching" class="bg-paper py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="mb-16">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Impact Developer – Dein Tech Lead Coach für Engineering Excellence
+      </p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">
+        Software Coaching &amp; Mentoring
+      </h2>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch]">
+        Entwickle dich zum technischen Leader, der sowohl fachlich als auch menschlich
+        überzeugt. Ein maßgeschneidertes 1:1 Software Coaching Format, das dich auf die
+        nächste Stufe deiner Karriere als Tech Lead bringt.
       </p>
     </div>
 
-    <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">
-      Coaching Programm: Von Developer zum Tech Lead
-    </h2>
+    <h3 class="font-serif text-2xl font-normal text-ink mb-8">
+      Coaching-Programm: Von Developer zum Tech Lead
+    </h3>
 
-    <!-- Program Timeline -->
-    <div class="relative mb-32 py-12 px-4">
-      <!-- Background Pattern -->
-      <div class="absolute inset-0 opacity-5">
-        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="timeline-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M0 40L40 0M0 0L40 40" stroke="currentColor" stroke-width="0.5" fill="none"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#timeline-grid)"/>
-        </svg>
-      </div>
-
-      <!-- Gradient Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
-
-      <!-- Timeline Line -->
-      <div class="absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary to-secondary opacity-20 transform lg:-translate-x-px hidden lg:block"></div>
-
-      <!-- Timeline Steps -->
-      <div class="relative space-y-16">
-        {programSteps.map((step, index) => (
-          <div
-            class={`relative flex flex-col items-center lg:items-start pl-0 lg:pl-0 group ${
-              index % 2 === 0 ? 'lg:pr-1/2' : 'lg:pl-1/2'
-            }`}
-          >
-            <!-- Timeline Marker -->
-            <div class="absolute left-0 lg:left-1/2 -translate-x-[15px] lg:-translate-x-[11px] top-0 hidden lg:block">
-              <div class="w-[22px] h-[22px] bg-white rounded-full border-4 border-primary shadow-md
-                         group-hover:scale-125 group-hover:shadow-lg transition-all duration-300"></div>
-
-              <!-- Pulse effect for last item -->
-              {index === programSteps.length - 1 && (
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10">
-                  <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full opacity-10 animate-pulse"></div>
-                </div>
-              )}
+    <ol class="border-t border-rule mb-20">
+      {
+        programSteps.map(step => (
+          <li class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 py-6 border-b border-rule">
+            <span class="text-xs font-semibold uppercase tracking-[0.1em] text-primary sm:w-28 flex-shrink-0">
+              {step.week}
+            </span>
+            <div>
+              <h4 class="font-serif text-xl font-normal text-ink mb-1.5">{step.title}</h4>
+              <p class="text-sm leading-relaxed text-ink-soft">{step.description}</p>
             </div>
+          </li>
+        ))
+      }
+    </ol>
 
-            <!-- Content -->
-            <div class={`w-full max-w-md mx-auto lg:mx-0 lg:w-[calc(50%-3rem)] text-center lg:text-left ${
-              index % 2 === 0
-                ? 'lg:mr-auto lg:text-right'
-                : 'lg:ml-auto lg:text-left'
-            }`}>
-              <div class="p-6 sm:p-7 bg-white rounded-xl backdrop-blur-sm border border-gray-200 shadow-md
-                         hover:shadow-lg hover:border-gray-300 hover:bg-gray-50/50 transition-all duration-300">
-                <span class="inline-block px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
-                  {step.week}
-                </span>
-                <h4 class="text-xl font-semibold text-gray-900 mb-3">{step.title}</h4>
-                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">{step.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- Benefits Grid -->
-    <div
-      class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
-    >
-      {Object.entries(coachingBenefits).map(([category, items], index) => {
-        const benefit = benefits.find(b => b.text === category);
-        return (
-          <div
-            class="bg-white rounded-xl shadow-md p-7 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 hover:scale-105"
-          >
-            <div class="mb-5">
-              <Badge
-                text={category}
-                color={benefit.color}
-                textColor={benefit.textColor}
-              />
-            </div>
-            <ul class="space-y-3 mt-5">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+      {
+        Object.entries(coachingBenefits).map(([category, items]) => (
+          <div class="border-t border-rule pt-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.1em] text-primary mb-4">
+              {category}
+            </p>
+            <ul class="space-y-2.5">
               {items.map(item => (
-                <li class="flex items-start text-gray-700 gap-3">
-                  <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span class="text-sm sm:text-base">{item}</span>
-                </li>
+                <li class="text-sm text-ink-soft leading-relaxed">{item}</li>
               ))}
             </ul>
           </div>
-        );
-      })}
+        ))
+      }
     </div>
   </div>
-</Section>
-
-<style>
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 0.1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.15;
-      transform: scale(1.3);
-    }
-  }
-
-  .animate-pulse {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-</style>
+</section>

@@ -2,8 +2,6 @@
 import { getCollection } from 'astro:content';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import Heading from '../../components/Heading.astro';
-import Section from '../../components/ui/Section.astro';
 import Layout from '../../layouts/Layout.astro';
 import { formatDate } from '../../lib/formatDate';
 
@@ -17,47 +15,50 @@ const episodes = (await getCollection('podcast')).sort(
   description="Alle Folgen des Entwicklungszeit Podcasts mit Shownotes: Softwareentwicklung, Führung und Kommunikation."
 >
   <Header />
-  <main id="main-content">
-    <Section id="podcast-overview" background="white" class="pt-32 sm:pt-40">
-      <div class="max-w-4xl mx-auto">
-        <Heading title="Podcast" subheading="Entwicklungszeit" />
-        <p class="text-lg text-gray-700 max-w-2xl mb-12">
-          Alle Folgen mit Shownotes. Die komplette Historie findest du außerdem
-          auf Spotify, Apple Podcasts und YouTube.
+  <main id="main-content" class="pt-16">
+    <section class="bg-paper py-16 sm:py-20">
+      <div class="max-w-wrap mx-auto px-6 sm:px-10">
+        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
+          Alle Folgen
+        </p>
+        <h1 class="font-serif text-4xl sm:text-5xl font-normal text-ink mb-6">Podcast</h1>
+        <p class="text-lg leading-relaxed text-ink-soft max-w-[52ch] mb-12">
+          Alle Folgen mit Shownotes. Die komplette Historie findest du außerdem auf Spotify,
+          Apple Podcasts und YouTube.
         </p>
 
         {
           episodes.length === 0 ? (
-            <p class="text-gray-500">Noch keine redaktionellen Episodenseiten veröffentlicht.</p>
+            <p class="text-ink-soft">Noch keine redaktionellen Episodenseiten veröffentlicht.</p>
           ) : (
-            <ul class="space-y-6">
+            <div class="border-t border-rule">
               {episodes.map(episode => (
-                <li class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
-                  <div class="flex flex-wrap items-center gap-3 mb-2 text-sm text-gray-500">
-                    <span class="font-medium text-primary">Folge {episode.data.episodeNumber}</span>
-                    <span>·</span>
-                    <time datetime={episode.data.pubDate.toISOString()}>
-                      {formatDate(episode.data.pubDate)}
-                    </time>
-                    {episode.data.guest && (
-                      <>
-                        <span>·</span>
-                        <span>mit {episode.data.guest}</span>
-                      </>
-                    )}
-                  </div>
-                  <h2 class="text-xl font-semibold text-gray-900">
-                    <a href={`/podcast/${episode.id}`} class="hover:text-primary transition-colors duration-300">
+                <a
+                  href={`/podcast/${episode.id}`}
+                  class="flex items-baseline gap-5 sm:gap-7 py-6 border-b border-rule group"
+                >
+                  <span class="font-serif text-2xl sm:text-3xl text-ink-faint w-10 sm:w-12 flex-shrink-0">
+                    {String(episode.data.episodeNumber).padStart(2, '0')}
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    <h2 class="font-serif text-lg sm:text-xl font-normal text-ink mb-1 group-hover:text-primary transition-colors duration-300">
                       {episode.data.title}
-                    </a>
-                  </h2>
-                </li>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-ink-soft">
+                      {formatDate(episode.data.pubDate)}
+                      {episode.data.guest && <> · mit {episode.data.guest}</>}
+                    </p>
+                  </div>
+                  <span class="hidden sm:inline text-sm font-semibold text-primary flex-shrink-0">
+                    Shownotes →
+                  </span>
+                </a>
               ))}
-            </ul>
+            </div>
           )
         }
       </div>
-    </Section>
+    </section>
   </main>
   <Footer />
 </Layout>

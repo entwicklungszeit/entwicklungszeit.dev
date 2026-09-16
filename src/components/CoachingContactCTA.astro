@@ -4,23 +4,24 @@
 const email = 'gregor@entwicklungszeit.dev';
 ---
 
-<section id="coaching-contact" class="py-16 bg-white">
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <p class="text-lg text-gray-700">
-      Interesse an einer Zusammenarbeit? Schreib mir eine Mail an
-      <a
-        href={`mailto:${email}`}
-        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
-      >
+<section id="coaching-contact" class="bg-paper-raised border-t border-rule py-16 sm:py-24">
+  <div class="max-w-reading mx-auto px-6 sm:px-10 text-center">
+    <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">Passt das zu dir?</h2>
+    <p class="text-lg leading-relaxed text-ink-soft mb-8">
+      In einem kurzen, unverbindlichen Gespräch klären wir, ob und wie ich dich am besten
+      unterstützen kann.
+    </p>
+    <a
+      href="/kontakt"
+      class="inline-flex items-center justify-center px-8 py-3 bg-ink text-paper font-semibold rounded-sm hover:bg-ink/90 transition-colors duration-300"
+    >
+      Kennenlerngespräch anfragen
+    </a>
+    <p class="text-sm text-ink-faint mt-5">
+      oder direkt per Mail:
+      <a href={`mailto:${email}`} class="text-primary font-medium hover:text-secondary transition-colors duration-300">
         {email}
       </a>
-      oder nutze das
-      <a
-        href="/kontakt"
-        class="text-primary font-medium hover:text-secondary transition-colors duration-300"
-      >
-        Kontaktformular
-      </a>.
     </p>
   </div>
 </section>

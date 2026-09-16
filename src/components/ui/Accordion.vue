@@ -68,10 +68,10 @@ const toggleAccordion = (index: number) => {
 }
 
 .accordion-item {
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
+  border: 1px solid #e7e1d6;
+  border-radius: 0.125rem;
   margin-bottom: 1rem;
-  background: white;
+  background: #ffffff;
   overflow: hidden;
 }
 
@@ -93,7 +93,7 @@ const toggleAccordion = (index: number) => {
 }
 
 .accordion-header:hover {
-  background: #f9fafb;
+  background: #faf8f4;
 }
 
 .accordion-icon {
@@ -108,7 +108,7 @@ const toggleAccordion = (index: number) => {
 .accordion-icon::after {
   content: '';
   position: absolute;
-  background: #4b5563;
+  background: #565b68;
   transition: transform 0.3s ease;
 }
 
@@ -138,12 +138,12 @@ const toggleAccordion = (index: number) => {
 
 .accordion-content-inner {
   padding: 0 0 1.25rem 0;
-  color: #4b5563;
+  color: #565b68;
   line-height: 1.6;
 }
 
 .accordion-input:checked + .accordion-header {
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e7e1d6;
 }
 
 .accordion-input:checked + .accordion-header .accordion-icon::after {

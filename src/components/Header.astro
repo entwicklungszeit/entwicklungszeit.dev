@@ -6,22 +6,23 @@ import Navigation from './Navigation.vue';
 
 <header
   id="main-header"
-  class="fixed w-full bg-white/95 backdrop-blur-sm shadow-md z-50 top-0"
+  class="fixed w-full bg-paper/95 backdrop-blur-sm border-b border-rule z-50 top-0"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-0.5">
-    <div class="flex h-16 items-center justify-between w-full">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="flex h-16 items-center justify-between w-full gap-6">
       <div class="flex items-center flex-shrink-0">
         <a
           href="/"
-          class="flex items-center"
+          class="flex items-center gap-2.5"
           aria-label="Entwicklungszeit Home"
         >
           <Image
             src={Logo}
-            alt="Entwicklungszeit Logo"
-            class="h-8 sm:h-10 w-auto"
+            alt=""
+            class="h-7 sm:h-8 w-auto"
             loading="eager"
           />
+          <span class="font-serif italic text-xl sm:text-2xl text-ink">Entwicklungszeit</span>
         </a>
       </div>
 

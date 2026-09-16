@@ -1,22 +1,22 @@
 ---
 import { faqs } from '../data/faqData';
-import Heading from './Heading.astro';
 import Accordion from './ui/Accordion.vue';
-import Section from './ui/Section.astro';
 ---
 
-<Section id="faq" background="white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <Heading title="Häufig gestellte Fragen" />
-      <p class="text-gray-600 max-w-2xl text-center md:text-left">
-        Hier findest du Antworten auf die häufigsten Fragen zum Impact
-        Developer-Programm
+<section id="faq" class="bg-paper py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="mb-12">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Häufige Fragen
+      </p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">
+        Häufig gestellte Fragen
+      </h2>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch]">
+        Hier findest du Antworten auf die häufigsten Fragen zum Impact Developer-Programm.
       </p>
     </div>
 
-    <div class="mb-16">
-      <Accordion client:visible items={faqs} />
-    </div>
+    <Accordion client:visible items={faqs} />
   </div>
-</Section>
+</section>

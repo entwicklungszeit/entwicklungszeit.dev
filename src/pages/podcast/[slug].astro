@@ -19,7 +19,6 @@ const { Content } = await render(episode);
 const relatedPosts = episode.data.relatedPosts?.length
   ? await getEntries(episode.data.relatedPosts)
   : [];
-
 ---
 
 <Layout
@@ -27,32 +26,30 @@ const relatedPosts = episode.data.relatedPosts?.length
   description={`Shownotes zu Folge ${episode.data.episodeNumber}: ${episode.data.title}`}
 >
   <Header />
-  <main id="main-content">
-    <article class="pt-32 sm:pt-40 pb-16">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-6">
-          Folge {episode.data.episodeNumber}
+  <main id="main-content" class="pt-16">
+    <article class="bg-paper py-16 sm:py-20">
+      <div class="max-w-reading mx-auto px-6 sm:px-10">
+        <span class="font-serif text-3xl text-ink-faint">
+          {String(episode.data.episodeNumber).padStart(2, '0')}
         </span>
 
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+        <h1 class="font-serif text-3xl sm:text-4xl font-normal leading-[1.15] text-ink mt-2 mb-4">
           {episode.data.title}
         </h1>
 
-        <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-6">
-          <time datetime={episode.data.pubDate.toISOString()}>
-            {formatDate(episode.data.pubDate)}
-          </time>
-          {episode.data.guest && <span>· mit {episode.data.guest}</span>}
-        </div>
+        <p class="text-sm text-ink-soft mb-8">
+          {formatDate(episode.data.pubDate)}
+          {episode.data.guest && <> · mit {episode.data.guest}</>}
+        </p>
 
-        <div class="flex flex-wrap gap-3 mb-10">
+        <div class="flex flex-wrap gap-3 mb-10 pb-10 border-b border-rule">
           {
             episode.data.audioUrl && (
               <a
                 href={episode.data.audioUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 font-medium rounded-lg shadow-sm hover:shadow-md border border-gray-200 transition-all duration-300 text-sm"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-paper-raised text-ink font-medium rounded-sm border border-rule hover:border-ink-faint transition-colors duration-300 text-sm"
               >
                 🎧 Anhören
               </a>
@@ -64,30 +61,30 @@ const relatedPosts = episode.data.relatedPosts?.length
                 href={episode.data.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 font-medium rounded-lg shadow-sm hover:shadow-md border border-gray-200 transition-all duration-300 text-sm"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-paper-raised text-ink font-medium rounded-sm border border-rule hover:border-ink-faint transition-colors duration-300 text-sm"
               >
-                ▶ Auf YouTube ansehen
+                ▶ Auf YouTube
               </a>
             )
           }
         </div>
 
-        <div class="prose prose-lg max-w-none">
+        <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-normal prose-headings:text-ink prose-p:text-ink-soft prose-li:text-ink-soft prose-strong:text-ink prose-a:text-primary">
           <Content />
         </div>
 
         {
           relatedPosts.length > 0 && (
-            <div class="mt-16 pt-8 border-t border-gray-200">
-              <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                Passende Blog-Artikel
-              </h2>
+            <div class="mt-16 bg-paper-raised border border-rule rounded-sm p-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+                Passender Blog-Artikel
+              </p>
               <ul class="space-y-2">
                 {relatedPosts.map(post => (
                   <li>
                     <a
                       href={`/blog/${post.id}`}
-                      class="text-primary font-medium hover:text-secondary transition-colors duration-300"
+                      class="font-serif text-lg text-ink hover:text-primary transition-colors duration-300"
                     >
                       {post.data.title}
                     </a>
@@ -101,7 +98,7 @@ const relatedPosts = episode.data.relatedPosts?.length
         <p class="mt-16">
           <a
             href="/podcast"
-            class="inline-flex items-center gap-2 text-primary font-medium hover:text-secondary transition-colors duration-300"
+            class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
           >
             ← Zurück zur Episodenübersicht
           </a>

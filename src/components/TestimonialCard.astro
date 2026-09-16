@@ -14,14 +14,14 @@ const reviewPreview = hasLongReview
 ---
 
 <div
-  class="h-full flex flex-col bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-xl mx-auto min-h-[420px] md:min-h-[480px]"
+  class="h-full flex flex-col bg-paper-raised border border-rule rounded-sm p-6 md:p-8 max-w-xl mx-auto min-h-[420px] md:min-h-[480px]"
 >
   <!-- Portrait -->
   <div class="flex justify-center md:justify-start mb-4">
     <Image
       src={testimonial.portraitImage.src}
       alt={testimonial.portraitImage.alt}
-      class="w-24 h-24 md:w-28 md:h-28 object-cover rounded-2xl border-2 border-gray-100 shadow-sm"
+      class="w-20 h-20 md:w-24 md:h-24 object-cover rounded-full border border-rule"
       width="112"
       height="112"
     />
@@ -29,17 +29,15 @@ const reviewPreview = hasLongReview
 
   <!-- Name and Job -->
   <div class="mb-2">
-    <h3
-      class="font-display text-lg md:text-xl font-bold text-gray-900 leading-tight"
-    >
+    <h3 class="font-serif text-xl md:text-2xl font-normal text-ink leading-tight">
       {testimonial.firstName}
       {testimonial.lastName}
     </h3>
-    <div class="text-primary font-medium text-base md:text-lg leading-snug">
+    <div class="text-primary font-medium text-sm md:text-base leading-snug">
       {testimonial.jobTitle}
       {
         testimonial.company && (
-          <span class="text-gray-700 font-normal">
+          <span class="text-ink-soft font-normal">
             {' '}
             @ {testimonial.company}
           </span>
@@ -50,7 +48,7 @@ const reviewPreview = hasLongReview
 
   <!-- Review Text -->
   <div class="flex-1 mt-2 mb-4">
-    <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+    <p class="text-ink-soft text-base leading-relaxed">
       {testimonial.reviewText}
     </p>
   </div>
@@ -61,9 +59,9 @@ const reviewPreview = hasLongReview
       testimonial.bio && (
         <button
           onclick={`openTestimonialModal(${testimonialJson})`}
-          class="px-4 py-1.5 border-2 border-primary text-primary hover:text-secondary hover:border-secondary rounded-full text-xs font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          class="px-4 py-1.5 border border-primary text-primary hover:text-secondary hover:border-secondary rounded-full text-xs font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
-          BIO
+          Mehr
         </button>
       )
     }
