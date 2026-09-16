@@ -8,13 +8,13 @@
       <dialog
         ref="dialogRef"
         :open="isOpen"
-        class="max-w-2xl w-full bg-white rounded-lg shadow-xl m-4 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90vh] overflow-y-auto p-0"
+        class="max-w-2xl w-full bg-paper-raised border border-rule rounded-sm m-4 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90vh] overflow-y-auto p-0"
       >
         <div class="relative">
           <!-- Close button -->
           <button
             type="button"
-            class="absolute right-4 top-4 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center"
+            class="absolute right-4 top-4 text-ink-faint bg-transparent hover:bg-rule hover:text-ink rounded-sm text-sm p-1.5 inline-flex items-center"
             aria-label="Close modal"
             @click="handleClose"
           >
@@ -34,16 +34,16 @@
               <img
                 :src="testimonial.portraitImage.src"
                 :alt="testimonial.portraitImage.alt"
-                class="w-28 h-28 rounded-full object-cover shadow-lg"
+                class="w-28 h-28 rounded-full object-cover border border-rule"
                 width="112"
                 height="112"
                 loading="lazy"
               />
               <div class="space-y-3">
-                <h3 class="font-display text-2xl font-bold text-gray-900 tracking-tight">
+                <h3 class="font-serif text-2xl font-normal text-ink">
                   {{ testimonial.firstName }} {{ testimonial.lastName }}
                 </h3>
-                <p class="text-lg text-gray-600 font-medium">
+                <p class="text-lg text-ink-soft font-medium">
                   {{ testimonial.company
                     ? `${testimonial.jobTitle} @ ${testimonial.company}`
                     : testimonial.jobTitle }}
@@ -53,19 +53,19 @@
 
             <!-- Bio Section -->
             <div v-if="testimonial.bio" class="prose prose-lg max-w-none">
-              <div class="bg-gray-50 rounded-xl p-8 leading-relaxed max-h-[40vh] overflow-y-auto modal-bio-container">
-                <p class="text-gray-700 text-lg">{{ testimonial.bio }}</p>
+              <div class="bg-paper rounded-sm p-8 leading-relaxed max-h-[40vh] overflow-y-auto modal-bio-container">
+                <p class="text-ink-soft text-lg">{{ testimonial.bio }}</p>
               </div>
             </div>
           </div>
 
           <!-- Modal Footer -->
-          <div class="flex justify-center p-6 border-t border-gray-100">
+          <div class="flex justify-center p-6 border-t border-rule">
             <a
               :href="testimonial.projectLink"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center text-primary bg-primary-light/10 hover:bg-primary-light/20 font-medium rounded-lg px-6 py-3 text-center focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all duration-200"
+              class="inline-flex items-center text-primary bg-primary/10 hover:bg-primary/20 font-medium rounded-sm px-6 py-3 text-center focus:ring-2 focus:outline-none focus:ring-primary transition-colors duration-200"
             >
               Mehr zu {{ testimonial.firstName }} {{ testimonial.lastName }}
               <svg
