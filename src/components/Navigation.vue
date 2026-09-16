@@ -29,12 +29,13 @@
     <button
       id="mobile-menu-button"
       class="md:hidden p-2 rounded-md text-ink hover:bg-rule/50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
-      aria-label="Menü öffnen"
+      :aria-label="isMenuOpen ? 'Menü schließen' : 'Menü öffnen'"
       :aria-expanded="isMenuOpen"
       aria-controls="mobile-menu"
-      @click="openMenu"
+      @click="toggleMenu"
     >
       <svg
+        v-if="!isMenuOpen"
         class="w-6 h-6"
         fill="none"
         stroke="currentColor"
@@ -48,6 +49,21 @@
           d="M4 6h16M4 12h16M4 18h16"
         />
       </svg>
+      <svg
+        v-else
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
     </button>
   </div>
 
@@ -55,7 +71,7 @@
   <div
     v-if="isMenuOpen"
     id="mobile-menu"
-    class="fixed inset-0 z-[60] md:hidden"
+    class="fixed inset-x-0 top-16 bottom-0 z-[60] md:hidden"
     aria-label="Mobile navigation menu"
     @click="handleMenuClick"
   >
@@ -67,36 +83,10 @@
 
     <!-- Menu Panel -->
     <div
-      class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-paper transform transition-transform duration-300 ease-in-out z-10"
+      class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-paper transform transition-transform duration-300 ease-in-out z-10 overflow-y-auto"
       id="mobile-menu-panel"
       @click.stop
     >
-      <!-- Header -->
-      <div class="flex items-center justify-between h-16 px-6 border-b border-rule">
-        <h2 class="font-serif text-lg text-ink">Menü</h2>
-        <button
-          id="mobile-menu-close"
-          class="p-2 rounded-md text-ink hover:bg-rule/50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
-          aria-label="Menü schließen"
-          @click="closeMenu"
-        >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-
       <!-- Navigation Links -->
       <nav class="px-6 py-8">
         <ul class="space-y-2">
@@ -159,6 +149,14 @@ const openMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false;
   document.body.style.overflow = '';
+};
+
+const toggleMenu = () => {
+  if (isMenuOpen.value) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
 };
 
 const handleMenuClick = (event: MouseEvent) => {
