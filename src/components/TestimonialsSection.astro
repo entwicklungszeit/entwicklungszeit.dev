@@ -1,12 +1,6 @@
 ---
 import { testimonials } from '../data/testimonials';
-import TestimonialGrid from './TestimonialGrid.vue';
-
-// Split into initial (first 2) and remaining
-// Note: Vue component handles shuffling to avoid SSR mismatch
-const initialTestimonials = testimonials.slice(0, 2);
-const remainingTestimonials = testimonials.slice(2);
-const remainingCount = remainingTestimonials.length;
+import TestimonialCarousel from './TestimonialCarousel.vue';
 ---
 
 <section id="testimonials" class="bg-paper-raised border-y border-rule py-16 sm:py-24">
@@ -16,87 +10,6 @@ const remainingCount = remainingTestimonials.length;
       Das sagen meine Partner
     </h2>
 
-    <!-- Initial testimonials (always visible) -->
-    <TestimonialGrid client:load testimonials={initialTestimonials} />
-
-    <!-- Toggle button -->
-    <div class="flex justify-center mt-10">
-      <button
-        id="testimonial-toggle-btn"
-        data-remaining-count={remainingCount}
-        class="inline-flex items-center gap-2 px-5 py-2 border border-rule rounded-full text-sm font-semibold text-ink hover:border-ink-faint transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-      >
-        <span id="btn-text">{remainingCount} weitere</span>
-        <svg
-          id="btn-icon"
-          class="w-4 h-4 transition-transform duration-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Remaining testimonials (hidden by default) -->
-    <div
-      id="remaining-testimonials"
-      class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out"
-    >
-      <div class="mt-10">
-        <TestimonialGrid client:load testimonials={remainingTestimonials} />
-      </div>
-    </div>
+    <TestimonialCarousel client:load testimonials={testimonials} />
   </div>
 </section>
-
-<script>
-  function setupTestimonialToggle() {
-    const button = document.getElementById('testimonial-toggle-btn');
-    const remainingContainer = document.getElementById(
-      'remaining-testimonials'
-    );
-    const btnText = document.getElementById('btn-text');
-    const btnIcon = document.getElementById('btn-icon');
-    const remainingCount = button?.dataset.remainingCount || '0';
-
-    let isExpanded = false;
-
-    button?.addEventListener('click', () => {
-      isExpanded = !isExpanded;
-
-      if (isExpanded) {
-        // Show remaining testimonials
-        btnText!.textContent = 'Weniger anziegen';
-        btnIcon?.classList.add('rotate-180');
-        remainingContainer?.classList.remove('max-h-0', 'opacity-0');
-        remainingContainer?.classList.add('opacity-100');
-        // Set max-height to scrollHeight for smooth animation
-        remainingContainer?.style.setProperty(
-          'max-height',
-          remainingContainer!.scrollHeight + 'px'
-        );
-      } else {
-        // Hide remaining testimonials
-        btnText!.textContent = `${remainingCount} weitere`;
-        btnIcon?.classList.remove('rotate-180');
-        remainingContainer?.classList.add('max-h-0', 'opacity-0');
-        remainingContainer?.classList.remove('opacity-100');
-        remainingContainer?.style.setProperty('max-height', '0');
-      }
-    });
-  }
-
-  // Setup on load
-  setupTestimonialToggle();
-
-  // Also setup on document ready in case script runs before DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupTestimonialToggle);
-  }
-</script>

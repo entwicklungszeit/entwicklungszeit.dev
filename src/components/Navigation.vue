@@ -1,7 +1,7 @@
 <template>
-  <div class="navigation-container flex items-center w-full justify-end md:justify-normal">
+  <div class="navigation-container flex items-center flex-1 justify-end md:justify-normal">
     <!-- Desktop Navigation -->
-    <nav aria-label="Main navigation" class="hidden md:flex items-center w-full justify-end">
+    <nav aria-label="Main navigation" class="hidden md:flex items-center flex-1 justify-end">
       <ul class="flex items-center gap-3 sm:gap-4">
         <li v-for="item in navItems" :key="item.href">
           <a

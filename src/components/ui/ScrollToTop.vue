@@ -2,7 +2,7 @@
   <button
     v-show="isVisible"
     aria-label="Scroll to top"
-    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 bg-white bg-opacity-80 backdrop-blur-sm rounded-full shadow-lg border border-gray-200 text-gray-700 hover:text-primary transition-all duration-300 opacity-0 translate-y-10 pointer-events-none"
+    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 bg-paper-raised bg-opacity-90 backdrop-blur-sm rounded-full shadow-sm border border-rule text-ink-soft hover:text-primary transition-all duration-300 opacity-0 translate-y-10 pointer-events-none"
     :class="{
       'opacity-100 translate-y-0 pointer-events-auto': isVisible
     }"
