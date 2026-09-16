@@ -3,6 +3,15 @@
 ---
 
 <style is:global>
+  /* sib-styles.css sets `#sib-container { background: #fff; ... }` via an
+     ID selector, which beats our Tailwind classes and repaints the box
+     white regardless of source order. Override explicitly. */
+  #sib-container {
+    background: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
   #sib-container input:-ms-input-placeholder {
     text-align: left;
     font-family: Inter, sans-serif;
