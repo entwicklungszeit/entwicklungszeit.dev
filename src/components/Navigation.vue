@@ -71,7 +71,7 @@
   <div
     v-if="isMenuOpen"
     id="mobile-menu"
-    class="fixed inset-x-0 top-16 bottom-0 z-[60] md:hidden"
+    class="fixed inset-x-0 top-16 h-[calc(100vh-4rem)] z-[60] md:hidden"
     aria-label="Mobile navigation menu"
     @click="handleMenuClick"
   >
@@ -114,6 +114,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import { navItems } from '../data/navigation';
+import { isClickOutsideAll } from '../lib/isClickOutside';
 
 // Props
 interface Props {
@@ -177,16 +178,14 @@ const handleLinkClick = () => {
   }, 100);
 };
 
-// Global click handler for outside clicks
+// Global click handler for outside clicks.
 const handleGlobalClick = (event: MouseEvent) => {
   if (!isMenuOpen.value) return;
 
-  const target = event.target as HTMLElement;
   const menuPanel = document.getElementById('mobile-menu-panel');
   const menuButton = document.getElementById('mobile-menu-button');
 
-  if (menuPanel && !menuPanel.contains(target) &&
-      menuButton && !menuButton.contains(target)) {
+  if (isClickOutsideAll(event.composedPath(), [menuPanel, menuButton])) {
     closeMenu();
   }
 };
@@ -211,19 +210,3 @@ onUnmounted(() => {
   document.body.style.overflow = '';
 });
 </script>
-
-<style scoped>
-#mobile-menu-panel {
-  transform: translateX(100%);
-  background-color: #faf8f4 !important;
-  opacity: 1 !important;
-}
-
-#mobile-menu-panel:not(.-translate-x-full) {
-  transform: translateX(0);
-}
-
-#mobile-menu-backdrop {
-  background-color: rgba(21, 24, 31, 0.2) !important;
-}
-</style>
