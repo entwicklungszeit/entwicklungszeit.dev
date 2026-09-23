@@ -1,28 +1,52 @@
 ---
 import { getCollection } from 'astro:content';
 import { formatDate } from '../lib/formatDate';
+import SectionHeader from './SectionHeader.astro';
 
 const episodes = (await getCollection('podcast'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const waveform = [10, 18, 28, 14, 34, 22, 38, 16, 26, 12, 30, 20, 8, 24, 36, 14, 20, 10];
 ---
 
 <section id="recent-episodes" class="bg-paper-raised border-y border-rule py-16 sm:py-20">
   <div class="max-w-wrap mx-auto px-6 sm:px-10">
-    <div class="flex flex-wrap items-baseline justify-between gap-4 mb-8 sm:mb-10">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-2">
-          Podcast
-        </p>
-        <h2 class="font-serif text-3xl sm:text-[34px] font-normal text-ink">Neueste Folgen</h2>
-      </div>
+    <SectionHeader eyebrow="Podcast · Entwicklungszeit" title="Neueste Podcast-Folgen">
+      <svg
+        slot="icon"
+        width="30"
+        height="30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="9" y="2.5" width="6" height="12" rx="3"></rect>
+        <path d="M5.5 11a6.5 6.5 0 0 0 13 0"></path>
+        <line x1="12" y1="17.5" x2="12" y2="21.5"></line>
+        <line x1="8.5" y1="21.5" x2="15.5" y2="21.5"></line>
+      </svg>
+      <svg
+        class="hidden md:block text-primary opacity-[0.22]"
+        width="124"
+        height="40"
+        viewBox="0 0 124 40"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        {waveform.map((h, i) => <rect x={i * 7} y={(40 - h) / 2} width="3" height={h} rx="1.5" />)}
+      </svg>
       <a
         href="/podcast"
         class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
       >
         Alle Folgen →
       </a>
-    </div>
+    </SectionHeader>
 
     {
       episodes.length === 0 ? (
@@ -45,8 +69,16 @@ const episodes = (await getCollection('podcast'))
                   {formatDate(episode.data.pubDate)}
                 </time>
               </div>
-              <span class="hidden sm:inline text-sm font-semibold text-primary flex-shrink-0">
+              <span class="hidden sm:inline text-[13px] font-semibold text-primary flex-shrink-0">
                 Shownotes →
+              </span>
+              <span
+                class="hidden sm:flex w-11 h-11 rounded-full bg-primary-tint text-primary items-center justify-center flex-none self-center"
+                aria-hidden="true"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
+                </svg>
               </span>
             </a>
           ))}

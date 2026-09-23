@@ -33,6 +33,7 @@ export default {
         'ink-soft': '#565B68',
         'ink-faint': '#8A8F9C',
         rule: '#E7E1D6',
+        'primary-tint': '#EEF2FC',
         // Blog category accent colors, converted from the design canvas's
         // OKLCH values to hex to match this file's existing format.
         leadership: '#AB4400',

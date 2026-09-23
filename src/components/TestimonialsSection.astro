@@ -1,14 +1,16 @@
 ---
 import { testimonials } from '../data/testimonials';
 import TestimonialCarousel from './TestimonialCarousel.vue';
+import SectionHeader from './SectionHeader.astro';
 ---
 
 <section id="testimonials" class="bg-paper-raised border-y border-rule py-16 sm:py-24">
   <div class="max-w-wrap mx-auto px-6 sm:px-10">
-    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">Stimmen</p>
-    <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-12">
-      Das sagen meine Partner
-    </h2>
+    <SectionHeader eyebrow="Stimmen · Erfahrungen" title="Was andere über die Zusammenarbeit sagen">
+      <svg slot="icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4 17.5c0-4.6 2-8.4 6-10.5l1 1.6c-2.3 1.4-3.4 3.2-3.6 5.2H10V20H4v-2.5zm10 0c0-4.6 2-8.4 6-10.5l1 1.6c-2.3 1.4-3.4 3.2-3.6 5.2H20V20h-6v-2.5z" />
+      </svg>
+    </SectionHeader>
 
     <TestimonialCarousel client:load testimonials={testimonials} />
   </div>
