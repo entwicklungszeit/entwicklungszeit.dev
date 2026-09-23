@@ -2,12 +2,18 @@
 interface Props {
   eyebrow: string;
   title: string;
+  divider?: boolean;
 }
 
-const { eyebrow, title } = Astro.props;
+const { eyebrow, title, divider = false } = Astro.props;
 ---
 
-<div class="flex flex-wrap items-center justify-between gap-6 mb-8 sm:mb-10">
+<div
+  class:list={[
+    'flex flex-wrap items-center justify-between gap-6 mb-8 sm:mb-10',
+    divider && 'pb-6 border-b border-rule',
+  ]}
+>
   <div class="flex items-center gap-4 sm:gap-5">
     <div
       class="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] bg-primary text-white flex items-center justify-center flex-none shadow-[0_8px_24px_rgba(30,58,138,0.28)]"
