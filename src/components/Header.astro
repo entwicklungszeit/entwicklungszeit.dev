@@ -2,13 +2,6 @@
 import { Image } from 'astro:assets';
 import Logo from '../assets/logo.svg';
 import Navigation from './Navigation.vue';
-
-interface Props {
-  ctaLabel?: string;
-  ctaHref?: string;
-}
-
-const { ctaLabel, ctaHref } = Astro.props;
 ---
 
 <header
@@ -23,28 +16,14 @@ const { ctaLabel, ctaHref } = Astro.props;
           class="flex items-center gap-2.5"
           aria-label="Entwicklungszeit Home"
         >
-          <Image
-            src={Logo}
-            alt=""
-            class="h-7 sm:h-8 w-auto"
-            loading="eager"
-          />
-          <span class="font-serif italic text-xl sm:text-2xl text-ink">Entwicklungszeit</span>
+          <Image src={Logo} alt="" class="h-7 sm:h-8 w-auto" loading="eager" />
+          <span class="font-serif italic text-xl sm:text-2xl text-ink"
+            >Entwicklungszeit</span
+          >
         </a>
       </div>
 
       <Navigation client:load currentPath={Astro.url.pathname} />
-
-      {
-        ctaLabel && ctaHref && (
-          <a
-            href={ctaHref}
-            class="hidden sm:inline-flex flex-shrink-0 items-center justify-center px-5 py-2 bg-ink text-paper text-sm font-semibold rounded-sm hover:bg-ink/90 transition-colors duration-300"
-          >
-            {ctaLabel}
-          </a>
-        )
-      }
     </div>
   </div>
 </header>

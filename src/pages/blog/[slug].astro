@@ -29,7 +29,7 @@ const relatedEpisodes = post.data.relatedEpisodes?.length
   <Header />
   <main id="main-content" class="pt-16">
     <article class="bg-paper py-16 sm:py-20">
-      <div class="max-w-reading mx-auto px-6 sm:px-10">
+      <div class="max-w-wrap mx-auto px-6 sm:px-10">
         <p class={`text-xs font-bold uppercase tracking-[0.06em] mb-4 ${blogCategoryTextClass[post.data.category]}`}>
           <a href={`/blog/kategorie/${post.data.category}`} class="hover:underline">
             {blogCategoryLabels[post.data.category]}
