@@ -1,0 +1,43 @@
+---
+import { focusFields } from '../data/coaching';
+---
+
+<section id="felder" class="bg-paper-raised border-y border-rule py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="mb-14">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Woran es meistens hakt
+      </p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">
+        Drei Felder, an denen wir arbeiten
+      </h2>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch]">
+        Wie stark wir jedes Feld gewichten, entscheidet deine Situation. Im Kennenlerngespräch
+        finden wir heraus, wo dein größter Hebel liegt.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      {
+        focusFields.map(field => (
+          <div class="border-t border-rule pt-8 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary mb-3">
+                {field.label}
+              </p>
+              <h3 class="font-serif text-2xl font-normal text-ink mb-3">{field.title}</h3>
+              <p class="text-sm leading-relaxed text-ink-soft">{field.description}</p>
+            </div>
+            <ul class="space-y-2.5 md:pt-7">
+              {field.topics.map(topic => (
+                <li class="text-sm text-ink leading-relaxed pl-4 border-l-2 border-primary">
+                  {topic}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

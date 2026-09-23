@@ -1,0 +1,41 @@
+---
+import { careerPaths, careerPathsDisclaimer } from '../data/coaching';
+---
+
+<section id="zwei-wege" class="bg-paper border-t border-rule py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="mb-12">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Zwei Wege
+      </p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">
+        Angestellt oder freiberuflich
+      </h2>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch]">
+        Beide Wege führen dorthin, wo du mehr Wirkung hast und dafür besser bezahlt wirst.
+        Das Programm ist für beide gleich.
+      </p>
+    </div>
+
+    <div class="grid gap-10 sm:grid-cols-2 border-t border-rule pt-10">
+      {
+        careerPaths.map(path => (
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary mb-3">
+              {path.label}
+            </p>
+            <p class="font-serif text-3xl font-normal text-ink">{path.figure}</p>
+            <p class="text-xs uppercase tracking-[0.1em] text-ink-faint mb-4">
+              {path.figureNote}
+            </p>
+            <p class="text-sm leading-relaxed text-ink-soft">{path.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="text-xs leading-relaxed text-ink-faint max-w-[62ch] mt-10">
+      {careerPathsDisclaimer}
+    </p>
+  </div>
+</section>

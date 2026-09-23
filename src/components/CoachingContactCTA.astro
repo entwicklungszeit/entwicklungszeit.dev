@@ -1,20 +1,22 @@
 ---
-// Calm, low-pressure closing contact link for the coaching page.
+// Calm, low-pressure contact link for the coaching page.
 // Deliberately no countdown/urgency element and no multi-step sales form.
-const email = 'gregor@entwicklungszeit.dev';
+interface Props {
+  id?: string;
+}
+
+const { id = 'coaching-contact' } = Astro.props;
 ---
 
-<section
-  id="coaching-contact"
-  class="bg-paper-raised border-t border-rule py-16 sm:py-24"
->
+<section id={id} class="bg-paper-raised border-y border-rule py-16 sm:py-24">
   <div class="max-w-reading mx-auto px-6 sm:px-10 text-center">
     <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">
       Passt das zu dir?
     </h2>
     <p class="text-lg leading-relaxed text-ink-soft mb-8">
-      In einem kurzen, unverbindlichen Gespräch klären wir, ob und wie ich dich
-      am besten unterstützen kann.
+      Im Kennenlerngespräch nehmen wir uns 60 bis 90 Minuten Zeit. Ich höre dir zu, sage
+      dir ehrlich, ob und wie ich dir helfen kann, und gebe dir erste Empfehlungen mit.
+      Ganz unabhängig davon, ob wir danach zusammenarbeiten.
     </p>
     <a
       href="/kontakt"

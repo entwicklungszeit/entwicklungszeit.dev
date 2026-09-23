@@ -1,0 +1,47 @@
+---
+import { termsDetails, termsHighlights } from '../data/coaching';
+---
+
+<section id="konditionen" class="bg-paper py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <div class="mb-12">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Konditionen
+      </p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">
+        Was das Programm kostet
+      </h2>
+    </div>
+
+    <div class="grid gap-12 md:grid-cols-2 border-t border-rule pt-10">
+      <div>
+        <p class="font-serif text-5xl font-normal text-ink">3.600&nbsp;&euro;</p>
+        <p class="text-xs uppercase tracking-[0.1em] text-ink-faint mt-2 mb-8">
+          netto zzgl. USt. für 12 Wochen
+        </p>
+        <ul class="space-y-2.5">
+          {
+            termsHighlights.map(item => (
+              <li class="text-sm text-ink leading-relaxed pl-4 border-l-2 border-primary">
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <dl class="space-y-6">
+        {
+          termsDetails.map(item => (
+            <div class="border-t border-rule pt-5">
+              <dt class="text-xs font-semibold uppercase tracking-[0.1em] text-primary mb-2">
+                {item.label}
+              </dt>
+              <dd class="text-sm text-ink-soft leading-relaxed">{item.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>

@@ -1,47 +1,43 @@
 ---
-const pillars = [
-  {
-    label: 'Technisch',
-    title: 'Architektur & Code, der trägt',
-    description:
-      'Saubere Architekturentscheidungen, Code-Reviews auf Senior-Niveau und der Blick für technische Schulden, bevor sie zum Problem werden.'
-  },
-  {
-    label: 'Strategisch',
-    title: 'Wirkung & Führung',
-    description:
-      'Wie du Vertrauen aufbaust, Entscheidungen triffst, wenn nicht alle Informationen vorliegen, und dein technisches Urteilsvermögen sichtbar machst.'
-  }
-];
+const facts = ['12 Wochen', '1:1 mit mir', '12 bis 24 Sessions', 'Mentoring + Coaching'];
 ---
 
 <section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
   <div class="max-w-wrap mx-auto px-6 sm:px-10">
     <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
-      1:1 Coaching
+      Impact Developer Programm
     </p>
-    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] text-ink mb-7 max-w-[18ch]">
-      Für Entwickler auf dem Weg zu 80.000&ndash;200.000&nbsp;&euro; Jahresgehalt.
+    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] text-ink mb-7 max-w-[22ch]">
+      Entwickler:in mit Wirkung: 100.000&nbsp;&euro; Gehalt oder 200.000&nbsp;&euro; Umsatz.
     </h1>
-    <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch] mb-16">
-      Technische Tiefe allein reicht ab einem gewissen Punkt nicht mehr. Ich begleite
-      Entwickler:innen dabei, technisches Können mit strategischem Denken und
-      Führungsfähigkeit zu verbinden – ohne dabei die Substanz zu verlieren, die sie
-      überhaupt erst dahin gebracht hat.
+    <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch] mb-6">
+      Du bist Junior auf dem Weg zum Senior oder Senior auf dem Weg zum Tech Lead und hast
+      das Gefühl, nicht weiterzukommen? In 12 Wochen begleite ich dich 1:1: mit
+      technischem Mentoring für deine Hard Skills und Coaching für Strategie und Soft
+      Skills. Ohne dass du die Substanz verlierst, die dich überhaupt dahin gebracht hat.
+    </p>
+    <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch] mb-10">
+      Wenn du wissen willst, ob das zu dir passt, sprechen wir zuerst 60 bis 90 Minuten
+      miteinander.
     </p>
 
-    <div class="grid gap-10 sm:grid-cols-2 border-t border-rule pt-10">
-      {
-        pillars.map(pillar => (
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary mb-3">
-              {pillar.label}
-            </p>
-            <h2 class="font-serif text-2xl font-normal text-ink mb-3">{pillar.title}</h2>
-            <p class="text-sm leading-relaxed text-ink-soft">{pillar.description}</p>
-          </div>
-        ))
-      }
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-4 mb-14">
+      <a
+        href="/kontakt"
+        class="inline-flex items-center justify-center px-8 py-3 bg-ink text-paper font-semibold rounded-sm hover:bg-ink/90 transition-colors duration-300"
+      >
+        Kennenlerngespräch anfragen
+      </a>
+      <a
+        href="#konditionen"
+        class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
+      >
+        Zu den Konditionen
+      </a>
     </div>
+
+    <ul class="flex flex-wrap gap-x-8 gap-y-3 border-t border-rule pt-8 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
+      {facts.map(fact => <li>{fact}</li>)}
+    </ul>
   </div>
 </section>
