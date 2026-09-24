@@ -11,3 +11,7 @@ Standard-Label-Vokabular (`needs-triage`, `needs-info`, `ready-for-agent`, `read
 ### Domain docs
 
 Single-context (ein `CONTEXT.md` + `docs/adr/` im Repo-Root). See `docs/agents/domain.md`.
+
+## Zielgruppe
+
+Alle Inhalte (Podcast, Blog, Coaching) richten sich an Software-Ingenieur:innen aller Geschlechter, dazu Tech-Leads und Führungskräfte, die in ihrer Arbeit mit Software zu tun haben. Sprache: Deutsch.
