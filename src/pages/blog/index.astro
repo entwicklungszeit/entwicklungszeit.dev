@@ -6,7 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 import { blogCategories, blogCategoryLabels, blogCategoryTextClass } from '../../data/blogCategories';
 import { formatDate } from '../../lib/formatDate';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+const posts = (await getCollection('blog', ({ data }) => data.status === 'public')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---

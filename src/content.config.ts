@@ -13,7 +13,7 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     coverImage: z.string().optional(),
-    draft: z.boolean().default(false),
+    status: z.enum(['draft', 'public']),
     // Slugs/IDs von Episoden aus der `podcast`-Collection, die zu diesem Artikel passen.
     relatedEpisodes: z.array(reference('podcast')).optional(),
   }),

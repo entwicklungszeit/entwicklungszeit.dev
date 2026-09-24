@@ -6,6 +6,7 @@ pubDate: 2025-01-24
 relatedEpisodes:
   - folge-024-konflikte-in-deinem-softwareteam
   - folge-025-intrapersonelle-konflikte
+status: draft
 ---
 
 Ob Feedback zu wiederkehrend verspäteten Deployments oder ein Konflikt

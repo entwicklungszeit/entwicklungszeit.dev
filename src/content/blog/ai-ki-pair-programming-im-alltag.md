@@ -3,6 +3,7 @@ title: 'KI-Pair-Programming im Alltag: Ein ehrlicher Zwischenstand'
 description: 'Wo KI-Assistenten beim Programmieren wirklich Zeit sparen, wo sie bremsen – und ein kleines Code-Beispiel für einen sinnvollen Review-Kniff.'
 category: ai
 pubDate: 2025-03-01
+status: draft
 ---
 
 KI-Coding-Assistenten sind mittlerweile fester Bestandteil vieler

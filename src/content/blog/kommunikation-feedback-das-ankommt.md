@@ -3,9 +3,9 @@ title: 'Feedback, das ankommt: Warum gut gemeint nicht gleich gut ist'
 description: 'Feedback scheitert selten an der Absicht und fast immer an der Form. Drei Stellschrauben, die den Unterschied machen.'
 category: kommunikation
 pubDate: 2025-02-18
-draft: false
 relatedEpisodes:
   - folge-023-sprich-mit-mir-nicht-ueber-mich
+status: draft
 ---
 
 "Ich meine das ja nur konstruktiv" ist einer der häufigsten Sätze vor

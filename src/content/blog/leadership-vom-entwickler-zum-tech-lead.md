@@ -3,6 +3,7 @@ title: 'Vom Entwickler zum Tech Lead: Was sich wirklich ändert'
 description: 'Der Sprung in die technische Führung ist kein reines Technik-Upgrade. Ein Überblick über die drei Verschiebungen, die den größten Unterschied machen.'
 category: leadership
 pubDate: 2025-01-10
+status: draft
 ---
 
 Der Sprung vom Entwickler zum Tech Lead wird oft als logische nächste Stufe

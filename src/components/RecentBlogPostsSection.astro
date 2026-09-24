@@ -4,55 +4,53 @@ import { blogCategoryLabels, blogCategoryTextClass } from '../data/blogCategorie
 import { formatDate } from '../lib/formatDate';
 import SectionHeader from './SectionHeader.astro';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const posts = (await getCollection('blog', ({ data }) => data.status === 'public'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 ---
 
-<section id="recent-posts" class="bg-paper py-16 sm:py-20">
-  <div class="max-w-wrap mx-auto px-6 sm:px-10">
-    <SectionHeader eyebrow="Blog · Zum Lesen" title="Neueste Artikel" divider>
-      <svg
-        slot="icon"
-        width="30"
-        height="30"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M2.5 5.5c3-1.3 6.2-1.1 9.5 1v13c-3.3-2.1-6.5-2.3-9.5-1z"></path>
-        <path d="M21.5 5.5c-3-1.3-6.2-1.1-9.5 1v13c3.3-2.1 6.5-2.3 9.5-1z"></path>
-      </svg>
-      <svg
-        class="hidden md:block text-primary opacity-[0.22]"
-        width="124"
-        height="40"
-        viewBox="0 0 124 40"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <rect x="0" y="2" width="124" height="3" rx="1.5"></rect>
-        <rect x="0" y="10" width="110" height="3" rx="1.5"></rect>
-        <rect x="0" y="18" width="118" height="3" rx="1.5"></rect>
-        <rect x="0" y="26" width="96" height="3" rx="1.5"></rect>
-        <rect x="0" y="34" width="64" height="3" rx="1.5"></rect>
-      </svg>
-      <a
-        href="/blog"
-        class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
-      >
-        Alle Artikel →
-      </a>
-    </SectionHeader>
+{
+  posts.length > 0 && (
+    <section id="recent-posts" class="bg-paper py-16 sm:py-20">
+      <div class="max-w-wrap mx-auto px-6 sm:px-10">
+        <SectionHeader eyebrow="Blog · Zum Lesen" title="Neueste Artikel" divider>
+          <svg
+            slot="icon"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M2.5 5.5c3-1.3 6.2-1.1 9.5 1v13c-3.3-2.1-6.5-2.3-9.5-1z"></path>
+            <path d="M21.5 5.5c-3-1.3-6.2-1.1-9.5 1v13c3.3-2.1 6.5-2.3 9.5-1z"></path>
+          </svg>
+          <svg
+            class="hidden md:block text-primary opacity-[0.22]"
+            width="124"
+            height="40"
+            viewBox="0 0 124 40"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <rect x="0" y="2" width="124" height="3" rx="1.5"></rect>
+            <rect x="0" y="10" width="110" height="3" rx="1.5"></rect>
+            <rect x="0" y="18" width="118" height="3" rx="1.5"></rect>
+            <rect x="0" y="26" width="96" height="3" rx="1.5"></rect>
+            <rect x="0" y="34" width="64" height="3" rx="1.5"></rect>
+          </svg>
+          <a
+            href="/blog"
+            class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
+          >
+            Alle Artikel →
+          </a>
+        </SectionHeader>
 
-    {
-      posts.length === 0 ? (
-        <p class="text-ink-soft">Noch keine Artikel veröffentlicht.</p>
-      ) : (
         <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map(post => (
             <a href={`/blog/${post.id}`} class="block group">
@@ -71,7 +69,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
             </a>
           ))}
         </div>
-      )
-    }
-  </div>
-</section>
+      </div>
+    </section>
+  )
+}
