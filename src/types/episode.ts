@@ -3,4 +3,6 @@ export interface Episode {
   thumbnail: string;
   title: string;
   description: string;
+  pubDate?: Date;
+  episodeNumber?: number;
 }

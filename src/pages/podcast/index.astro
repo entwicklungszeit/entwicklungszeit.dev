@@ -3,10 +3,12 @@ import { getCollection } from 'astro:content';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
-import { formatDate } from '../../lib/formatDate';
+import PodcastEpisodeList from '../../components/PodcastEpisodeList.vue';
 
-const episodes = (await getCollection('podcast')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+// Der RSS-Feed liefert die Folgen; die Collection ergänzt Shownotes-Seiten.
+// Verknüpfung über den Veröffentlichungstag (die meisten Feed-Items haben kein <itunes:episode>).
+const shownotes = Object.fromEntries(
+  (await getCollection('podcast')).map(e => [e.data.pubDate.toISOString().slice(0, 10), e.id])
 );
 ---
 
@@ -23,40 +25,11 @@ const episodes = (await getCollection('podcast')).sort(
         </p>
         <h1 class="font-serif text-4xl sm:text-5xl font-normal text-ink mb-6">Podcast</h1>
         <p class="text-lg leading-relaxed text-ink-soft max-w-[52ch] mb-12">
-          Alle Folgen mit Shownotes. Die komplette Historie findest du außerdem auf Spotify,
-          Apple Podcasts und YouTube.
+          Alle Folgen direkt aus dem Podcast-Feed. Wo es Shownotes gibt, sind sie verlinkt. Du
+          findest den Podcast außerdem auf Spotify, Apple Podcasts und YouTube.
         </p>
 
-        {
-          episodes.length === 0 ? (
-            <p class="text-ink-soft">Noch keine redaktionellen Episodenseiten veröffentlicht.</p>
-          ) : (
-            <div class="border-t border-rule">
-              {episodes.map(episode => (
-                <a
-                  href={`/podcast/${episode.id}`}
-                  class="flex items-baseline gap-5 sm:gap-7 py-6 border-b border-rule group"
-                >
-                  <span class="font-serif text-2xl sm:text-3xl text-ink-faint w-10 sm:w-12 flex-shrink-0">
-                    {String(episode.data.episodeNumber).padStart(2, '0')}
-                  </span>
-                  <div class="flex-1 min-w-0">
-                    <h2 class="font-serif text-lg sm:text-xl font-normal text-ink mb-1 group-hover:text-primary transition-colors duration-300">
-                      {episode.data.title}
-                    </h2>
-                    <p class="text-xs sm:text-sm text-ink-soft">
-                      {formatDate(episode.data.pubDate)}
-                      {episode.data.guest && <> · mit {episode.data.guest}</>}
-                    </p>
-                  </div>
-                  <span class="hidden sm:inline text-sm font-semibold text-primary flex-shrink-0">
-                    Shownotes →
-                  </span>
-                </a>
-              ))}
-            </div>
-          )
-        }
+        <PodcastEpisodeList client:load shownotes={shownotes} />
       </div>
     </section>
   </main>

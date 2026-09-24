@@ -12,7 +12,7 @@ interface UseEpisodesReturn {
  * Composable for fetching and managing podcast episodes
  * Follows Single Responsibility Principle - only handles episode data management
  */
-export function useEpisodes(maxEpisodes: number = 5): UseEpisodesReturn {
+export function useEpisodes(maxEpisodes: number = Infinity): UseEpisodesReturn {
   const episodes = ref<Episode[]>([]);
   const loading = ref<boolean>(true);
   const error = ref<string | null>(null);
@@ -93,12 +93,22 @@ export function useEpisodes(maxEpisodes: number = 5): UseEpisodesReturn {
         .replace(/<[^>]*>/g, '')
         .substring(0, 100) + (description.length > 100 ? '...' : '');
 
+      const pubDateText = item.querySelector('pubDate')?.textContent?.trim();
+      const pubDate = pubDateText ? new Date(pubDateText) : undefined;
+
+      const episodeNumber = parseInt(
+        item.getElementsByTagName('itunes:episode')[0]?.textContent?.trim() ?? '',
+        10
+      );
+
       if (link && thumbnail) {
         parsedEpisodes.push({
           link,
           thumbnail,
           title,
           description: shortDesc,
+          episodeNumber: Number.isNaN(episodeNumber) ? undefined : episodeNumber,
+          pubDate: pubDate && !Number.isNaN(pubDate.valueOf()) ? pubDate : undefined,
         });
       }
     }
