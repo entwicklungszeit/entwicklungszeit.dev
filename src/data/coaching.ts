@@ -130,3 +130,5 @@ export const termsDetails = [
     text: 'Das Programm ist Fort- und Weiterbildung und damit eine Betriebsausgabe.'
   }
 ];
+
+export const discoveryCallUrl = 'https://calendly.com/gregor-entwicklungszeit/austausch-kennenlernen';

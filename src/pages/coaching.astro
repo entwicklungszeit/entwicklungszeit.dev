@@ -9,6 +9,7 @@ import FaqSection from '../components/FaqSection.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import TestimonialsSection from '../components/TestimonialsSection.astro';
+import { discoveryCallUrl } from '../data/coaching';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -16,7 +17,7 @@ import Layout from '../layouts/Layout.astro';
   title="Impact Developer Programm - 1:1 Coaching mit Gregor Woiwode"
   description="12 Wochen 1:1 Mentoring und Coaching für Entwickler:innen auf dem Weg zu 100.000 Euro Gehalt oder 200.000 Euro Freelance-Umsatz: technische Tiefe, Produktkontext und Soft Skills."
 >
-  <Header ctaLabel="Kennenlerngespräch buchen" ctaHref="/kontakt" />
+  <Header ctaLabel="Kennenlerngespräch buchen" ctaHref={discoveryCallUrl} />
   <main id="main-content" class="pt-16">
     <CoachingHeroSection />
     <CoachingPathsSection />
