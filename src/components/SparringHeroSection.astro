@@ -1,0 +1,38 @@
+---
+import { discoveryCallUrl, sparring } from '../data/coaching';
+
+const facts = ['Stundenbasis', 'Erste Stunde kostenfrei', 'Nachbereitung inklusive'];
+---
+
+<section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
+      Sparring
+    </p>
+    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] text-ink mb-7 max-w-[22ch]">
+      Klarheit für deine nächste Veränderung.
+    </h1>
+    <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch] mb-10">{sparring.intro}</p>
+
+    <div class="flex flex-col items-start gap-4 mb-14">
+      <a
+        href={discoveryCallUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-8 py-3 bg-ink text-paper font-semibold rounded-sm hover:bg-ink/90 transition-colors duration-300"
+      >
+        Sparring anfragen
+      </a>
+      <a
+        href="#konditionen"
+        class="text-sm font-semibold text-primary hover:text-secondary transition-colors duration-300"
+      >
+        Zu den Konditionen
+      </a>
+    </div>
+
+    <ul class="flex flex-wrap gap-x-8 gap-y-3 border-t border-rule pt-8 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint">
+      {facts.map(fact => <li>{fact}</li>)}
+    </ul>
+  </div>
+</section>

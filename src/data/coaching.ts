@@ -132,3 +132,30 @@ export const termsDetails = [
 ];
 
 export const discoveryCallUrl = 'https://calendly.com/gregor-entwicklungszeit/austausch-kennenlernen';
+
+export const sparring = {
+  hourlyRate: '120 €',
+  rateNote: 'netto zzgl. USt. pro Stunde',
+  special: 'Die erste Stunde ist kostenfrei.',
+  intro:
+    'Du stehst vor einer Veränderung und brauchst jemanden von außen, der so etwas schon oft begleitet hat? Im Sparring denken wir gemeinsam laut, schaffen Klarheit und entwickeln einen strategischen Weg.',
+  audience:
+    'Für alle, die vor einer Veränderung stehen und einen außenstehenden Sparringspartner mit Erfahrung suchen.',
+  changeTypes: [
+    'Systemische Veränderung',
+    'Architektonische Veränderung',
+    'Technologische Veränderung',
+    'Organisatorische Veränderung',
+    'Strukturelle Veränderung im Team'
+  ],
+  background:
+    'Ich war über neun Jahre CTO, neben meiner Arbeit als Softwarearchitekt und Entwickler, und bin heute CIO. Ich kann dich vom Entwickler bis zur Führungskraft beraten.',
+  process: [
+    'Wir sprechen die Situation gemeinsam durch, Stunde für Stunde.',
+    'Nach der kostenfreien Stunde entscheiden wir: Wollen wir weitermachen, und wenn ja, wie lange?',
+    'Abgerechnet wird genau die vereinbarte Zeit, also nach tatsächlichem Bedarf.',
+    'Du bekommst eine Nachbereitung mit meinen Empfehlungen, bei offenen Fragen auch mit einer Nachrecherche von mir.'
+  ],
+  freeHourNote:
+    'Die kostenfreie Stunde gibt es einmal. Ist dein Problem danach gelöst, ist das genau richtig so.'
+};

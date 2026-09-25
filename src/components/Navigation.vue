@@ -3,7 +3,7 @@
     <!-- Desktop Navigation -->
     <nav aria-label="Main navigation" class="hidden md:flex items-center flex-1 justify-end">
       <ul class="flex items-center gap-3 sm:gap-4">
-        <li v-for="item in navItems" :key="item.href">
+        <li v-for="item in navItems" :key="item.href" class="group relative">
           <a
             :href="item.href"
             :class="[
@@ -21,6 +21,27 @@
               class="absolute -bottom-1 left-4 right-4 h-px bg-primary"
             ></span>
           </a>
+          <ul
+            v-if="item.children"
+            class="absolute left-0 top-full hidden min-w-[16rem] pt-2 group-hover:block group-focus-within:block"
+          >
+            <li class="border border-rule bg-paper py-2 shadow-md">
+              <a
+                v-for="child in item.children"
+                :key="child.href"
+                :href="child.href"
+                :class="[
+                  'block px-4 py-2 text-sm transition-colors duration-300',
+                  isActive(child.href)
+                    ? 'font-semibold text-ink'
+                    : 'font-medium text-ink-soft hover:bg-rule/30 hover:text-ink'
+                ]"
+                :aria-current="isActive(child.href) ? 'page' : undefined"
+              >
+                {{ child.label }}
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
@@ -104,6 +125,23 @@
             >
               {{ item.label }}
             </a>
+            <ul v-if="item.children" class="mt-1 space-y-1 pl-4">
+              <li v-for="child in item.children" :key="child.href">
+                <a
+                  :href="child.href"
+                  :class="[
+                    'block px-4 py-2 text-sm rounded-md transition-colors duration-300',
+                    isActive(child.href)
+                      ? 'font-semibold text-ink bg-rule/40'
+                      : 'font-medium text-ink-soft hover:bg-rule/30 hover:text-ink'
+                  ]"
+                  :aria-current="isActive(child.href) ? 'page' : undefined"
+                  @click="handleLinkClick"
+                >
+                  {{ child.label }}
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

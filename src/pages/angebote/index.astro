@@ -1,0 +1,56 @@
+---
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import { navItems } from '../../data/navigation';
+
+const offers = [
+  {
+    ...navItems.find(item => item.href === '/angebote')!.children![0],
+    kicker: '12 Wochen 1:1',
+    text: 'Mentoring und Coaching für Entwickler:innen, die Wirkung, Gehalt oder Umsatz auf das nächste Level bringen wollen.'
+  },
+  {
+    ...navItems.find(item => item.href === '/angebote')!.children![1],
+    kicker: 'Auf Stundenbasis',
+    text: 'Ein Sparringspartner mit Erfahrung für Veränderungen in System, Architektur, Technologie oder Team. Die erste Stunde ist kostenfrei.'
+  }
+];
+---
+
+<Layout
+  title="Angebote - Entwicklungszeit"
+  description="Zwei Wege, mit mir zu arbeiten: das 12-Wochen-Programm Entwickler:in mit Wirkung oder Sparring auf Stundenbasis."
+>
+  <Header />
+  <main id="main-content" class="pt-16">
+    <section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
+      <div class="max-w-wrap mx-auto px-6 sm:px-10">
+        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
+          Angebote
+        </p>
+        <h1 class="font-serif text-4xl sm:text-5xl font-normal leading-[1.1] text-ink mb-12 max-w-[22ch]">
+          Zwei Wege, mit mir zu arbeiten.
+        </h1>
+        <ul class="grid gap-8 md:grid-cols-2 border-t border-rule pt-10">
+          {
+            offers.map(offer => (
+              <li>
+                <a href={offer.href} class="group block">
+                  <p class="text-xs font-semibold uppercase tracking-[0.1em] text-primary mb-2">
+                    {offer.kicker}
+                  </p>
+                  <h2 class="font-serif text-2xl text-ink mb-3 group-hover:text-primary transition-colors duration-300">
+                    {offer.label}
+                  </h2>
+                  <p class="text-sm text-ink-soft leading-relaxed">{offer.text}</p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

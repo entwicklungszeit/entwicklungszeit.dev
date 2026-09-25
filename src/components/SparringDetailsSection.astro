@@ -1,0 +1,81 @@
+---
+import { discoveryCallUrl, sparring } from '../data/coaching';
+---
+
+<section class="bg-paper-raised border-y border-rule py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10 grid gap-12 md:grid-cols-2">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Für wen
+      </p>
+      <h2 class="font-serif text-3xl font-normal text-ink mb-4">
+        Wenn sich etwas verändern soll
+      </h2>
+      <p class="text-base text-ink-soft leading-relaxed mb-5">{sparring.audience}</p>
+      <ul class="space-y-2.5">
+        {
+          sparring.changeTypes.map(item => (
+            <li class="text-sm text-ink leading-relaxed pl-4 border-l-2 border-primary">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Mit wem
+      </p>
+      <h2 class="font-serif text-3xl font-normal text-ink mb-4">
+        Erfahrung von beiden Seiten
+      </h2>
+      <p class="text-base text-ink-soft leading-relaxed">{sparring.background}</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-paper py-16 sm:py-24">
+  <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+      Ablauf
+    </p>
+    <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-10">
+      So läuft das Sparring
+    </h2>
+    <ol class="grid gap-6 md:grid-cols-2 border-t border-rule pt-8">
+      {
+        sparring.process.map((step, index) => (
+          <li class="text-sm text-ink-soft leading-relaxed">
+            <span class="block text-xs font-semibold uppercase tracking-[0.1em] text-primary mb-2">
+              Schritt {index + 1}
+            </span>
+            {step}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<section id="konditionen" class="bg-paper-raised border-y border-rule py-16 sm:py-24">
+  <div class="max-w-reading mx-auto px-6 sm:px-10 text-center">
+    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+      Konditionen
+    </p>
+    <p class="font-serif text-5xl font-normal text-ink">{sparring.hourlyRate}</p>
+    <p class="text-xs uppercase tracking-[0.1em] text-ink-faint mt-2 mb-6">
+      {sparring.rateNote}
+    </p>
+    <p class="text-base font-semibold text-primary mb-2">{sparring.special}</p>
+    <p class="text-base text-ink-soft leading-relaxed mb-8">{sparring.freeHourNote}</p>
+    <a
+      href={discoveryCallUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center px-8 py-3 bg-ink text-paper font-semibold rounded-sm hover:bg-ink/90 transition-colors duration-300"
+    >
+      Sparring anfragen
+    </a>
+  </div>
+</section>

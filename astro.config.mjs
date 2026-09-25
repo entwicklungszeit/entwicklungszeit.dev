@@ -1,7 +1,7 @@
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
-import vue from '@astrojs/vue';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import tailwind from '@astrojs/tailwind';
+import vue from '@astrojs/vue';
 import expressiveCode from 'astro-expressive-code';
 import { defineConfig } from 'astro/config';
 
@@ -14,8 +14,8 @@ export default defineConfig({
       themes: ['github-dark', 'github-light'],
       defaultProps: {
         showLineNumbers: true,
-        wrap: true,
-      },
+        wrap: true
+      }
     }),
     tailwind(),
     vue(),
@@ -23,25 +23,21 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
-    }),
+      lastmod: new Date()
+    })
   ],
-
-  redirects: {
-    '/coaching': '/angebote',
-  },
 
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
-    remotePatterns: [{ protocol: 'https' }],
+    remotePatterns: [{ protocol: 'https' }]
   },
 
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'hover',
+    defaultStrategy: 'hover'
   },
 
   build: {
-    inlineStylesheets: 'auto',
-  },
+    inlineStylesheets: 'auto'
+  }
 });
