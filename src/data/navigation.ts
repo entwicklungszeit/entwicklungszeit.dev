@@ -9,6 +9,6 @@ export const navItems: NavItem[] = [
   { label: 'Start', href: '/' },
   { label: 'Blog', href: '/blog' },
   { label: 'Podcast', href: '/podcast' },
-  { label: 'Coaching', href: '/coaching' },
+  { label: 'Angebote', href: '/angebote' },
   { label: 'Kontakt', href: '/kontakt' }
 ];

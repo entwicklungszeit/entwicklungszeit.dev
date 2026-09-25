@@ -28,7 +28,7 @@ export default defineConfig({
   ],
 
   redirects: {
-    '/angebote': '/coaching',
+    '/coaching': '/angebote',
   },
 
   image: {
