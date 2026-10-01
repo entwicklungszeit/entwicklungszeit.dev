@@ -10,7 +10,7 @@ JSON-LD ("JSON for Linked Data") states this explicitly, in a machine-readable b
 
 ```html
 <script type="application/ld+json">
-  { "@context": "https://schema.org", "@type": "Service", "name": "Sparring", "offers": { "@type": "Offer", "price": 120, "priceCurrency": "EUR" } }
+  { "@context": "https://schema.org", "@type": "Service", "name": "Beratung", "offers": { "@type": "Offer", "price": 120, "priceCurrency": "EUR" } }
 </script>
 ```
 
@@ -89,7 +89,7 @@ Prices are `UnitPriceSpecification` with `valueAddedTaxIncluded: false`, because
 
 ## Adding or changing markup
 
-Each page keeps its markup in its own file in `src/data/jsonld/` (for example `sparring-jsonld.ts`). The file exports the page's `title`, `description` and `schema`, and the page only passes them on. The files live outside `src/pages/` on purpose: a `.ts` file there would become a route.
+Each page keeps its markup in its own file in `src/data/jsonld/` (for example `beratung-jsonld.ts`). The file exports the page's `title`, `description` and `schema`, and the page only passes them on. The files live outside `src/pages/` on purpose: a `.ts` file there would become a route.
 
 New offer page, in short:
 

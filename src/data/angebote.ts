@@ -135,7 +135,7 @@ export const termsDetails = [
 
 export const discoveryCallUrl = 'https://calendly.com/gregor-entwicklungszeit/austausch-kennenlernen';
 
-const sparringHourlyRateAmount = 120;
+const beratungHourlyRateAmount = 120;
 
 export const programPrice = { amount: 3600, currency: 'EUR' };
 
@@ -149,15 +149,15 @@ export const localReach = {
   text: 'Ich arbeite online im gesamten DACH-Raum und auf Wunsch vor Ort im Raum Leipzig.'
 };
 
-export const sparring = {
-  hourlyRateAmount: sparringHourlyRateAmount,
-  hourlyRate: formatEuro(sparringHourlyRateAmount),
+export const beratung = {
+  hourlyRateAmount: beratungHourlyRateAmount,
+  hourlyRate: formatEuro(beratungHourlyRateAmount),
   rateNote: 'netto zzgl. USt. pro Stunde',
   special: 'Die erste Stunde ist kostenfrei.',
   intro:
-    'Du stehst vor einer Veränderung und brauchst jemanden von außen, der so etwas schon oft begleitet hat? Im Sparring denken wir gemeinsam laut, schaffen Klarheit und entwickeln einen strategischen Weg.',
+    'Du stehst vor einer Veränderung und brauchst jemanden von außen, der so etwas schon oft begleitet hat? In der Beratung denken wir gemeinsam laut, schaffen Klarheit und entwickeln einen strategischen Weg.',
   audience:
-    'Für alle, die vor einer Veränderung stehen und einen außenstehenden Sparringspartner mit Erfahrung suchen.',
+    'Für alle, die vor einer Veränderung stehen und eine außenstehende Beratung mit Erfahrung suchen.',
   changeTypes: [
     'Systemische Veränderung',
     'Architektonische Veränderung',

@@ -1,0 +1,43 @@
+---
+import { techLogos, type TechLogoName } from '../data/techStack';
+import { offerIconStrokeWidth } from '../data/navigation';
+
+interface Props {
+  logo: TechLogoName;
+  size?: number;
+  class?: string;
+}
+
+const { logo, size = 28, class: className } = Astro.props;
+const color = (tone: 'ink' | 'accent') => (tone === 'ink' ? 'currentColor' : 'var(--offer-accent)');
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width={offerIconStrokeWidth(size)}
+  class:list={['tech-logo', className]}
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    techLogos[logo].map(shape =>
+      shape.circle ? (
+        <circle {...shape.circle} fill={color(shape.tone)} stroke="none" />
+      ) : (
+        <path d={shape.d} transform={shape.transform} stroke={color(shape.tone)} />
+      )
+    )
+  }
+</svg>
+
+<style>
+  .tech-logo {
+    --offer-accent: var(--offer-accent-override, #d9692a);
+    flex-shrink: 0;
+  }
+</style>

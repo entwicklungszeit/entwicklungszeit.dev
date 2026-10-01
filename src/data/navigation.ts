@@ -1,4 +1,4 @@
-export type OfferIconName = 'podcast' | 'blog' | 'wirkung' | 'sparring';
+export type OfferIconName = 'podcast' | 'blog' | 'wirkung' | 'beratung';
 
 // Geometrie der Angebots-Symbole (48er Raster). `tone` bestimmt die Farbe:
 // 'ink' folgt currentColor, 'accent' nutzt --offer-accent. Gerendert von
@@ -33,7 +33,7 @@ export const offerIcons: Record<OfferIconName, OfferIconShape[]> = {
     { tone: 'accent', d: 'M30.5 12A7.5 7.5 0 0 1 38 4.5' },
     { tone: 'accent', d: 'M27 12A11 11 0 0 1 38 1', opacity: 0.55 }
   ],
-  sparring: [
+  beratung: [
     { tone: 'ink', d: 'M9 6H21a5 5 0 0 1 5 5V17a5 5 0 0 1-5 5H15L9 27V22a5 5 0 0 1-5-5V11a5 5 0 0 1 5-5Z' },
     { tone: 'ink', d: 'M10 14H20' },
     { tone: 'accent', d: 'M27 24H39a5 5 0 0 1 5 5V35a5 5 0 0 1-5 5V45L33 40H27a5 5 0 0 1-5-5V29a5 5 0 0 1 5-5Z' },
@@ -63,7 +63,7 @@ export const navItems: NavItem[] = [
       { label: 'Podcast', href: '/podcast', icon: 'podcast' },
       { label: 'Blog', href: '/blog', icon: 'blog' },
       { label: 'Entwickler:in mit Wirkung', href: '/angebote/entwickler-mit-wirkung', icon: 'wirkung' },
-      { label: 'Sparring', href: '/angebote/sparring', icon: 'sparring' }
+      { label: 'Beratung', href: '/angebote/sparring', icon: 'beratung' }
     ]
   },
   { label: 'Kontakt', href: '/kontakt' }

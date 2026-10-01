@@ -6,7 +6,7 @@ import { breadcrumbNode, webPageNode } from '@json-ld';
 
 const title = 'Kontakt - Entwicklungszeit';
 const description =
-  'Du hast Fragen zum Podcast, einem Artikel, zu Entwickler:in mit Wirkung oder zu Sparring? Schreib mir eine Nachricht.';
+  'Du hast Fragen zum Podcast, einem Artikel, zu Entwickler:in mit Wirkung oder zur Beratung? Schreib mir eine Nachricht.';
 const schema = [
   webPageNode({ path: '/kontakt', name: title, description, type: 'ContactPage' }),
   breadcrumbNode('/kontakt', [
@@ -33,7 +33,7 @@ const schema = [
             Schreib mir – ich melde mich zurück.
           </h1>
           <p class="text-lg leading-relaxed text-ink-soft max-w-[46ch] mb-10">
-            Ob Frage zu Entwickler:in mit Wirkung oder Sparring, ein Thema für den Podcast oder
+            Ob Frage zu Entwickler:in mit Wirkung oder Beratung, ein Thema für den Podcast oder
             einfach Feedback zu einem Artikel – kurz per Formular oder direkt per Mail.
           </p>
 
@@ -134,13 +134,13 @@ const schema = [
                 placeholder="Worum geht's?"></textarea>
             </div>
 
-            <div class="flex items-start gap-3">
+            <div class="flex items-start gap-3.5">
               <input
                 id="consent"
                 name="consent"
                 type="checkbox"
                 required
-                class="mt-1 h-4 w-4 text-primary focus:ring-primary border-rule rounded"
+                class="consent-box"
               />
               <label for="consent" class="text-sm text-ink-soft leading-relaxed">
                 Ich stimme zu, dass meine Daten zur Kontaktaufnahme verarbeitet werden. Die
@@ -169,3 +169,39 @@ const schema = [
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .consent-box {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.1875rem;
+    border: 1.5px solid #8a8f9c;
+    border-radius: 3px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0.8rem;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .consent-box:hover {
+    border-color: #d9692a;
+  }
+
+  .consent-box:checked {
+    background-color: #d9692a;
+    border-color: #d9692a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+  }
+
+  .consent-box:focus-visible {
+    outline: 2px solid #d9692a;
+    outline-offset: 2px;
+  }
+</style>

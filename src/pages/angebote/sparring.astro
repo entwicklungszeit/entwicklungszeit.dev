@@ -1,20 +1,20 @@
 ---
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import SparringDetailsSection from '../../components/SparringDetailsSection.astro';
-import SparringHeroSection from '../../components/SparringHeroSection.astro';
+import BeratungDetailsSection from '../../components/BeratungDetailsSection.astro';
+import BeratungHeroSection from '../../components/BeratungHeroSection.astro';
 import { discoveryCallUrl } from '../../data/angebote';
-import { sparringPage } from '../../data/jsonld/sparring-jsonld';
+import { beratungPage } from '../../data/jsonld/beratung-jsonld';
 import Layout from '../../layouts/Layout.astro';
 
-const { title, description, schema } = sparringPage;
+const { title, description, schema } = beratungPage;
 ---
 
 <Layout title={title} description={description} schema={schema}>
-  <Header ctaLabel="Sparring anfragen" ctaHref={discoveryCallUrl} />
+  <Header ctaLabel="Beratung anfragen" ctaHref={discoveryCallUrl} />
   <main id="main-content" class="pt-16">
-    <SparringHeroSection />
-    <SparringDetailsSection />
+    <BeratungHeroSection />
+    <BeratungDetailsSection />
   </main>
   <Footer />
 </Layout>
