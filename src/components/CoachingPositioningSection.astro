@@ -1,0 +1,27 @@
+---
+import { comparisonGroups, comparisonLabels } from '../data/coaching';
+import ComparisonTable from './ComparisonTable.vue';
+---
+
+<section id="abgrenzung" class="bg-paper py-16 sm:py-24">
+  <div class="max-w-[880px] mx-auto px-6 sm:px-10">
+    <div class="mb-12">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-3">
+        Worin sich dieses Programm unterscheidet
+      </p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink mb-4">Was gibt es wo?</h2>
+      <p class="text-lg leading-relaxed text-ink-soft max-w-[62ch]">
+        Es gibt gute Coaches, die Freelancer zur Marke machen und im Markt positionieren. Beim
+        Markenaufbau helfe ich auch. Mein Schwerpunkt liegt aber nicht auf Marketing und Vertrieb,
+        sondern auf Handwerk, Kommunikation und Strategie.
+      </p>
+    </div>
+
+    <ComparisonTable groups={comparisonGroups} labels={comparisonLabels} />
+
+    <p class="mt-10 text-lg leading-relaxed text-ink max-w-[62ch]">
+      Du willst technisch und persönlich wachsen? Dann stellen sich höhere Einkommen meist von
+      allein ein. <strong class="font-semibold">Genau dort treffen wir uns.</strong>
+    </p>
+  </div>
+</section>

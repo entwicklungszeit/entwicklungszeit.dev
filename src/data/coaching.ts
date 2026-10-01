@@ -1,3 +1,5 @@
+import type { ComparisonGroup, ComparisonLabels } from '../types/comparison';
+
 export const careerPaths = [
   {
     label: 'Festanstellung',
@@ -180,3 +182,80 @@ export const sparring = {
   freeHourNote:
     'Die kostenfreie Stunde gibt es einmal. Ist dein Problem danach gelöst, ist das genau richtig so.'
 };
+
+export const comparisonLabels: ComparisonLabels = {
+  ours: 'Entwicklungszeit',
+  others: 'Andere Anbieter'
+};
+
+export const comparisonGroups: ComparisonGroup[] = [
+  {
+    title: 'Handwerk und Persönlichkeit',
+    rows: [
+      {
+        title: 'Technische Skills',
+        description: 'Architektur, Code-Qualität, belastbare Entscheidungen',
+        ours: true,
+        others: false
+      },
+      {
+        title: 'Kommunikative Skills',
+        description: 'Erklären, Konflikte klären, Stakeholder mitnehmen',
+        ours: true,
+        others: false
+      },
+      {
+        title: 'Strategische Skills',
+        description: 'Die richtigen Dinge tun und Rückhalt dafür bekommen',
+        ours: true,
+        others: false
+      },
+      {
+        title: 'Teams auf dem Weg zum Erfolg begleiten',
+        description: 'Nicht nur Einzelne, auch das Team dahinter',
+        ours: true,
+        others: false
+      }
+    ]
+  },
+  {
+    title: 'Markt und Vermarktung',
+    rows: [
+      {
+        title: 'Hilfe beim Markenaufbau',
+        description: 'Als Freelancer eine eigene Marke entwickeln',
+        ours: true,
+        others: true
+      },
+      {
+        title: 'Marketing- und Vertriebsfokus',
+        description: 'Positionierung und Akquise als Kern des Programms',
+        ours: false,
+        others: true
+      },
+      {
+        title: '„Bezahlt für Ergebnisse, nicht für Zeit“',
+        description: 'Das Abrechnungsmodell als Kernversprechen',
+        ours: false,
+        others: true
+      }
+    ]
+  },
+  {
+    title: 'Haltung',
+    rows: [
+      {
+        title: 'Wachstum zuerst, Einkommen als Folge',
+        description: 'Höheres Einkommen ergibt sich aus echter Stärke',
+        ours: true,
+        others: false
+      },
+      {
+        title: 'Schnell mehr Geld als Hauptziel',
+        description: 'Wer nur das will, ist bei mir falsch',
+        ours: false,
+        others: true
+      }
+    ]
+  }
+];
