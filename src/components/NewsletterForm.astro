@@ -34,6 +34,71 @@
     color: #8a8f9c;
   }
 
+  /* sib-styles.css turns the declaration into a flex row and pads it;
+     reset so it reads as a normal paragraph. */
+  #sib-container .sib-form__declaration {
+    display: block !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  #sib-container .sib-form__declaration a {
+    display: inline !important;
+  }
+
+  /* sib-styles.css overrides label display/margins; force a flex row with a
+     fixed gap so box and text stay aligned on the first text line. */
+  #sib-container .entry__choice label.opt-in-label {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 0.875rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #sib-container .opt-in-label > span {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Custom checkbox in the highlight color. */
+  #sib-container input[type='checkbox'].opt-in-box {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin: 0.1875rem 0 0 !important;
+    padding: 0 !important;
+    position: static !important;
+    opacity: 1 !important;
+    flex: none;
+    border: 1.5px solid rgba(250, 248, 244, 0.4);
+    border-radius: 3px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0.8rem;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  #sib-container input[type='checkbox'].opt-in-box:hover {
+    border-color: #D9692A;
+  }
+
+  #sib-container input[type='checkbox'].opt-in-box:checked {
+    background-color: #D9692A;
+    border-color: #D9692A;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+  }
+
+  #sib-container input[type='checkbox'].opt-in-box:focus-visible {
+    outline: 2px solid #D9692A;
+    outline-offset: 2px;
+  }
+
   #sib-container input[type='text'],
   #sib-container input[type='email'] {
     font-family: Inter, sans-serif;
@@ -90,19 +155,19 @@
       action="https://d032b7de.sibforms.com/serve/MUIFAIyIV_2enmeym0Q9rNRG9FmderUgMxMZAXMfbySo8DumQ8IWKSuLLR4FDumO1_QblC89b9pxcqZb4kjf5TbZecBWhGQaGG4GgVkauJ9Qn9OrzmgtYoXyXqsn7sY633mP6HJGdZWgqIvN5lJ2lXLV1wHI6J3spcnsECBY2KFFPa8ylBXT7I8mWWInV3CuIMQ0B17IgO95v6gZSg=="
       data-type="subscription"
     >
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-16">
         <!-- Form Title -->
-        <div class="mb-8 lg:mb-0 lg:max-w-md">
-          <h3 class="font-serif text-3xl sm:text-4xl font-normal text-paper leading-tight mb-3">
+        <div class="mb-8 lg:mb-0 lg:max-w-md lg:pt-0.5">
+          <h3 class="font-serif text-3xl sm:text-4xl font-normal text-paper leading-[1.1] tracking-tight mb-4">
             Neue Artikel &amp; Folgen per Mail
           </h3>
-          <p class="text-base leading-relaxed text-paper/70">
+          <p class="text-base leading-[1.6] text-paper/70 text-pretty">
             Kein Sales-Funnel, kein Countdown. Nur eine Mail, wenn es wirklich
             etwas Neues gibt.
           </p>
         </div>
 
-        <div class="lg:w-full lg:max-w-md">
+        <div class="lg:w-full lg:max-w-[34rem]">
           <!-- Email Input Field -->
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
@@ -144,22 +209,22 @@
           </div>
 
           <!-- Consent Checkbox -->
-          <div class="sib-optin sib-form-block mt-4" data-required="true">
+          <div class="sib-optin sib-form-block mt-5" data-required="true">
             <div class="form__entry entry_mcq">
               <div class="form__label-row">
                 <div class="entry__choice">
-                  <label class="flex items-start gap-3 cursor-pointer group">
+                  <label class="opt-in-label cursor-pointer">
                     <input
                       type="checkbox"
-                      class="input_replaced w-4 h-4 mt-1 border border-paper/40 rounded bg-transparent transition-colors duration-300 focus:ring-2 focus:ring-paper/60 cursor-pointer"
+                      class="opt-in-box"
                       value="1"
                       id="OPT_IN"
                       name="OPT_IN"
                       required
                     />
-                    <span class="text-sm text-paper/70 leading-relaxed">
+                    <span class="text-sm text-paper/70 leading-[1.6]">
                       Ich bin damit einverstanden, diesen Newsletter zu erhalten,
-                      und akzeptiere die
+                      und akzeptiere die{' '}
                       <a href="/datenschutz" class="text-paper font-medium hover:text-paper/70 transition-colors"
                         >Datenschutzerklärung</a
                       >.
@@ -177,11 +242,11 @@
       </div>
 
       <!-- Privacy Declaration -->
-      <p class="sib-form__declaration text-xs text-paper/40 leading-relaxed mt-10 pt-6 border-t border-paper/10">
+      <p class="sib-form__declaration text-xs text-paper/50 leading-[1.6] mt-12 pt-6 border-t border-paper/10 max-w-3xl">
         Wir nutzen Brevo als unsere Marketingplattform. Mit dem Absenden
         dieses Formulars erklären Sie sich damit einverstanden, dass die
         von Ihnen angegebenen personenbezogenen Daten zur Verarbeitung
-        gemäß
+        gemäß{' '}
         <a
           target="_blank"
           href="https://www.brevo.com/en/legal/privacypolicy/"
