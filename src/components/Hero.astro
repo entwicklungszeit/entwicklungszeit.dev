@@ -1,36 +1,43 @@
 ---
-import OfferIcon from './OfferIcon.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/gregor-woiwode.png';
 import { books } from '../data/books';
 import { hostStats } from '../data/host';
+import OfferIcon from './OfferIcon.astro';
 ---
 
 <section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
-  <div class="max-w-wrap mx-auto px-6 sm:px-10 grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:items-end">
+  <div
+    class="max-w-wrap mx-auto px-6 sm:px-10 grid gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-16 lg:items-center"
+  >
     <div>
-      <p class="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
+      <p
+        class="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5"
+      >
         Podcast · Blog
       </p>
       <h1
         class="font-serif text-4xl sm:text-5xl lg:text-[68px] font-normal leading-[1.1] lg:leading-[1.06] tracking-tight text-ink mb-7 max-w-[16ch]"
       >
-        Bessere Software entsteht, wenn Teams verstehen, <em class="italic text-highlight-ink">warum</em> sie
-        tun, was sie tun.
+        Bessere Software entsteht, wenn Teams verstehen, <em
+          class="italic text-highlight-ink">warum</em
+        > sie tun, was sie tun.
       </h1>
       <p class="text-lg leading-relaxed text-ink-soft max-w-[52ch]">
         Entwicklungszeit ist Podcast und Blog für Entwickler und Tech Leads, die
-        Softwareentwicklung als Teamsport verstehen – mit Themen zu Kommunikation, Führung und dem
-        KI-Wandel der Branche.
-      </p>
-      <p class="text-lg leading-relaxed text-ink-soft max-w-[52ch] mt-4">
-        Von <strong class="font-semibold text-ink">Gregor Woiwode</strong>, Google Developer Expert
-        for Angular &amp; Web Technologies.
+        Softwareentwicklung als Teamsport verstehen – mit Themen zu
+        Kommunikation, Führung und dem KI-Wandel der Branche.
       </p>
       <div class="mt-9 flex flex-wrap gap-3">
         <a
           href="/podcast"
           class="inline-flex items-center gap-3 px-6 py-3 bg-ink text-paper font-semibold rounded-sm border border-ink hover:bg-ink/90 transition-colors duration-300"
         >
-          <OfferIcon offer="podcast" size={24} class="[--offer-accent-override:#f4a06b]" />
+          <OfferIcon
+            offer="podcast"
+            size={24}
+            class="[--offer-accent-override:#f4a06b]"
+          />
           Podcast hören
         </a>
         <a
@@ -42,15 +49,38 @@ import { hostStats } from '../data/host';
         </a>
       </div>
     </div>
+    <figure class="flex flex-col items-center m-0">
+      <div
+        class="relative w-full max-w-[420px] aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[20px] bg-highlight-tint border border-[#F2D3BE]"
+      >
+        <Image
+          src={portrait}
+          alt="Portrait von Gregor Woiwode"
+          width={840}
+          loading="eager"
+          class="absolute bottom-0 left-0 w-full h-auto"
+        />
+      </div>
+      <figcaption class="mt-5 text-center">
+        <span class="font-serif text-2xl text-ink"> mit </span>
+        <span class="font-serif text-3xl leading-tight text-ink">
+          Gregor Woiwode
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="max-w-wrap mx-auto px-6 sm:px-10 mt-16 sm:mt-20">
     <div
-      class="flex flex-col gap-7 border-t border-rule pt-8 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0"
+      class="grid gap-8 border-t border-rule pt-8 sm:grid-cols-2 lg:grid-cols-4"
     >
       <a
         href="/buecher"
         class="group block rounded-sm focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[6px] focus-visible:outline-primary-light"
       >
         <div class="flex items-center gap-3.5">
-          <span class="font-serif text-4xl text-primary leading-none">{books.length}</span>
+          <span class="font-serif text-4xl text-primary leading-none"
+            >{books.length}</span
+          >
           <svg
             class="text-primary transition-transform group-hover:translate-x-1"
             aria-hidden="true"
@@ -75,7 +105,9 @@ import { hostStats } from '../data/host';
       {
         hostStats.map(stat => (
           <div>
-            <div class="font-serif text-4xl text-highlight-ink leading-none">{stat.value}</div>
+            <div class="font-serif text-4xl text-highlight-ink leading-none">
+              {stat.value}
+            </div>
             <div class="text-sm text-ink-soft mt-1.5">{stat.label}</div>
           </div>
         ))
