@@ -40,7 +40,7 @@ const color = (tone: 'ink' | 'accent') => (tone === 'ink' ? 'currentColor' : 'va
 
 <style>
   .offer-icon {
-    --offer-accent: #d9692a;
+    --offer-accent: var(--offer-accent-override, #d9692a);
     flex-shrink: 0;
   }
 </style>

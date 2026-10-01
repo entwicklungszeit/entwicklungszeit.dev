@@ -9,7 +9,7 @@ import {
   serviceNode,
   webPageNode
 } from '@json-ld';
-import { focusFields, programPrice } from '../coaching';
+import { focusFields, programPrice } from '../angebote';
 import { faqs } from '../faqData';
 
 const path = '/angebote/entwickler-mit-wirkung';

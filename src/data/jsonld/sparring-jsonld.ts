@@ -8,7 +8,7 @@ import {
   serviceNode,
   webPageNode
 } from '@json-ld';
-import { localReach, sparring } from '../coaching';
+import { localReach, sparring } from '../angebote';
 
 const path = '/angebote/sparring';
 const title = 'Software-Architektur und Projekt-Sparring in Leipzig und online - Gregor Woiwode';

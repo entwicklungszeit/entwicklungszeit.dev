@@ -1,16 +1,16 @@
 ---
-import CoachingContactCTA from '../../components/CoachingContactCTA.astro';
-import CoachingFieldsSection from '../../components/CoachingFieldsSection.astro';
-import CoachingHeroSection from '../../components/CoachingHeroSection.astro';
-import CoachingPathsSection from '../../components/CoachingPathsSection.astro';
-import CoachingPositioningSection from '../../components/CoachingPositioningSection.astro';
-import CoachingSection from '../../components/CoachingSection.astro';
-import CoachingTermsSection from '../../components/CoachingTermsSection.astro';
+import WirkungContactCTA from '../../components/WirkungContactCTA.astro';
+import WirkungFieldsSection from '../../components/WirkungFieldsSection.astro';
+import WirkungHeroSection from '../../components/WirkungHeroSection.astro';
+import WirkungPathsSection from '../../components/WirkungPathsSection.astro';
+import WirkungPositioningSection from '../../components/WirkungPositioningSection.astro';
+import WirkungSection from '../../components/WirkungSection.astro';
+import WirkungTermsSection from '../../components/WirkungTermsSection.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import TestimonialsSection from '../../components/TestimonialsSection.astro';
-import { discoveryCallUrl } from '../../data/coaching';
+import { discoveryCallUrl } from '../../data/angebote';
 import { entwicklerMitWirkungPage } from '../../data/jsonld/entwickler-mit-wirkung-jsonld';
 import Layout from '../../layouts/Layout.astro';
 
@@ -20,16 +20,16 @@ const { title, description, schema } = entwicklerMitWirkungPage;
 <Layout title={title} description={description} schema={schema}>
   <Header ctaLabel="Kennenlerngespräch buchen" ctaHref={discoveryCallUrl} />
   <main id="main-content" class="pt-16">
-    <CoachingHeroSection />
-    <CoachingPathsSection />
-    <CoachingFieldsSection />
-    <CoachingPositioningSection />
-    <CoachingSection />
+    <WirkungHeroSection />
+    <WirkungPathsSection />
+    <WirkungFieldsSection />
+    <WirkungPositioningSection />
+    <WirkungSection />
     <TestimonialsSection />
-    <CoachingTermsSection />
-    <CoachingContactCTA />
+    <WirkungTermsSection />
+    <WirkungContactCTA />
     <FaqSection />
-    <CoachingContactCTA id="coaching-contact-faq" />
+    <WirkungContactCTA id="wirkung-contact-faq" />
   </main>
   <Footer />
 </Layout>

@@ -1,4 +1,4 @@
-export type OfferIconName = 'wirkung' | 'sparring';
+export type OfferIconName = 'podcast' | 'blog' | 'wirkung' | 'sparring';
 
 // Geometrie der Angebots-Symbole (48er Raster). `tone` bestimmt die Farbe:
 // 'ink' folgt currentColor, 'accent' nutzt --offer-accent. Gerendert von
@@ -11,6 +11,22 @@ export interface OfferIconShape {
 }
 
 export const offerIcons: Record<OfferIconName, OfferIconShape[]> = {
+  podcast: [
+    { tone: 'ink', d: 'M14 10a6 6 0 0 1 12 0V22a6 6 0 0 1-12 0Z' },
+    { tone: 'ink', d: 'M8 21a12 12 0 0 0 24 0' },
+    { tone: 'ink', d: 'M20 33V43' },
+    { tone: 'ink', d: 'M13 43H27' },
+    { tone: 'accent', d: 'M36 11a6 6 0 0 1 0 10' },
+    { tone: 'accent', d: 'M40 7a11 11 0 0 1 0 18', opacity: 0.55 }
+  ],
+  blog: [
+    { tone: 'ink', d: 'M11 4H29L38 13V42a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z' },
+    { tone: 'ink', d: 'M29 4V13H38' },
+    { tone: 'ink', d: 'M15 22H32' },
+    { tone: 'ink', d: 'M15 29H28' },
+    { tone: 'accent', d: 'M15 36H24' },
+    { tone: 'accent', d: 'M29 33V39' }
+  ],
   wirkung: [
     { tone: 'ink', d: 'M6 41H17V31H27V21H34' },
     { tone: 'accent', circle: { cx: 38, cy: 12, r: 3.25 } },
@@ -40,15 +56,19 @@ export interface NavItem {
 // Navigation.vue for both the desktop and mobile menu.
 export const navItems: NavItem[] = [
   { label: 'Start', href: '/' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Podcast', href: '/podcast' },
   {
     label: 'Angebote',
     href: '/angebote',
     children: [
+      { label: 'Podcast', href: '/podcast', icon: 'podcast' },
+      { label: 'Blog', href: '/blog', icon: 'blog' },
       { label: 'Entwickler:in mit Wirkung', href: '/angebote/entwickler-mit-wirkung', icon: 'wirkung' },
       { label: 'Sparring', href: '/angebote/sparring', icon: 'sparring' }
     ]
   },
   { label: 'Kontakt', href: '/kontakt' }
 ];
+
+// Angebote werden über ihre URL angesprochen, nicht über die Position im Menü.
+export const offerNavItem = (href: string): NavItem =>
+  navItems.find(item => item.href === '/angebote')!.children!.find(child => child.href === href)!;

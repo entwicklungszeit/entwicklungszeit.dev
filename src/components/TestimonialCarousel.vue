@@ -38,7 +38,7 @@
       style="scrollbar-width: none;"
       role="region"
       aria-roledescription="Karussell"
-      aria-label="Stimmen von Coaching-Klient:innen"
+      aria-label="Stimmen von Teilnehmer:innen"
       @scroll="handleScroll"
     >
       <div

@@ -4,7 +4,7 @@ import { navItems } from '../navigation';
 const path = '/angebote';
 const title = 'Angebote - Entwicklungszeit';
 const description =
-  'Zwei Wege, mit mir zu arbeiten: das 12-Wochen-Programm Entwickler:in mit Wirkung oder Sparring auf Stundenbasis.';
+  'Kostenlose Inhalte mit Podcast und Blog sowie Dienstleistungen: das 12-Wochen-Programm Entwickler:in mit Wirkung und Sparring auf Stundenbasis.';
 
 const offerEntries = navItems
   .find(item => item.href === path)!

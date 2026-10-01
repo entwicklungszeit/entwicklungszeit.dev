@@ -8,7 +8,7 @@
             :href="item.href"
             :class="[
               'relative px-4 py-2 text-sm transition-colors duration-300',
-              isActive(item.href)
+              isItemActive(item)
                 ? 'font-semibold text-ink'
                 : 'font-medium text-ink-soft hover:text-ink'
             ]"
@@ -17,7 +17,7 @@
           >
             {{ item.label }}
             <span
-              v-if="isActive(item.href)"
+              v-if="isItemActive(item)"
               class="absolute -bottom-1 left-4 right-4 h-px bg-primary"
             ></span>
           </a>
@@ -117,7 +117,7 @@
               :href="item.href"
               :class="[
                 'block px-4 py-3 text-base rounded-md transition-colors duration-300',
-                isActive(item.href)
+                isItemActive(item)
                   ? 'font-semibold text-ink bg-rule/40'
                   : 'font-medium text-ink-soft hover:bg-rule/30 hover:text-ink'
               ]"
@@ -153,7 +153,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { navItems } from '../data/navigation';
+import { navItems, type NavItem } from '../data/navigation';
 import OfferIcon from './OfferIcon.vue';
 import { isClickOutsideAll } from '../lib/isClickOutside';
 
@@ -181,6 +181,11 @@ const isActive = (href: string): boolean => {
 
   return currentPath === href || currentPath.startsWith(`${href}/`);
 };
+
+// A parent item with children stays highlighted while one of its children is
+// active, e.g. `Angebote` on `/blog/my-post`.
+const isItemActive = (item: NavItem): boolean =>
+  isActive(item.href) || (item.children?.some(child => isActive(child.href)) ?? false);
 
 // Methods
 const openMenu = () => {

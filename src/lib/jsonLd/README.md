@@ -26,7 +26,7 @@ What it does **not** buy us: a guaranteed rich snippet. Google has no dedicated 
 
 ## Ground rules
 
-1. **Markup must match the visible page.** Google ignores or penalises markup for content visitors cannot see. Prices, names and descriptions therefore come from the same data files the page renders (`src/data/coaching.ts`, `navigation.ts`, `faqData.ts`), never from retyped strings.
+1. **Markup must match the visible page.** Google ignores or penalises markup for content visitors cannot see. Prices, names and descriptions therefore come from the same data files the page renders (`src/data/angebote.ts`, `navigation.ts`, `faqData.ts`), never from retyped strings.
 2. **One `<script>` per page, one `@graph` inside it.** Nodes link to each other by `@id` instead of nesting copies.
 3. **No reviews or ratings.** Google does not show self-published reviews of your own organization.
 
@@ -67,7 +67,7 @@ The markup of each page is defined in `src/data/jsonld/<page>-jsonld.ts`.
 
 All other pages currently only carry the base graph.
 
-Prices are `UnitPriceSpecification` with `valueAddedTaxIncluded: false`, because the site quotes net prices. `areaServed` is DE, AT and CH plus the city Leipzig (offers are online and on site around Leipzig, see `localReach` in `src/data/coaching.ts`, which the pages render as visible text). There is deliberately no postal address.
+Prices are `UnitPriceSpecification` with `valueAddedTaxIncluded: false`, because the site quotes net prices. `areaServed` is DE, AT and CH plus the city Leipzig (offers are online and on site around Leipzig, see `localReach` in `src/data/angebote.ts`, which the pages render as visible text). There is deliberately no postal address.
 
 ## Module layout
 

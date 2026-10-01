@@ -4,18 +4,36 @@ import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import OfferIcon from '../../components/OfferIcon.astro';
 import { angebotePage } from '../../data/jsonld/angebote-jsonld';
-import { navItems } from '../../data/navigation';
+import { offerNavItem } from '../../data/navigation';
 
-const offers = [
+const sections = [
   {
-    ...navItems.find(item => item.href === '/angebote')!.children![0],
-    kicker: '12 Wochen 1:1',
-    text: 'Mentoring und Coaching für Entwickler:innen, die Wirkung, Gehalt oder Umsatz auf das nächste Level bringen wollen.'
+    heading: 'Kostenlose Inhalte',
+    offers: [
+      {
+        ...offerNavItem('/podcast'),
+        text: 'Gespräche über Kommunikation, Führung und den KI-Wandel in der Softwareentwicklung. Für Entwickler:innen und Tech Leads.'
+      },
+      {
+        ...offerNavItem('/blog'),
+        text: 'Artikel zu Softwareentwicklung, Angular, AI Engineering und Zusammenarbeit im Team.'
+      }
+    ]
   },
   {
-    ...navItems.find(item => item.href === '/angebote')!.children![1],
-    kicker: 'Auf Stundenbasis',
-    text: 'Ein Sparringspartner mit Erfahrung für Veränderungen in System, Architektur, Technologie oder Team. Die erste Stunde ist kostenfrei.'
+    heading: 'Dienstleistungen',
+    offers: [
+      {
+        ...offerNavItem('/angebote/entwickler-mit-wirkung'),
+        kicker: '12 Wochen 1:1',
+        text: 'Mentoring und Coaching für Entwickler:innen, die Wirkung, Gehalt oder Umsatz auf das nächste Level bringen wollen.'
+      },
+      {
+        ...offerNavItem('/angebote/sparring'),
+        kicker: 'Auf Stundenbasis',
+        text: 'Ein Sparringspartner mit Erfahrung für Veränderungen in System, Architektur, Technologie oder Team. Die erste Stunde ist kostenfrei.'
+      }
+    ]
   }
 ];
 
@@ -31,26 +49,35 @@ const { title, description, schema } = angebotePage;
           Angebote
         </p>
         <h1 class="font-serif text-4xl sm:text-5xl font-normal leading-[1.1] text-ink mb-12 max-w-[22ch]">
-          Zwei Wege, mit mir zu arbeiten.
+          Was ich anbiete.
         </h1>
-        <ul class="grid gap-8 md:grid-cols-2 border-t border-rule pt-10">
-          {
-            offers.map(offer => (
-              <li>
-                <a href={offer.href} class="group block">
-                  {offer.icon && <OfferIcon offer={offer.icon} size={48} class="text-ink mb-5" />}
-                  <p class="text-xs font-semibold uppercase tracking-[0.1em] text-primary mb-2">
-                    {offer.kicker}
-                  </p>
-                  <h2 class="font-serif text-2xl text-ink mb-3 group-hover:text-primary transition-colors duration-300">
-                    {offer.label}
-                  </h2>
-                  <p class="text-sm text-ink-soft leading-relaxed">{offer.text}</p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+        {
+          sections.map(section => (
+            <div class="border-t border-rule pt-10 mb-16 last:mb-0">
+              <h2 class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-8">
+                {section.heading}
+              </h2>
+              <ul class="grid gap-8 md:grid-cols-2">
+                {section.offers.map(offer => (
+                  <li>
+                    <a href={offer.href} class="group block">
+                      {offer.icon && <OfferIcon offer={offer.icon} size={48} class="text-ink mb-5" />}
+                      {'kicker' in offer && (
+                        <p class="text-xs font-semibold uppercase tracking-[0.1em] text-primary mb-2">
+                          {offer.kicker}
+                        </p>
+                      )}
+                      <h3 class="font-serif text-2xl text-ink mb-3 group-hover:text-primary transition-colors duration-300">
+                        {offer.label}
+                      </h3>
+                      <p class="text-sm text-ink-soft leading-relaxed">{offer.text}</p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
       </div>
     </section>
   </main>
