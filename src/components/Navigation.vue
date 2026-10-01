@@ -31,13 +31,14 @@
                 :key="child.href"
                 :href="child.href"
                 :class="[
-                  'block px-4 py-2 text-sm transition-colors duration-300',
+                  'flex items-center gap-3 px-4 py-2 text-sm transition-colors duration-300',
                   isActive(child.href)
                     ? 'font-semibold text-ink'
                     : 'font-medium text-ink-soft hover:bg-rule/30 hover:text-ink'
                 ]"
                 :aria-current="isActive(child.href) ? 'page' : undefined"
               >
+                <OfferIcon v-if="child.icon" :offer="child.icon" :size="20" />
                 {{ child.label }}
               </a>
             </li>
@@ -130,7 +131,7 @@
                 <a
                   :href="child.href"
                   :class="[
-                    'block px-4 py-2 text-sm rounded-md transition-colors duration-300',
+                    'flex items-center gap-3 px-4 py-2 text-sm rounded-md transition-colors duration-300',
                     isActive(child.href)
                       ? 'font-semibold text-ink bg-rule/40'
                       : 'font-medium text-ink-soft hover:bg-rule/30 hover:text-ink'
@@ -138,6 +139,7 @@
                   :aria-current="isActive(child.href) ? 'page' : undefined"
                   @click="handleLinkClick"
                 >
+                  <OfferIcon v-if="child.icon" :offer="child.icon" :size="20" />
                   {{ child.label }}
                 </a>
               </li>
@@ -152,6 +154,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import { navItems } from '../data/navigation';
+import OfferIcon from './OfferIcon.vue';
 import { isClickOutsideAll } from '../lib/isClickOutside';
 
 // Props

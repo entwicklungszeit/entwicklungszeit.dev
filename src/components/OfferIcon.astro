@@ -1,0 +1,46 @@
+---
+import { offerIcons, offerIconStrokeWidth, type OfferIconName } from '../data/navigation';
+
+interface Props {
+  offer: OfferIconName;
+  size?: number;
+  class?: string;
+  // Ohne title ist das Symbol dekorativ (Text steht daneben).
+  title?: string;
+}
+
+const { offer, size = 40, class: className, title } = Astro.props;
+const color = (tone: 'ink' | 'accent') => (tone === 'ink' ? 'currentColor' : 'var(--offer-accent)');
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width={offerIconStrokeWidth(size)}
+  class:list={['offer-icon', className]}
+  role={title ? 'img' : undefined}
+  aria-label={title}
+  aria-hidden={title ? undefined : 'true'}
+  focusable="false"
+>
+  {
+    offerIcons[offer].map(shape =>
+      shape.circle ? (
+        <circle {...shape.circle} fill={color(shape.tone)} stroke="none" />
+      ) : (
+        <path d={shape.d} stroke={color(shape.tone)} opacity={shape.opacity} />
+      )
+    )
+  }
+</svg>
+
+<style>
+  .offer-icon {
+    --offer-accent: #d9692a;
+    flex-shrink: 0;
+  }
+</style>

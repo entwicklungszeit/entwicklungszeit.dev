@@ -1,11 +1,13 @@
 ---
 import { discoveryCallUrl, localReach } from '../data/coaching';
+import OfferIcon from './OfferIcon.astro';
 
 const facts = ['12 Wochen', '1:1 mit mir', '12 bis 24 Sessions', 'Mentoring + Coaching', localReach.badge];
 ---
 
 <section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
   <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <OfferIcon offer="wirkung" size={72} class="text-ink mb-6" />
     <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
       Impact Developer Programm
     </p>

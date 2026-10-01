@@ -13,7 +13,7 @@
         <th scope="col" class="bg-paper"><span class="sr-only">Angebot</span></th>
         <th
           scope="col"
-          class="bg-primary text-white text-center text-sm sm:text-[15px] font-semibold leading-tight px-2 py-4 rounded-t-[20px]"
+          class="bg-highlight-ink text-white text-center text-sm sm:text-[15px] font-semibold leading-tight px-2 py-4 rounded-t-[20px]"
         >
           {{ labels.ours }}
         </th>
@@ -41,7 +41,7 @@
             <span class="block text-base font-semibold text-ink leading-snug">{{ row.title }}</span>
             <span class="block text-sm text-ink-soft leading-snug mt-0.5">{{ row.description }}</span>
           </th>
-          <td class="relative bg-primary-tint border-t border-[#D5DEF5] py-4 text-center align-middle">
+          <td class="relative bg-highlight-tint border-t border-[#F0D6C3] py-4 text-center align-middle">
             <ComparisonMark :value="row.ours" />
           </td>
           <td class="relative bg-paper border-t border-rule py-4 text-center align-middle">

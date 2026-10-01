@@ -1,11 +1,13 @@
 ---
 import { discoveryCallUrl, localReach, sparring } from '../data/coaching';
+import OfferIcon from './OfferIcon.astro';
 
 const facts = ['Stundenbasis', 'Erste Stunde kostenfrei', 'Nachbereitung inklusive', localReach.badge];
 ---
 
 <section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">
   <div class="max-w-wrap mx-auto px-6 sm:px-10">
+    <OfferIcon offer="sparring" size={72} class="text-ink mb-6" />
     <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint mb-5">
       Sparring
     </p>

@@ -1,7 +1,7 @@
 <template>
   <span
     class="inline-flex items-center justify-center w-[34px] h-[34px] rounded-full"
-    :class="value ? 'bg-primary text-white' : 'bg-[#EFEBE3] text-ink-soft'"
+    :class="value ? 'bg-highlight-ink text-white' : 'bg-[#EFEBE3] text-ink-soft'"
   >
     <svg
       v-if="value"
