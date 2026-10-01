@@ -54,11 +54,16 @@ The markup of each page is defined in `src/data/jsonld/<page>-jsonld.ts`.
 
 | Page | Nodes added on top of Person, Organization, WebSite |
 |---|---|
-| `/` | none |
+| `/` | `WebPage` (about the Person; no breadcrumb) |
 | `/angebote` | `CollectionPage` with an `ItemList` of both offers, `BreadcrumbList` |
 | `/angebote/entwickler-mit-wirkung` | `WebPage`, `Service` (12-week programme, 3.600 € net, three focus areas as `OfferCatalog`), `FAQPage`, `BreadcrumbList` |
 | `/angebote/sparring` | `WebPage`, `Service` with two `Offer`s (120 € net per hour, first hour free), topics as `OfferCatalog`, `BreadcrumbList` |
 | `/podcast` | `PodcastSeries`, `CollectionPage`, `BreadcrumbList` |
+| `/podcast/<slug>` | `PodcastEpisode` (`partOfSeries`, `AudioObject`, guest as `actor`), `VideoObject` only when `youtubeUrl` is a watch link, `BreadcrumbList` |
+| `/blog` | `CollectionPage` with an `ItemList` of `BlogPosting`s, `BreadcrumbList` |
+| `/blog/kategorie/<category>` | same as `/blog`, one level deeper |
+| `/blog/<slug>` | `BlogPosting` (author and publisher by `@id`, ISO dates), `BreadcrumbList`; visible breadcrumb in the page |
+| `/kontakt` | `ContactPage`, `BreadcrumbList` |
 
 All other pages currently only carry the base graph.
 
@@ -74,6 +79,8 @@ Prices are `UnitPriceSpecification` with `valueAddedTaxIncluded: false`, because
 | `service.ts` | `serviceNode` |
 | `offer.ts` | `offerNode`, `offerCatalogNode` |
 | `page.ts` | `webPageNode`, `breadcrumbNode`, `itemListNode` |
+| `article.ts` | `blogPostingNode` |
+| `podcast.ts` | `podcastEpisodeNode`, `videoObjectNode`, `youtubeVideoId` |
 | `faq.ts` | `faqNode` |
 | `document.ts` | `graph` (wraps nodes with `@context`/`@graph`), `serializeJsonLd` |
 | `types.ts` | `JsonLdNode`, `ref`, `optional` |

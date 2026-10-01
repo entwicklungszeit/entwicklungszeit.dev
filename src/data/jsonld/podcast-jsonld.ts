@@ -11,7 +11,7 @@ const path = '/podcast';
 const title = 'Podcast - Entwicklungszeit';
 const description =
   'Alle Folgen des Entwicklungszeit Podcasts mit Shownotes: Softwareentwicklung, Führung und Kommunikation.';
-const podcastSeriesId = `${absoluteUrl(path)}#podcast`;
+export const podcastSeriesId = `${absoluteUrl(path)}#podcast`;
 
 export const podcastPage = {
   title,

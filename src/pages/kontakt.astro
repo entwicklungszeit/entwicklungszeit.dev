@@ -2,11 +2,24 @@
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
+import { breadcrumbNode, webPageNode } from '@json-ld';
+
+const title = 'Kontakt - Entwicklungszeit';
+const description =
+  'Du hast Fragen zum Podcast, einem Artikel oder zum Coaching? Schreib mir eine Nachricht.';
+const schema = [
+  webPageNode({ path: '/kontakt', name: title, description, type: 'ContactPage' }),
+  breadcrumbNode('/kontakt', [
+    { name: 'Start', path: '/' },
+    { name: 'Kontakt', path: '/kontakt' }
+  ])
+];
 ---
 
 <Layout
-  title="Kontakt - Entwicklungszeit"
-  description="Du hast Fragen zum Podcast, einem Artikel oder zum Coaching? Schreib mir eine Nachricht."
+  title={title}
+  description={description}
+  schema={schema}
 >
   <Header />
   <main id="main-content" class="pt-16">

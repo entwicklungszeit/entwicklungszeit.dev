@@ -4,6 +4,7 @@ import Footer from '../../../components/Footer.astro';
 import Header from '../../../components/Header.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { blogCategories, blogCategoryLabels, blogCategoryTextClass, type BlogCategory } from '../../../data/blogCategories';
+import { blogCategorySchema } from '../../../data/jsonld/blog-jsonld';
 import { formatDate } from '../../../lib/formatDate';
 
 export async function getStaticPaths() {
@@ -17,11 +18,17 @@ const posts = (await getCollection('blog', ({ data }) => data.status === 'public
 );
 
 const categoryLabel = blogCategoryLabels[category];
+const schema = blogCategorySchema(
+  `/blog/kategorie/${category}`,
+  categoryLabel,
+  posts.map(post => ({ name: post.data.title, path: `/blog/${post.id}` }))
+);
 ---
 
 <Layout
   title={`${categoryLabel} Artikel - Entwicklungszeit Blog`}
   description={`Alle Blog-Artikel aus der Kategorie ${categoryLabel} auf Entwicklungszeit.`}
+  schema={schema}
 >
   <Header />
   <main id="main-content" class="pt-16">

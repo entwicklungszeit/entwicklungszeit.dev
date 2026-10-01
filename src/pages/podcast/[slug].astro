@@ -4,6 +4,13 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { formatDate } from '../../lib/formatDate';
+import { podcastSeriesId } from '../../data/jsonld/podcast-jsonld';
+import {
+  breadcrumbNode,
+  podcastEpisodeNode,
+  videoObjectNode,
+  youtubeVideoId
+} from '@json-ld';
 
 export async function getStaticPaths() {
   const episodes = await getCollection('podcast');
@@ -19,11 +26,46 @@ const { Content } = await render(episode);
 const relatedPosts = episode.data.relatedPosts?.length
   ? await getEntries(episode.data.relatedPosts)
   : [];
+
+const path = `/podcast/${episode.id}`;
+const description =
+  episode.data.description ??
+  `Shownotes zu Folge ${episode.data.episodeNumber}: ${episode.data.title}`;
+const videoId = episode.data.youtubeUrl ? youtubeVideoId(episode.data.youtubeUrl) : undefined;
+const video =
+  episode.data.youtubeUrl && videoId
+    ? videoObjectNode({
+        name: episode.data.title,
+        description,
+        uploadDate: episode.data.pubDate,
+        youtubeUrl: episode.data.youtubeUrl,
+        thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+      })
+    : undefined;
+const schema = [
+  podcastEpisodeNode({
+    path,
+    seriesId: podcastSeriesId,
+    name: episode.data.title,
+    description,
+    episodeNumber: episode.data.episodeNumber,
+    datePublished: episode.data.pubDate,
+    audioUrl: episode.data.audioUrl,
+    guest: episode.data.guest
+  }),
+  ...(video ? [video] : []),
+  breadcrumbNode(path, [
+    { name: 'Start', path: '/' },
+    { name: 'Podcast', path: '/podcast' },
+    { name: episode.data.title, path }
+  ])
+];
 ---
 
 <Layout
   title={`${episode.data.title} - Entwicklungszeit Podcast`}
-  description={`Shownotes zu Folge ${episode.data.episodeNumber}: ${episode.data.title}`}
+  description={description}
+  schema={schema}
 >
   <Header />
   <main id="main-content" class="pt-16">

@@ -4,16 +4,21 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { blogCategories, blogCategoryLabels, blogCategoryTextClass } from '../../data/blogCategories';
+import { blogIndexSchema } from '../../data/jsonld/blog-jsonld';
 import { formatDate } from '../../lib/formatDate';
 
 const posts = (await getCollection('blog', ({ data }) => data.status === 'public')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const schema = blogIndexSchema(
+  posts.map(post => ({ name: post.data.title, path: `/blog/${post.id}` }))
 );
 ---
 
 <Layout
   title="Blog - Entwicklungszeit"
   description="Artikel über Kommunikation, Führung, AI Engineering und Angular von Gregor Woiwode."
+  schema={schema}
 >
   <Header />
   <main id="main-content" class="pt-16">

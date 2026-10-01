@@ -30,6 +30,7 @@ const podcast = defineCollection({
     // Verknüpfung zur per RSS gelieferten Folge (siehe episodeService.ts) erfolgt
     // über die gemeinsame Episodennummer.
     episodeNumber: z.number().int().positive(),
+    description: z.string().optional(),
     pubDate: z.coerce.date(),
     audioUrl: z.string().url().optional(),
     youtubeUrl: z.string().url().optional(),

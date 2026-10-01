@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
 import { blogCategoryLabels, blogCategoryTextClass } from '../../data/blogCategories';
 import { formatDate } from '../../lib/formatDate';
+import { blogPostingNode, breadcrumbNode } from '@json-ld';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.status === 'public');
@@ -20,19 +21,53 @@ const { Content } = await render(post);
 const relatedEpisodes = post.data.relatedEpisodes?.length
   ? await getEntries(post.data.relatedEpisodes)
   : [];
+
+const path = `/blog/${post.id}`;
+const categoryPath = `/blog/kategorie/${post.data.category}`;
+const categoryLabel = blogCategoryLabels[post.data.category];
+const coverImage = post.data.coverImage
+  ? new URL(post.data.coverImage, Astro.site).href
+  : undefined;
+const schema = [
+  blogPostingNode({
+    path,
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate,
+    dateModified: post.data.updatedDate,
+    image: coverImage,
+    section: categoryLabel
+  }),
+  breadcrumbNode(path, [
+    { name: 'Start', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: categoryLabel, path: categoryPath },
+    { name: post.data.title, path }
+  ])
+];
 ---
 
 <Layout
   title={`${post.data.title} - Entwicklungszeit Blog`}
   description={post.data.description}
+  image={coverImage}
+  ogType="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate ?? post.data.pubDate}
+  schema={schema}
 >
   <Header />
   <main id="main-content" class="pt-16">
     <article class="bg-paper py-16 sm:py-20">
       <div class="max-w-wrap mx-auto px-6 sm:px-10">
+        <nav aria-label="Brotkrumen" class="text-xs text-ink-faint mb-6">
+          <a href="/" class="hover:underline">Start</a> /
+          <a href="/blog" class="hover:underline">Blog</a> /
+          <a href={categoryPath} class="hover:underline">{categoryLabel}</a>
+        </nav>
         <p class={`text-xs font-bold uppercase tracking-[0.06em] mb-4 ${blogCategoryTextClass[post.data.category]}`}>
-          <a href={`/blog/kategorie/${post.data.category}`} class="hover:underline">
-            {blogCategoryLabels[post.data.category]}
+          <a href={categoryPath} class="hover:underline">
+            {categoryLabel}
           </a>
         </p>
 

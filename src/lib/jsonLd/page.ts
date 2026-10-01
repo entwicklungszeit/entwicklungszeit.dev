@@ -6,7 +6,7 @@ type WebPageInput = {
   path: string;
   name: string;
   description: string;
-  type?: 'WebPage' | 'CollectionPage';
+  type?: 'WebPage' | 'CollectionPage' | 'ContactPage';
   mainEntity?: JsonLdNode;
 };
 
@@ -19,7 +19,8 @@ export function webPageNode(input: WebPageInput): JsonLdNode {
     description: input.description,
     inLanguage: siteIdentity.locale,
     isPartOf: ref(websiteId),
-    breadcrumb: ref(pageNodeId(input.path, 'breadcrumb')),
+    // Die Startseite ist die Wurzel; eine Brotkrume mit nur einem Eintrag bringt nichts.
+    ...(input.path === '/' ? {} : { breadcrumb: ref(pageNodeId(input.path, 'breadcrumb')) }),
     ...optional('mainEntity', input.mainEntity)
   };
 }
@@ -41,7 +42,7 @@ export function breadcrumbNode(path: string, items: BreadcrumbItem[]): JsonLdNod
 
 type ListEntry = { name: string; path: string };
 
-export function itemListNode(entries: ListEntry[]): JsonLdNode {
+export function itemListNode(entries: ListEntry[], itemType = 'Service'): JsonLdNode {
   return {
     '@type': 'ItemList',
     itemListElement: entries.map((entry, index) => ({
@@ -49,7 +50,7 @@ export function itemListNode(entries: ListEntry[]): JsonLdNode {
       position: index + 1,
       name: entry.name,
       url: absoluteUrl(entry.path),
-      item: { '@type': 'Service', name: entry.name, url: absoluteUrl(entry.path) }
+      item: { '@type': itemType, name: entry.name, url: absoluteUrl(entry.path) }
     }))
   };
 }

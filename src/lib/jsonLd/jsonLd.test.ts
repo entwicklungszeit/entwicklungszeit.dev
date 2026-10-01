@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  blogPostingNode,
   breadcrumbNode,
   faqNode,
   graph,
@@ -7,9 +8,13 @@ import {
   organizationNode,
   personId,
   personNode,
+  podcastEpisodeNode,
   serializeJsonLd,
   serviceNode,
-  websiteNode
+  videoObjectNode,
+  webPageNode,
+  websiteNode,
+  youtubeVideoId
 } from './public-api';
 
 describe('jsonLd', () => {
@@ -62,5 +67,52 @@ describe('jsonLd', () => {
 
     expect(json).not.toContain('<');
     expect(JSON.parse(json)['@graph'][0].name).toBe('</script><b>');
+  });
+
+  it('builds a BlogPosting that points at author and publisher by @id with ISO dates', () => {
+    const post = blogPostingNode({
+      path: '/blog/x',
+      headline: 'h',
+      description: 'd',
+      datePublished: new Date('2025-03-01T00:00:00Z')
+    });
+
+    expect((post.author as { '@id': string })['@id']).toBe(personId);
+    expect(post.datePublished).toBe('2025-03-01T00:00:00.000Z');
+    expect(post.dateModified).toBe(post.datePublished);
+    expect(post).not.toHaveProperty('image');
+  });
+
+  it('links a PodcastEpisode to its series and omits missing media and guest', () => {
+    const episode = podcastEpisodeNode({
+      path: '/podcast/f',
+      seriesId: 'series-id',
+      name: 'n',
+      description: 'd',
+      episodeNumber: 3,
+      datePublished: new Date('2025-01-01T00:00:00Z')
+    });
+
+    expect(episode.partOfSeries).toEqual({ '@id': 'series-id' });
+    expect(episode).not.toHaveProperty('associatedMedia');
+    expect(episode).not.toHaveProperty('actor');
+  });
+
+  it('extracts YouTube ids and skips the VideoObject without one', () => {
+    expect(youtubeVideoId('https://www.youtube.com/watch?v=abc')).toBe('abc');
+    expect(youtubeVideoId('https://youtu.be/xyz')).toBe('xyz');
+    expect(
+      videoObjectNode({
+        name: 'n',
+        description: 'd',
+        uploadDate: new Date(),
+        youtubeUrl: 'https://www.youtube.com/@entwicklungszeit',
+        thumbnailUrl: 't'
+      })
+    ).toBeUndefined();
+  });
+
+  it('gives the home page no breadcrumb reference', () => {
+    expect(webPageNode({ path: '/', name: 'n', description: 'd' })).not.toHaveProperty('breadcrumb');
   });
 });

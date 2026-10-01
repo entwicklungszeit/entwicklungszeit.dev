@@ -6,12 +6,16 @@ import NewsletterSubscriptionSection from '../components/NewsletterSubscriptionS
 import RecentBlogPostsSection from '../components/RecentBlogPostsSection.astro';
 import RecentPodcastEpisodesSection from '../components/RecentPodcastEpisodesSection.astro';
 import Layout from '../layouts/Layout.astro';
+import { personId, ref, webPageNode } from '@json-ld';
+
+const title =
+  'Entwicklungszeit - Podcast & Blog über Softwareentwicklung, Führung und Kommunikation';
+const description =
+  'Entwicklungszeit ist Podcast und Blog für Softwareentwickler und Tech Leads: Kommunikation, Führung, AI Engineering und Angular mit Gregor Woiwode.';
+const schema = [{ ...webPageNode({ path: '/', name: title, description }), about: ref(personId) }];
 ---
 
-<Layout
-  title="Entwicklungszeit - Podcast & Blog über Softwareentwicklung, Führung und Kommunikation"
-  description="Entwicklungszeit ist Podcast und Blog für Softwareentwickler und Tech Leads: Kommunikation, Führung, AI Engineering und Angular mit Gregor Woiwode."
->
+<Layout title={title} description={description} schema={schema}>
   <Header />
   <main id="main-content" class="pt-16">
     <Hero />

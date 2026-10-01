@@ -16,6 +16,9 @@ interface Props {
   image?: string;
   canonicalURL?: string;
   schema?: JsonLdNode[];
+  ogType?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
 }
 
 const {
@@ -23,7 +26,10 @@ const {
   description = 'Entwicklungszeit Podcast - Dein Podcast für Softwareentwicklung, Führung und Kommunikation. Praxisnahe Einblicke und Expertenwissen für Entwickler.',
   image = 'https://entwicklungszeit.dev/social-preview.jpg',
   canonicalURL = `https://entwicklungszeit.dev${Astro.url.pathname}`,
-  schema = []
+  schema = [],
+  ogType = 'website',
+  publishedTime,
+  modifiedTime
 } = Astro.props;
 ---
 
@@ -52,7 +58,9 @@ const {
     <meta name="theme-color" content="#ffffff" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Entwicklungszeit" />
     <meta property="og:title" content={title} />

@@ -6,3 +6,5 @@ export { breadcrumbNode, itemListNode, webPageNode } from './page';
 export { serviceId, serviceNode } from './service';
 export { ref, type JsonLdNode } from './types';
 export { absoluteUrl, organizationId, personId } from './urls';
+export { blogPostingNode } from './article';
+export { podcastEpisodeNode, videoObjectNode, youtubeVideoId } from './podcast';
