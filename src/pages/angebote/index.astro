@@ -2,6 +2,7 @@
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import Layout from '../../layouts/Layout.astro';
+import { angebotePage } from '../../data/jsonld/angebote-jsonld';
 import { navItems } from '../../data/navigation';
 
 const offers = [
@@ -16,12 +17,11 @@ const offers = [
     text: 'Ein Sparringspartner mit Erfahrung für Veränderungen in System, Architektur, Technologie oder Team. Die erste Stunde ist kostenfrei.'
   }
 ];
+
+const { title, description, schema } = angebotePage;
 ---
 
-<Layout
-  title="Angebote - Entwicklungszeit"
-  description="Zwei Wege, mit mir zu arbeiten: das 12-Wochen-Programm Entwickler:in mit Wirkung oder Sparring auf Stundenbasis."
->
+<Layout title={title} description={description} schema={schema}>
   <Header />
   <main id="main-content" class="pt-16">
     <section class="bg-paper pt-12 pb-16 sm:pt-20 sm:pb-24">

@@ -16,12 +16,12 @@ const { eyebrow, title, divider = false } = Astro.props;
 >
   <div class="flex items-center gap-4 sm:gap-5">
     <div
-      class="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] bg-primary text-white flex items-center justify-center flex-none shadow-[0_8px_24px_rgba(30,58,138,0.28)]"
+      class="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] bg-highlight text-white flex items-center justify-center flex-none shadow-[0_8px_24px_rgba(217,105,42,0.3)]"
     >
       <slot name="icon" />
     </div>
     <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary mb-2">{eyebrow}</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-highlight-ink mb-2">{eyebrow}</p>
       <h2 class="font-serif text-3xl sm:text-[34px] font-normal text-ink">{title}</h2>
     </div>
   </div>

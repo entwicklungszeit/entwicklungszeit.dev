@@ -1,5 +1,5 @@
 ---
-import { discoveryCallUrl, sparring } from '../data/coaching';
+import { discoveryCallUrl, localReach, sparring } from '../data/coaching';
 ---
 
 <section class="bg-paper-raised border-y border-rule py-16 sm:py-24">
@@ -30,7 +30,17 @@ import { discoveryCallUrl, sparring } from '../data/coaching';
       <h2 class="font-serif text-3xl font-normal text-ink mb-4">
         Erfahrung von beiden Seiten
       </h2>
-      <p class="text-base text-ink-soft leading-relaxed">{sparring.background}</p>
+      <p class="text-base text-ink-soft leading-relaxed mb-5">{sparring.background}</p>
+      <ul class="space-y-2.5 mb-5">
+        {
+          sparring.topics.map(item => (
+            <li class="text-sm text-ink leading-relaxed pl-4 border-l-2 border-primary">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-base text-ink-soft leading-relaxed">{localReach.text}</p>
     </div>
   </div>
 </section>

@@ -1,29 +1,34 @@
 ---
 import ScrollToTop from '../components/ui/ScrollToTop.vue';
 import { ClientRouter } from 'astro:transitions';
+import JsonLd from '../components/JsonLd.astro';
+import {
+  graph,
+  organizationNode,
+  personNode,
+  websiteNode,
+  type JsonLdNode
+} from '@json-ld';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   canonicalURL?: string;
+  schema?: JsonLdNode[];
 }
 
 const {
   title,
   description = 'Entwicklungszeit Podcast - Dein Podcast für Softwareentwicklung, Führung und Kommunikation. Praxisnahe Einblicke und Expertenwissen für Entwickler.',
   image = 'https://entwicklungszeit.dev/social-preview.jpg',
-  canonicalURL = `https://entwicklungszeit.dev${Astro.url.pathname}`
+  canonicalURL = `https://entwicklungszeit.dev${Astro.url.pathname}`,
+  schema = []
 } = Astro.props;
 ---
 
 <!doctype html>
-<html
-  lang="de"
-  class="scroll-smooth"
-  itemscope
-  itemtype="http://schema.org/WebPage"
->
+<html lang="de" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -48,7 +53,7 @@ const {
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://entwicklungszeit.dev/" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Entwicklungszeit" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -57,7 +62,7 @@ const {
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://entwicklungszeit.dev/" />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
@@ -90,102 +95,7 @@ const {
       });
     </script>
 
-    <!-- Schema.org markup -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "PodcastSeries",
-        "name": "Entwicklungszeit",
-        "description": "Ein Podcast über Softwareentwicklung, Führung und Kommunikation",
-        "url": "https://entwicklungszeit.dev",
-        "author": {
-          "@type": "Person",
-          "name": "Gregor Woiwode",
-          "url": "https://entwicklungszeit.dev",
-          "jobTitle": "Tech Lead und Software Engineer Coach",
-          "knowsAbout": [
-            "Software Coaching",
-            "Programmier Coaching",
-            "Software Engineer Mentor",
-            "Tech Lead Mentoring",
-            "Softwareentwicklung",
-            "Engineering Leadership",
-            "Technische Führung",
-            "Karriere Entwicklung"
-          ]
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Entwicklungszeit",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://entwicklungszeit.dev/logo.svg"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "name": "Software Engineering Coaching",
-          "description": "Individuelles Coaching für Softwareentwickler und Tech Leads",
-          "areaServed": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-              "@type": "GeoCoordinates",
-              "latitude": 51.1657,
-              "longitude": 10.4515
-            },
-            "geoRadius": "1000"
-          }
-        }
-      }
-    </script>
-
-    <!-- Service Schema for Software Coaching -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Software Coaching & Tech Leadership Mentoring",
-        "provider": {
-          "@type": "Person",
-          "name": "Gregor Woiwode",
-          "url": "https://entwicklungszeit.dev"
-        },
-        "serviceType": [
-          "Software Coaching",
-          "Programmier Coaching",
-          "Tech Lead Mentoring",
-          "Engineering Leadership Coaching"
-        ],
-        "areaServed": {
-          "@type": "Country",
-          "name": "DE"
-        },
-        "description": "1:1 Software Coaching und Mentoring für Entwickler und Tech Leads",
-        "url": "https://entwicklungszeit.dev"
-      }
-    </script>
-
-    <!-- LocalBusiness Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Entwicklungszeit - Software Coaching",
-        "description": "Software Coaching und Tech Leadership Mentoring mit Gregor Woiwode",
-        "url": "https://entwicklungszeit.dev",
-        "image": "https://entwicklungszeit.dev/logo.svg",
-        "areaServed": "DE",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "Sales"
-        },
-        "sameAs": [
-          "https://www.youtube.com/@entwicklungszeit",
-          "https://creators.spotify.com/pod/show/entwicklungszeit",
-          "https://podcasts.apple.com/us/podcast/entwicklungszeit/id1767631664"
-        ]
-      }
-    </script>
+    <JsonLd data={graph(personNode(), organizationNode(), websiteNode(), ...schema)} />
   </head>
   <body class="bg-paper font-sans overflow-x-hidden">
     <!-- Skip to main content link for accessibility -->

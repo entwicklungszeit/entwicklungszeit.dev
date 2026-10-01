@@ -14,7 +14,7 @@
           <!-- Close button -->
           <button
             type="button"
-            class="absolute right-4 top-4 text-ink-faint bg-transparent hover:bg-rule hover:text-ink rounded-sm text-sm p-1.5 inline-flex items-center"
+            class="absolute z-10 right-4 top-4 text-ink-faint bg-transparent hover:bg-rule hover:text-ink rounded-sm text-sm p-1.5 inline-flex items-center"
             aria-label="Close modal"
             @click="handleClose"
           >
@@ -27,29 +27,56 @@
             </svg>
           </button>
 
-          <!-- Modal Content -->
-          <div class="p-8 space-y-8">
-            <!-- Centered Header -->
-            <div class="flex flex-col items-center text-center space-y-4">
+          <!-- Accent Header -->
+          <div
+            class="relative overflow-hidden flex items-center gap-5 px-8 pt-8 pb-7 pr-14 bg-highlight-tint border-b border-rule"
+          >
+            <div
+              class="relative w-20 h-20 flex-none rounded-full overflow-hidden border-[3px] border-paper-raised shadow-[0_6px_18px_rgba(30,58,138,0.25)]"
+            >
               <img
                 :src="testimonial.portraitImage.src"
                 :alt="testimonial.portraitImage.alt"
-                class="w-28 h-28 rounded-full object-cover border border-rule"
-                width="112"
-                height="112"
+                class="w-full h-full object-cover block grayscale contrast-[1.05]"
+                width="80"
+                height="80"
                 loading="lazy"
               />
-              <div class="space-y-3">
-                <h3 class="font-serif text-2xl font-normal text-ink">
-                  {{ testimonial.firstName }} {{ testimonial.lastName }}
-                </h3>
-                <p class="text-lg text-ink-soft font-medium">
-                  {{ testimonial.company
-                    ? `${testimonial.jobTitle} @ ${testimonial.company}`
-                    : testimonial.jobTitle }}
-                </p>
-              </div>
+              <div class="absolute inset-0 bg-primary mix-blend-multiply opacity-[0.55]"></div>
             </div>
+            <div class="relative z-[1]">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-highlight-ink mb-1.5">
+                Stimme
+              </p>
+              <h3 class="font-serif text-[26px] leading-[1.15] font-normal text-ink">
+                {{ testimonial.firstName }} {{ testimonial.lastName }}
+              </h3>
+              <p class="text-[13px] text-ink-soft mt-1">
+                {{ testimonial.company
+                  ? `${testimonial.jobTitle} @ ${testimonial.company}`
+                  : testimonial.jobTitle }}
+              </p>
+            </div>
+            <svg
+              class="absolute right-7 -bottom-[18px] text-highlight opacity-[0.22]"
+              width="120"
+              height="120"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 17.5c0-4.6 2-8.4 6-10.5l1 1.6c-2.3 1.4-3.4 3.2-3.6 5.2H10V20H4v-2.5zm10 0c0-4.6 2-8.4 6-10.5l1 1.6c-2.3 1.4-3.4 3.2-3.6 5.2H20V20h-6v-2.5z"
+              />
+            </svg>
+          </div>
+
+          <!-- Modal Content -->
+          <div class="p-8 space-y-8">
+            <!-- Review -->
+            <p class="font-serif italic text-xl leading-[1.55] text-ink whitespace-pre-line">
+              „{{ testimonial.reviewText.trim() }}“
+            </p>
 
             <!-- Bio Section -->
             <div v-if="testimonial.bio" class="prose prose-lg max-w-none">

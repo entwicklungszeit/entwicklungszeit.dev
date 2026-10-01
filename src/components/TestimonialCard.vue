@@ -6,14 +6,18 @@
     :aria-label="`${testimonial.firstName} ${testimonial.lastName}`"
   >
     <!-- Portrait -->
-    <img
-      :src="testimonial.portraitImage.src"
-      :alt="testimonial.portraitImage.alt"
-      class="w-12 h-12 object-cover rounded-full border border-rule mb-4"
-      width="48"
-      height="48"
-      loading="lazy"
-    />
+    <div class="relative w-14 h-14 rounded-full overflow-hidden mb-4">
+      <img
+        :src="testimonial.portraitImage.src"
+        :alt="testimonial.portraitImage.alt"
+        class="w-full h-full object-cover block grayscale contrast-[1.05]"
+        width="56"
+        height="56"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 mix-blend-multiply opacity-[0.55]" :class="toneClass"></div>
+      <div class="absolute inset-0 bg-paper mix-blend-soft-light opacity-25"></div>
+    </div>
 
     <!-- Review Text -->
     <p class="flex-1 text-ink-soft text-sm leading-relaxed line-clamp-6 mb-5">
@@ -41,13 +45,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { Testimonial } from '../types/testimonial';
 
 interface Props {
   testimonial: Testimonial;
+  tone?: 'primary' | 'secondary' | 'tertiary';
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { tone: 'primary' });
+
+const toneClass = computed(
+  () => ({ primary: 'bg-primary', secondary: 'bg-secondary', tertiary: 'bg-tertiary' })[props.tone],
+);
 const emit = defineEmits<{
   openModal: [testimonial: Testimonial];
 }>();

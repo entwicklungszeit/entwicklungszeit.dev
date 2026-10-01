@@ -133,8 +133,23 @@ export const termsDetails = [
 
 export const discoveryCallUrl = 'https://calendly.com/gregor-entwicklungszeit/austausch-kennenlernen';
 
+const sparringHourlyRateAmount = 120;
+
+export const programPrice = { amount: 3600, currency: 'EUR' };
+
+export const formatEuro = (amount: number) =>
+  `${new Intl.NumberFormat('de-DE').format(amount)} €`;
+
+// Sichtbarer Ortsbezug; JSON-LD nennt dieselbe Region in siteIdentity.areaServed.
+export const localReach = {
+  city: 'Leipzig',
+  badge: 'Online und vor Ort in Leipzig',
+  text: 'Ich arbeite online im gesamten DACH-Raum und auf Wunsch vor Ort im Raum Leipzig.'
+};
+
 export const sparring = {
-  hourlyRate: '120 €',
+  hourlyRateAmount: sparringHourlyRateAmount,
+  hourlyRate: formatEuro(sparringHourlyRateAmount),
   rateNote: 'netto zzgl. USt. pro Stunde',
   special: 'Die erste Stunde ist kostenfrei.',
   intro:
@@ -147,6 +162,12 @@ export const sparring = {
     'Technologische Veränderung',
     'Organisatorische Veränderung',
     'Strukturelle Veränderung im Team'
+  ],
+  topics: [
+    'Software-Architektur',
+    'Software Engineering',
+    'Softwareprojektmanagement',
+    'Mentoring für Entwickler:innen'
   ],
   background:
     'Ich war über neun Jahre CTO, neben meiner Arbeit als Softwarearchitekt und Entwickler, und bin heute CIO. Ich kann dich vom Entwickler bis zur Führungskraft beraten.',

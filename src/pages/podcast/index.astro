@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import { podcastPage } from '../../data/jsonld/podcast-jsonld';
 import Layout from '../../layouts/Layout.astro';
 import PodcastEpisodeList from '../../components/PodcastEpisodeList.vue';
 
@@ -10,12 +11,11 @@ import PodcastEpisodeList from '../../components/PodcastEpisodeList.vue';
 const shownotes = Object.fromEntries(
   (await getCollection('podcast')).map(e => [e.data.pubDate.toISOString().slice(0, 10), e.id])
 );
+
+const { title, description, schema } = podcastPage;
 ---
 
-<Layout
-  title="Podcast - Entwicklungszeit"
-  description="Alle Folgen des Entwicklungszeit Podcasts mit Shownotes: Softwareentwicklung, Führung und Kommunikation."
->
+<Layout title={title} description={description} schema={schema}>
   <Header />
   <main id="main-content" class="pt-16">
     <section class="bg-paper py-16 sm:py-20">

@@ -34,6 +34,11 @@ export default {
         'ink-faint': '#8A8F9C',
         rule: '#E7E1D6',
         'primary-tint': '#EEF2FC',
+        // Warm accent for emphasis & icons. Blue stays reserved for
+        // links/interaction. `highlight-ink` is the text-safe variant.
+        highlight: '#D9692A',
+        'highlight-ink': '#B4491A',
+        'highlight-tint': '#FBEDE3',
         // Blog category accent colors, converted from the design canvas's
         // OKLCH values to hex to match this file's existing format.
         leadership: '#AB4400',

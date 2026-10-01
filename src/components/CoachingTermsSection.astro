@@ -1,5 +1,5 @@
 ---
-import { termsDetails, termsHighlights } from '../data/coaching';
+import { formatEuro, programPrice, termsDetails, termsHighlights } from '../data/coaching';
 ---
 
 <section id="konditionen" class="bg-paper py-16 sm:py-24">
@@ -15,7 +15,7 @@ import { termsDetails, termsHighlights } from '../data/coaching';
 
     <div class="grid gap-12 md:grid-cols-2 border-t border-rule pt-10">
       <div>
-        <p class="font-serif text-5xl font-normal text-ink">3.600&nbsp;&euro;</p>
+        <p class="font-serif text-5xl font-normal text-ink">{formatEuro(programPrice.amount).replace(' ', '\u00a0')}</p>
         <p class="text-xs uppercase tracking-[0.1em] text-ink-faint mt-2 mb-8">
           netto zzgl. USt. für 12 Wochen
         </p>

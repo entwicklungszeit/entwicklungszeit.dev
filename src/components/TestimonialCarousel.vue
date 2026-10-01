@@ -42,11 +42,15 @@
       @scroll="handleScroll"
     >
       <div
-        v-for="testimonial in testimonials"
+        v-for="(testimonial, index) in testimonials"
         :key="`${testimonial.firstName}-${testimonial.lastName}`"
         class="snap-start flex-shrink-0 w-[80%] xs:w-[65%] sm:w-[45%] lg:w-[calc(25%-15px)]"
       >
-        <TestimonialCard :testimonial="testimonial" @open-modal="handleOpenModal" />
+        <TestimonialCard
+          :testimonial="testimonial"
+          :tone="(['primary', 'secondary', 'tertiary'] as const)[index % 3]"
+          @open-modal="handleOpenModal"
+        />
       </div>
     </div>
 

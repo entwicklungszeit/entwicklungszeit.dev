@@ -8,7 +8,8 @@
       "@/layouts/*": ["src/layouts/*"],
       "@/assets/*": ["src/assets/*"],
       "@/data/*": ["src/data/*"],
-      "@/types/*": ["src/types/*"]
+      "@/types/*": ["src/types/*"],
+      "@json-ld": ["src/lib/jsonLd/public-api.ts"]
     }
   }
 }

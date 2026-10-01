@@ -4,13 +4,13 @@ import Header from '../../components/Header.astro';
 import SparringDetailsSection from '../../components/SparringDetailsSection.astro';
 import SparringHeroSection from '../../components/SparringHeroSection.astro';
 import { discoveryCallUrl } from '../../data/coaching';
+import { sparringPage } from '../../data/jsonld/sparring-jsonld';
 import Layout from '../../layouts/Layout.astro';
+
+const { title, description, schema } = sparringPage;
 ---
 
-<Layout
-  title="Sparring für Veränderungen in Software und Team - Gregor Woiwode"
-  description="Sparring auf Stundenbasis für Architektur-, Technologie- und Organisationsveränderungen. 120 Euro netto pro Stunde, die erste Stunde ist kostenfrei."
->
+<Layout title={title} description={description} schema={schema}>
   <Header ctaLabel="Sparring anfragen" ctaHref={discoveryCallUrl} />
   <main id="main-content" class="pt-16">
     <SparringHeroSection />
