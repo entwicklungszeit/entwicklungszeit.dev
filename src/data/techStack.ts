@@ -58,10 +58,30 @@ export const techLogos: Record<TechLogoName, TechLogoShape[]> = {
   ],
 };
 
-export const techStack: { name: string; logo: TechLogoName }[] = [
-  { name: "Git", logo: "git" },
-  { name: ".NET", logo: "dotnet" },
-  { name: "Angular", logo: "angular" },
-  { name: "TypeScript", logo: "typescript" },
-  { name: "Node.js", logo: "nodejs" },
+export const techStack: { name: string; logo: TechLogoName; text: string }[] = [
+  {
+    name: "Git",
+    logo: "git",
+    text: "Branching-Strategien, Historie aufräumen, Review-Workflows.",
+  },
+  {
+    name: ".NET",
+    logo: "dotnet",
+    text: "Backend, Architektur und Modernisierung bestehender Systeme.",
+  },
+  {
+    name: "Angular",
+    logo: "angular",
+    text: "Große Frontends, Signals, Migration und Teamstruktur.",
+  },
+  {
+    name: "TypeScript",
+    logo: "typescript",
+    text: "Typsystem, Strict-Mode und gemeinsame Konventionen.",
+  },
+  {
+    name: "Node.js",
+    logo: "nodejs",
+    text: "Services, Tooling und Build-Pipelines.",
+  },
 ];
