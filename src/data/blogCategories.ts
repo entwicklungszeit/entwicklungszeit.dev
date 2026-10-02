@@ -1,4 +1,4 @@
-export const blogCategories = ['leadership', 'kommunikation', 'ai', 'angular'] as const;
+export const blogCategories = ['leadership', 'kommunikation', 'ai', 'angular', 'cio', 'erp'] as const;
 
 export type BlogCategory = (typeof blogCategories)[number];
 
@@ -6,7 +6,9 @@ export const blogCategoryLabels: Record<BlogCategory, string> = {
   leadership: 'Leadership',
   kommunikation: 'Kommunikation',
   ai: 'AI',
-  angular: 'Angular'
+  angular: 'Angular',
+  cio: 'CIO',
+  erp: 'ERP'
 };
 
 // Written out as literal class names (not built from the category string) so
@@ -15,5 +17,7 @@ export const blogCategoryTextClass: Record<BlogCategory, string> = {
   leadership: 'text-leadership',
   kommunikation: 'text-kommunikation',
   ai: 'text-ai',
-  angular: 'text-angular'
+  angular: 'text-angular',
+  cio: 'text-cio',
+  erp: 'text-erp'
 };
