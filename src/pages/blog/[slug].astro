@@ -2,6 +2,7 @@
 import { getCollection, getEntries, render } from 'astro:content';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import ArticleDiscussion from '../../components/ArticleDiscussion.vue';
 import Layout from '../../layouts/Layout.astro';
 import { blogCategoryLabels, blogCategoryTextClass } from '../../data/blogCategories';
 import { formatDate } from '../../lib/formatDate';
@@ -114,6 +115,11 @@ const schema = [
             </div>
           )
         }
+
+        <ArticleDiscussion article={post.id} client:load />
+        <noscript>
+          <p class="mt-6 text-sm text-ink-soft">Für die Diskussion, Bewertungen und Kommentare ist JavaScript erforderlich.</p>
+        </noscript>
 
         <p class="mt-16">
           <a
