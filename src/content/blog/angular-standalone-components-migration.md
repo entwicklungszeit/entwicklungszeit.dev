@@ -1,7 +1,7 @@
 ---
 title: 'Standalone Components: Eine pragmatische Migrationsstrategie'
 description: 'NgModules schrittweise loswerden, ohne das ganze Team für zwei Wochen auszubremsen. Eine Reihenfolge, die sich in der Praxis bewährt hat.'
-category: angular
+categories: [angular]
 pubDate: 2025-05-28
 status: draft
 ---

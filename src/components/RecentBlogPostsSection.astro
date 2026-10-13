@@ -55,9 +55,9 @@ const posts = (await getCollection('blog', ({ data }) => data.status === 'public
           {posts.map(post => (
             <a href={`/blog/${post.id}`} class="block group">
               <p
-                class={`text-xs font-bold uppercase tracking-[0.06em] mb-3.5 ${blogCategoryTextClass[post.data.category]}`}
+                class={`text-xs font-bold uppercase tracking-[0.06em] mb-3.5 ${blogCategoryTextClass[post.data.categories[0]]}`}
               >
-                {blogCategoryLabels[post.data.category]}
+                {blogCategoryLabels[post.data.categories[0]]}
               </p>
               <h3 class="font-serif text-2xl font-normal leading-snug text-ink mb-3 group-hover:text-primary transition-colors duration-300">
                 {post.data.title}

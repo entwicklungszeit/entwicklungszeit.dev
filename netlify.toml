@@ -1,0 +1,2 @@
+[functions.discussion]
+included_files = ["src/content/blog/**"]

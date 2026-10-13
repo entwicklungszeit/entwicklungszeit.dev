@@ -181,3 +181,17 @@ const {
     outline-offset: 2px;
   }
 </style>
+
+<script>
+  import { initializeDiscussionAuth } from '../lib/discussion-auth';
+
+  if (/^#(?:access_token=|error=)/.test(window.location.hash)) {
+    initializeDiscussionAuth().catch(() => {
+      const status = document.createElement('p');
+      status.setAttribute('role', 'alert');
+      status.className = 'fixed bottom-6 left-6 right-6 z-50 rounded-sm border border-rule bg-paper-raised p-4 text-sm text-ink shadow-lg';
+      status.textContent = 'Die Anmeldung ist fehlgeschlagen. Bitte kehre zum Artikel zurück und versuche es erneut.';
+      document.body.appendChild(status);
+    });
+  }
+</script>

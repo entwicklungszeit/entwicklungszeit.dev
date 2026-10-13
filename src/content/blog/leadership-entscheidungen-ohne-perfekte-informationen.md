@@ -1,7 +1,7 @@
 ---
 title: 'Entscheidungen treffen ohne perfekte Informationen'
 description: 'Warum das Warten auf vollständige Informationen die teuerste Entscheidungsstrategie ist – und wie du trotzdem sicher entscheidest.'
-category: leadership
+categories: [leadership]
 pubDate: 2025-02-02
 status: draft
 ---
