@@ -2,6 +2,7 @@
 import { getCollection, getEntries, render } from 'astro:content';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import ArticleDiscussion from '../../components/ArticleDiscussion.vue';
 import Layout from '../../layouts/Layout.astro';
 import { blogCategoryLabels, blogCategoryTextClass } from '../../data/blogCategories';
 import { formatDate } from '../../lib/formatDate';
@@ -23,8 +24,9 @@ const relatedEpisodes = post.data.relatedEpisodes?.length
   : [];
 
 const path = `/blog/${post.id}`;
-const categoryPath = `/blog/kategorie/${post.data.category}`;
-const categoryLabel = blogCategoryLabels[post.data.category];
+const [primaryCategory] = post.data.categories;
+const categoryPath = `/blog/kategorie/${primaryCategory}`;
+const categoryLabel = blogCategoryLabels[primaryCategory];
 const coverImage = post.data.coverImage
   ? new URL(post.data.coverImage, Astro.site).href
   : undefined;
@@ -65,10 +67,12 @@ const schema = [
           <a href="/blog" class="hover:underline">Blog</a> /
           <a href={categoryPath} class="hover:underline">{categoryLabel}</a>
         </nav>
-        <p class={`text-xs font-bold uppercase tracking-[0.06em] mb-4 ${blogCategoryTextClass[post.data.category]}`}>
-          <a href={categoryPath} class="hover:underline">
-            {categoryLabel}
-          </a>
+        <p class="text-xs font-bold uppercase tracking-[0.06em] mb-4 flex flex-wrap gap-x-4 gap-y-1">
+          {post.data.categories.map(category => (
+            <a href={`/blog/kategorie/${category}`} class={`hover:underline ${blogCategoryTextClass[category]}`}>
+              {blogCategoryLabels[category]}
+            </a>
+          ))}
         </p>
 
         <h1 class="font-serif text-3xl sm:text-4xl font-normal leading-[1.15] text-ink mb-4">
@@ -111,6 +115,11 @@ const schema = [
             </div>
           )
         }
+
+        <ArticleDiscussion article={post.id} client:load />
+        <noscript>
+          <p class="mt-6 text-sm text-ink-soft">Für die Diskussion, Bewertungen und Kommentare ist JavaScript erforderlich.</p>
+        </noscript>
 
         <p class="mt-16">
           <a

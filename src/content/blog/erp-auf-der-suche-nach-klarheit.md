@@ -1,7 +1,8 @@
 ---
-title: 'KI-Pair-Programming im Alltag: Ein ehrlicher Zwischenstand'
-description: 'Wo KI-Assistenten beim Programmieren wirklich Zeit sparen, wo sie bremsen – und ein kleines Code-Beispiel für einen sinnvollen Review-Kniff.'
-category: ai
+title: ERP - Auf der Suche nach Klarheit
+description: |
+  Ein neues ERP muss her. Wie nähert man sich einer Aufgabe dieser Größenordnung? Wie setzt man das Projekt auf? Welche Bewertungsmaßstäbe sind nützlich? Wie binde ich das Unternehmen ein? - Diese und noch mehr Fragen erörtern wir in diesem Artikel.
+categories: [erp, cio]
 pubDate: 2025-03-01
 status: draft
 ---

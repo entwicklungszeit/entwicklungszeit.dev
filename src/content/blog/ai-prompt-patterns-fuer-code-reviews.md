@@ -1,7 +1,7 @@
 ---
 title: 'Prompt-Patterns für bessere Code-Reviews'
 description: 'Drei wiederverwendbare Prompt-Muster, mit denen du KI-Tools sinnvoll in deinen Review-Prozess einbindest, statt ihnen blind zu vertrauen.'
-category: ai
+categories: [ai]
 pubDate: 2025-03-15
 status: draft
 ---

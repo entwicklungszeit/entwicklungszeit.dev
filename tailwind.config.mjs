@@ -44,7 +44,9 @@ export default {
         leadership: '#AB4400',
         kommunikation: '#007EB3',
         ai: '#794DB6',
-        angular: '#385DB8'
+        angular: '#385DB8',
+        cio: '#1F7A5A',
+        erp: '#A33A5B'
       },
       spacing: {
         '4.5': '1.125rem',

@@ -3,13 +3,13 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // Artikel über Kommunikation, Führung, AI Engineering und Angular.
-// Jeder Artikel gehört zu genau einer Kategorie (kein Mehrfach-Tagging).
+// Ein Artikel hat mindestens eine Kategorie; die erste ist die Hauptkategorie.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum(['leadership', 'kommunikation', 'ai', 'angular']),
+    categories: z.array(z.enum(['leadership', 'kommunikation', 'ai', 'angular', 'cio', 'erp'])).min(1),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     coverImage: z.string().optional(),

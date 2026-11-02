@@ -1,7 +1,7 @@
 ---
 title: 'Signals in Angular: Ein praktischer Einstieg'
 description: 'Signals verändern, wie Angular Change Detection denkt. Ein praktisches Beispiel für die Migration eines klassischen Property-Bindings.'
-category: angular
+categories: [angular]
 pubDate: 2025-05-12
 status: draft
 ---
