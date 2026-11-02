@@ -2,7 +2,6 @@
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import NewsletterSubscriptionSection from '../components/NewsletterSubscriptionSection.astro';
 import RecentBlogPostsSection from '../components/RecentBlogPostsSection.astro';
 import RecentPodcastEpisodesSection from '../components/RecentPodcastEpisodesSection.astro';
 import Layout from '../layouts/Layout.astro';
@@ -21,7 +20,6 @@ const schema = [{ ...webPageNode({ path: '/', name: title, description }), about
     <Hero />
     <RecentBlogPostsSection />
     <RecentPodcastEpisodesSection />
-    <NewsletterSubscriptionSection />
   </main>
   <Footer />
 </Layout>
